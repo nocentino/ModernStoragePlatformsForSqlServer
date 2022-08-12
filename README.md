@@ -14,7 +14,7 @@ Welcome to this Microsoft solutions workshop on Modern Storage Platforms for SQL
 
 The focus of this workshop is to understand where storage lives in your data platform and learn how to use modern storage techniques to reduce the overhead and complexity of managing data in your enviroment.
 
-You'll start by <TODO: Describe what the flow of the workshop will be>, with a focus on how to extrapolate what you have learned to create other solutions for your organization.
+You'll start by logging into a virtual lab enviroment using your own laptop, then work through a module covering storage fundamentals, leveraging sanpshots to reduce time it takes to manage your databases, and how use use s3 object storage for backup, restore and data virtualization. 
 
 This [github README.MD file](https://lab.github.com/githubtraining/introduction-to-github) explains how the workshop is laid out, what you will learn, and the technologies you will use in this solution. To download this Lab to your local computer, click the **Clone or Download** button you see at the top right side of this page. [More about that process is here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository). 
 
