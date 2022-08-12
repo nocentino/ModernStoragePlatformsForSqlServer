@@ -1,16 +1,37 @@
-# ModernStoragePlatformsForSqlServer
-This a public workshop given by Pure Storage
+![](graphics/purestorage.png)
 
+# Workshop: Modern Storage Platforms for SQL Server
 
+#### <i>A Course from the Pure Storage Field Solution Architecture team</i>
 
-## 1.1 - Query data on S3 compatible object storage with OPENROWSET
+# Module 4 - SQL Server Object Integration: Data Virtualization
+
+## 4.1 - Query data on S3 compatible object storage with OPENROWSET
 ---
+TODO - DESCRIPTION
 
-## 1.2 - Query data on S3 compatible object storage with EXTERNAL TABLE
----
+TODO - ACTIVITY
 
-## 1.3 - Query data on S3 compatible object storage with CREATE EXTERNAL TABLE AS SELECT
+## 4.2 - Query data on S3 compatible object storage with EXTERNAL TABLE
 ---
+TODO - DESCRIPTION
+
+TODO - ACTIVITY
+
+## 4.3 - Query data on S3 compatible object storage with CREATE EXTERNAL TABLE AS SELECT
+---
+TODO - DESCRIPTION
+
+TODO - ACTIVITY
+
+
+## More Resources
+- one
+- one
+- one
+
+
+Congratulations! You have completed this workshop on Modern Storage Platforms for SQL Server. You now have the tools, assets, and processes you need to extrapolate this information into other applications.
 
 
 

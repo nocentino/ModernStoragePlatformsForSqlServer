@@ -2,7 +2,7 @@
 
 # Workshop: Modern Storage Platforms for SQL Server
 
-#### <i>A Microsoft Course from the Pure Storage Field Solution Architecture teaam</i>
+#### <i>A Course from the Pure Storage Field Solution Architecture team</i>
 
 ---
 

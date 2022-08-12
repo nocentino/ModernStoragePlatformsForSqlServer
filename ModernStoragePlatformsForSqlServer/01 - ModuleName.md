@@ -1,8 +1,10 @@
-![](../graphics/microsoftlogo.png)
+![](graphics/purestorage.png)
 
-# Workshop: <TODO: Enter workshop name>
+# Workshop: Modern Storage Platforms for SQL Server
 
-#### <i>A Microsoft workshop from the SQL Server team</i>
+#### <i>A Course from the Pure Storage Field Solution Architecture team</i>
+
+---
 
 <p style="border-bottom: 1px solid lightgrey;"></p>
 
