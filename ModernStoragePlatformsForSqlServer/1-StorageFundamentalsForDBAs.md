@@ -16,15 +16,15 @@ TODO - ACTIVITY
 
 ## 1.2 - Log into FlashArray Web Interface
 ---
-DESCRIPTION - In this lab you will log into the FlashArray web interface.
-
-ACTIVITY
+In this lab you will log into the FlashArray web interface.
 
 - Click on the Google Chrome for FlashArray1 icon on the desktop. This will open to https://flasharray1.testdrive.local
 - Username: pureuser / Password: pureuser
 
 - Tip - Click Fit to Window to size the virtual desktop to your browser window. 
-![Fit to Window](./graphics/1.1.png)
+![Fit to Window](../graphics/1.1.png)
+
+<br />
 
 ## 1.3 - Start up a database workload
 ---
