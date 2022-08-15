@@ -27,12 +27,13 @@ TODO - DESCRIPTION
 TODO - ACTIVITY
 
 
-## 1.4 - View metrics in the array and with Perfmon
+## 1.4 - View metrics in the FlashArray Web Interface and with Perfmon
 ---
 TODO - DESCRIPTION
 
 TODO - ACTIVITY
 
+---
 
 ## More Resources
 - one

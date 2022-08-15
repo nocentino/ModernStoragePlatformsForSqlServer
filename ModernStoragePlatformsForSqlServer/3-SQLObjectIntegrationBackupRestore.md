@@ -26,11 +26,14 @@ TODO - DESCRIPTION
 
 TODO - ACTIVITY
 
+---
+
 ## More Resources
 - one
 - one
 - one
 
+---
 
 Next, Continue to [SQL Server Object Integration: Data Virtualization](./4-SQLObjectIntegrationDataVirtualization.md)
 

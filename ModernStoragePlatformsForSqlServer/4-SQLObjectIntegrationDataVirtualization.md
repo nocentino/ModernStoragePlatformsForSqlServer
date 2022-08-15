@@ -24,12 +24,14 @@ TODO - DESCRIPTION
 
 TODO - ACTIVITY
 
+---
 
 ## More Resources
 - one
 - one
 - one
 
+---
 
 Congratulations! You have completed this workshop on Modern Storage Platforms for SQL Server. You now have the tools, assets, and processes you need to extrapolate this information into other applications.
 

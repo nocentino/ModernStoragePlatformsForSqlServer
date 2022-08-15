@@ -20,18 +20,20 @@ TODO - DESCRIPTION
 
 TODO - ACTIVITY
 
-
 ## 1.3 - Seed an Availability Group from an array-based snapshot
 ---
 TODO - DESCRIPTION
 
 TODO - ACTIVITY
 
+---
+
 ## More Resources
 - one
 - one
 - one
 
+---
 
 Next, Continue to [SQL Server Object Integration: Backup and Restore](./3-SQLObjectIntegrationBackupRestore.md)
 
