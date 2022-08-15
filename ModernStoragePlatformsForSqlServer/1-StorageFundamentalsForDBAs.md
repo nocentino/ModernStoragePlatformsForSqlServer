@@ -20,10 +20,11 @@ DESCRIPTION - In this lab you will log into the FlashArray web interface.
 
 ACTIVITY
 
-- [ ] - Click on the Google Chrome icon on the desktop
-- [x] Write the press release
-- [ ] Update the website
-- [ ] Contact the media
+- Click on the Google Chrome for FlashArray1 icon on the desktop. This will open to https://flasharray1.testdrive.local
+- Username: pureuser / Password: pureuser
+
+- Tip - Click Fit to Window to size the virtual desktop to your browser window. 
+![Fit to Window](./graphics/1.1.png)
 
 ## 1.3 - Start up a database workload
 ---
