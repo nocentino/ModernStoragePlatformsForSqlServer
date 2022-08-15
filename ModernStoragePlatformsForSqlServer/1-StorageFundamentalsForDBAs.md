@@ -16,9 +16,14 @@ TODO - ACTIVITY
 
 ## 1.2 - Log into FlashArray Web Interface
 ---
-TODO - DESCRIPTION
+DESCRIPTION - In this lab you will log into the FlashArray web interface.
 
-TODO - ACTIVITY
+ACTIVITY
+
+- [ ] - Click on the Google Chrome icon on the desktop
+- [x] Write the press release
+- [ ] Update the website
+- [ ] Contact the media
 
 ## 1.3 - Start up a database workload
 ---
