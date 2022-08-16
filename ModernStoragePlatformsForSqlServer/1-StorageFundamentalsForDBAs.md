@@ -49,6 +49,7 @@ In the demos folder, run the script workload.cmd. This will launch a read and wr
         - Latency
         - IOPs
         - Bandwitdh
+
 ![](../graphics/1.4.2.png)
 
 - On the desktop, launch **SQL Server Management Studio**
