@@ -9,9 +9,14 @@
 
 # 1.1 - Logging into the lab
 
-TODO - DESCRIPTION
+TODO - DESCRIPTION OF LOGGING INTO THE LAB
 
-TODO - ACTIVITY
+## Download the source code files
+
+- On the lab desktop, open Google Chrome and browse to https://github.com/nocentino/ModernStoragePlatformsForSqlServer
+- On this page, click the green Code button and select Download ZIP. This will download the file to your Downloads folder. Extract the ZIP file to your desktop. 
+
+    <img src=../graphics/1.1.1.png width="80%" height="80%" >
 
 **<i>Tip - Click Fit to Window to size the virtual desktop to your browser window. </i>**
 
@@ -24,7 +29,7 @@ In this lab you will log into the FlashArray web interface. The web interface is
 
 - Click on the Google Chrome for **FlashArray1** icon on the desktop. This will open to https://flasharray1.testdrive.local
    
-    <img src=../graphics/1.2.1.png width="10%" height="10%" >
+    <img src=../graphics/1.2.1.png width="100" height="100" >
 
 - Username: pureuser / Password: pureuser
         
@@ -64,6 +69,9 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
 ## Windows Performance Monitor
 
 - On the desktop, launch the Microsoft Management Console named **Disk Performance Metrics**
+        
+    <img src=../graphics/1.4.2.1.png width="100" height="100" >
+
     - Examine the critical performance metrics
         - **Latency**
             - Avg. Disk sec/Read
@@ -78,7 +86,7 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
             - Disk Reads Bytes/sec
             - Disk Writes Bytes/sec
       
-        <img src=../graphics/1.4.2.png width="75%" height="75%" >
+        <img src=../graphics/1.4.2.2.png width="75%" height="75%" >
 
 
 ## SQL Server Dynamic Management Views (DMVs)
