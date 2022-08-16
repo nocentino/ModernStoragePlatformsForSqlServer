@@ -47,9 +47,17 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
 - Back in the FlashArray web interface, navigate to the Performance page. In the left menu bar, under Analysis, click Performance. Right now you are looking at the averages for the Read, Write and Mirrored Write IO types. To examine one type of IO such as read, uncheck the Write and Mirrored Write checkboxes above the charts.  Then take your mouse and hover over a point in the chart to examine more deeper dive values. You should see output similar to the screenshot below.
 
 - Examine the critical performance metrics for read and write. You can view the different types of IO by checking or un checking read or write. Mirrored Write is a special consideration when using array based replication.
-    - Latency
-    - IOPs
-    - Bandwitdh
+    - **Latency**
+        - SAN Time
+        - QoS Rate Limit Time
+        - Queue Time
+        - Read Latency
+        - Total
+    - **IOPs**
+        - Read IOPs
+        - Read Average IO Size        
+    - **Bandwitdh**
+       - Read Bandwith
 
         <img src=../graphics/1.4.1.png width="75%" height="75%" >
 
@@ -57,9 +65,18 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
 
 - On the desktop, launch the Microsoft Management Console named **Disk Performance Metrics**
     - Examine the critical performance metrics
-        - Latency
-        - IOPs
-        - Bandwitdh
+        - **Latency**
+            - Avg. Disk sec/Read
+            - Avg. Disk sec/Write
+        - **IOPs**
+            - Disk Reads/sec
+            - Disk Writes/sec
+        - **IO Size**
+            - Avg. Disk Bytes/Read
+            - Avg. Disk Bytes/Write
+        - **Bandwitdh**
+            - Disk Reads Bytes/sec
+            - Disk Writes Bytes/sec
       
         <img src=../graphics/1.4.2.png width="75%" height="75%" >
 
@@ -70,9 +87,11 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
 - Open the query named [`diskperformancemetrics.sql`](./demos/m1/diskperformancemetrics.sql), execute the query.
 - Username sa/pureuser
 
-![](../graphics/1.4.3.png)
+    <img src=../graphics/1.4.3.png width="75%" height="75%" >
 
-- Terminate the query running from activity 1.3
+# 1.4 Lab Cleanup
+
+ - Terminate the query running from [activity 1.3](#13---start-up-a-database-workload) by closing each of the running command prompt boxes
 
 ---
 
