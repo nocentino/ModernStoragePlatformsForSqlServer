@@ -55,13 +55,15 @@ In the demos folder, run the script workload.cmd. This will launch a read and wr
 ## 1.4 - View metrics in the FlashArray Web Interface, Perfmon and SQL Server
 ---
 - Click on the Google Chrome for FlashArray1 icon
-- Nagigate to the Performance page. In the left menu bar, under Analysis, click Performance. Right now you are looking at the averages for the Read, Write and Mirrored Write IO types. To examine one type of IO such as read, uncheck the Write and Mirrored Write checkboxes above the charts.  Then take your mouse and hover over a point in the chart to examine more deeper dive values. 
+- Nagigate to the Performance page. In the left menu bar, under Analysis, click Performance. Right now you are looking at the averages for the Read, Write and Mirrored Write IO types. To examine one type of IO such as read, uncheck the Write and Mirrored Write checkboxes above the charts.  Then take your mouse and hover over a point in the chart to examine more deeper dive values. You should see output similar to the screenshot below.
 ![](../graphics/1.4.1.png)
 
-- Examine the critical performance metrics
+- Examine the critical performance metrics for read and write. You can view the different types of IO by checking or un checking read or write. Mirrored Write is a special consideration when using array based replication.
     - Latency
     - IOPs
     - Bandwitdh
+
+
 
 - On the desktop, launch the Microsoft Management Console named **Disk Performance Metrics**
     - Examine the critical performance metrics
