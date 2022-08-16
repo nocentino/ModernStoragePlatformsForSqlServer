@@ -1,4 +1,5 @@
-![](graphics/purestorage.png)
+![](./../graphics/purestorage.png)
+
 
 # Workshop: Modern Storage Platforms for SQL Server
 
