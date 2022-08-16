@@ -18,8 +18,13 @@ TODO - ACTIVITY
 ---
 In this lab you will log into the FlashArray web interface. The web interface is where you can configure and monitor your FlashArray. 
 
+
 - Click on the Google Chrome for FlashArray1 icon on the desktop. This will open to https://flasharray1.testdrive.local
+
+![](../graphics/1.2.1.png)
+
 - Username: pureuser / Password: pureuser
+![](../graphics/1.2.2.png)
 
 **<i>Tip - Click Fit to Window to size the virtual desktop to your browser window. </i>**
 ![](../graphics/1.1.png)
@@ -31,6 +36,20 @@ In this lab you will log into the FlashArray web interface. The web interface is
 In this lab you will start a database workload. 
 
 In the demos folder, run the script workload.cmd. This will launch a read and write workload against the database. Leave this workload running for the next activity.
+
+- Open SQL Server Management Studio
+- Log in with Windows Authentication
+- Click New Query in the toolbar
+- Paste this code into the window
+
+    ```
+    USE TPCC100
+
+    WHILE 1 = 1 
+    SELECT * FROM customer
+    ```
+
+- Leave this query running
 
 
 ## 1.4 - View metrics in the FlashArray Web Interface, Perfmon and SQL Server
@@ -58,7 +77,7 @@ In the demos folder, run the script workload.cmd. This will launch a read and wr
 
 ![](../graphics/1.4.3.png)
 
-
+- Terminate the query running from activity 1.3
 
 ---
 
