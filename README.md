@@ -50,9 +50,10 @@ The solution includes the following technologies - although you are not limited 
 | Syntax      | Description |
 | ----------- | ----------- |
 | Microsoft Windows Operating System	 | This workshop uses the Microsoft Windows operating system |
-| Microsoft SQL Server | In this workshop you will protect, copy, clone and build high availbility databases on SQL Server |
+| Microsoft SQL Server CTP 2.1 | In this workshop you will protect, copy, clone and build high availbility databases on SQL Server |
 | Pure Storage FlashArray	 | This workshop uses a Pure Storage FlashArray as a block device as a storage subsystem for SQL Server |
 | Pure Storage FlashBlade	 | This workshop uses a Pure Storage FlashBlase as a object storage device as external object storage used by SQL Server  |
+| PowerShell Modules | dbatools, sqlserver, PureStoragePowerShellSDK
 
 
 ## Before Taking this Workshop
@@ -70,7 +71,7 @@ This workshop expects that you understand:
 
 ---
 
-
+TODO - add instructions to pull code from github
 
 | Module Description |  Topics Covered | Duration
 | ----------- | ----------- | ----------- | 
