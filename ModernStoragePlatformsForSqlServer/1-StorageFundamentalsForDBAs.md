@@ -49,12 +49,13 @@ In the demos folder, run the script workload.cmd. This will launch a read and wr
         - Latency
         - IOPs
         - Bandwitdh
+![](../graphics/1.4.2.png)
 
 - On the desktop, launch **SQL Server Management Studio**
 - Open the query named [`diskperformancemetrics.sql`](./demos/m1/diskperformancemetrics.sql), execute the query.
 - Username sa/pureuser
 
-![](../graphics/1.4.2.png)
+![](../graphics/1.4.3.png)
 
 
 
