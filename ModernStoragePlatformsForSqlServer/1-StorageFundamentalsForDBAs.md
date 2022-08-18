@@ -22,20 +22,26 @@ TODO - DESCRIPTION OF LOGGING INTO THE LAB
 - On the lab desktop, open Google Chrome and browse to https://github.com/nocentino/ModernStoragePlatformsForSqlServer
 - On this page, click the green Code button and select Download ZIP. This will download the file to your Downloads folder. Extract the ZIP file to your desktop. 
 
+<p align="center">
     <img src=../graphics/m1/1.1.1.png width="80%" height="80%" >
-
+</p>
 <br />
+</p>
 
 # 1.2 - Log into FlashArray Web Interface
 In this lab you will log into the FlashArray web interface. The web interface is where you can configure and monitor your FlashArray. 
 
 - Click on the Google Chrome for **FlashArray1** icon on the desktop. This will open to https://flasharray1.testdrive.local
    
-    <img src=../graphics/m1/1.2.1.png width="100" height="100" >
+<p align="center">
+<img src=../graphics/m1/1.2.1.png width="100" height="100" >
+</p>
 
 - Username: pureuser / Password: pureuser
         
+<p align="center">
     <img src=../graphics/m1/1.2.2.png width="40%" height="40%" >
+</p>
 
 <br />
 
@@ -70,13 +76,16 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
        - Read Bandwith
        - Write Bandwith
 
+<p align="center">
         <img src=../graphics/m1/1.4.1.png width="75%" height="75%" >
 
 ## Windows Performance Monitor
 
 - On the desktop, launch the Microsoft Management Console named **Disk Performance Metrics**
-        
+
+<p align="center">
     <img src=../graphics/m1/1.4.2.1.png width="100" height="100" >
+</p>
 
 - Examine the critical performance metrics
     - **Latency**
@@ -92,19 +101,25 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
         - Disk Reads Bytes/sec
         - Disk Writes Bytes/sec
     
+<p align="center">
     <img src=../graphics/m1/1.4.2.2.png width="75%" height="75%" >
+</p>
 
 
 ## SQL Server Dynamic Management Views (DMVs)
 
 - On the desktop, launch **SQL Server Management Studio (SSMS)** by clicking on the icon
 
+<p align="center">
     <img src=../graphics/m1/1.3.1.png  width="90" height="100" >
+</p>
 
 - Open the query named [`diskperformancemetrics.sql`](./demos/m1/diskperformancemetrics.sql), execute the query.
 - Username sa/pureuser
 
+<p align="center">
     <img src=../graphics/m1/1.4.3.png width="75%" height="75%" >
+</p>
 
 # 1.4 Lab Cleanup
 
