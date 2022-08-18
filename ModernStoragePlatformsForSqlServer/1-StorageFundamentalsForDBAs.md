@@ -97,7 +97,10 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
 
 ## SQL Server Dynamic Management Views (DMVs)
 
-- On the desktop, launch **SQL Server Management Studio**
+- On the desktop, launch **SQL Server Management Studio (SSMS)** by clicking on the icon
+
+    <img src=../graphics/m1/1.3.1.png  width="90" height="100" >
+
 - Open the query named [`diskperformancemetrics.sql`](./demos/m1/diskperformancemetrics.sql), execute the query.
 - Username sa/pureuser
 

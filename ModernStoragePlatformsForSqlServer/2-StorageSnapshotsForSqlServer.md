@@ -6,20 +6,89 @@
 
 ## Module 2 - Storage based snapshots and SQL Server
 
+# 2.1 - Restore a database from an array-based snapshot
+## In-place Restore of a database
+In this activity, you will take a snapshot of a volume, the D:\ drive, that holds both the MDF and LDF for the TPCH100 database. You will then delete a table and use the snapshot to revert the database back to the state prior to the table deletion. 
 
-# 1.1 - Restore a database from an array-based snapshot
-In this activity, you will take a snapshot of a volume that holds both the MDF and LDF of a database. You will then delete a table and use the snapshot to revert the database back to the state prior to the table deletion.
+1. **Take a Volume Snapshot**
+    - Open the FlashArray Web interface. And browse to Storage, Volumes. In the Volumes pane, click Windows1Vol1. 
 
-- In the [`demos/m1`](./demos/m2/) folder, open the script [`1-SingleVolumeSnapshot.ps1`](./demos/m2/1-SingleVolumeSnapshot.ps1).
-- This script performs the following steps, run each script line by line by right right clicking and selecting run selected text or use the F8 key.
-- Take volume snapshot
-- Delete table in database
-- offline the database
-- offline the volume supporting the database
-- Revert to the previous snapshot
-- online the volume supporting the database
-- online the database
+    <p align="center">
+        <img src=../graphics/m2/2.1.1.png width="50%" height="50%" >
+    </p>
 
+    - Next, click the elipsis, then click create to create a snapshot of the volume.
+
+    <p align="center">
+        <img src=../graphics/m2/2.1.2.png width="50%" height="50%" >
+    </p>
+
+    - Once complete, the snapshot will appear in the listing. The volume name is appended but an auto-incrementing integer.
+
+    <p align="center">
+        <img src=../graphics/m2/2.1.3.png width="50%" height="50%" >
+    </p>
+
+1. **Delete a Database Table**
+    - Open SSMS, and browse to the TPCC100 database, expand tables and delete the district table by right clicking on the table and clicking Delete. Click OK to conform.
+
+    <p align="center">
+        <img src=../graphics/m2/2.1.4.png width="50%" height="50%" >
+    </p>
+
+1. **Set the Database Offline**
+
+    - To recover the database in place, we need to change the database state to offline. Right click on the database, click Tasks, click Take Offline. Check the box to Drop All Active Connections and click OK to confirm.
+
+    <p align="center">
+    <img src=../graphics/m2/2.1.5.png width="50%" height="50%" >
+    </p>
+
+1. **Offline the Volume Supporting the Database** 
+
+    - Snapshots are Volume based operations. So to restore a Volume from snapshot, you must first offline the volume. To offline a Volume, Open Disk Management on the Desktop.
+
+    <p align="center">
+        <img src=../graphics/m2/2.1.6.png  width="90" height="100" >
+    </p>
+
+    - Right click on Disk 1 and click Offline.
+     
+    <p align="center">
+        <img src=../graphics/m2/2.1.7.png width="25%" height="2550%" >
+    </p>
+
+1. **Restore the Volume to a Previous Snapshot**
+
+    - Open the FlashArray Web Interface and browse back to the Volume Windows1Vol1. Click on the elipsis in the Volume Snapshots panel and click Restore. This reverts the contents of the volume back to the state captured in the snapshot. Undoing our 'accidental' table deletion.
+
+    <p align="center">
+        <img src=../graphics/m2/2.1.8.png width="50%" height="50%" >
+    </p>
+
+1. **Online the Volume Supporting the Database**
+
+    - Open Disk Managment back up, right click on Disk 2 and click online
+
+    <p align="center">
+        <img src=../graphics/m2/2.1.9.png width="25%" height="25%" >
+    </p>
+
+1. **Online the Database**
+
+    - In SSMS, right click on the database, click Tasks, and click Bring Online. 
+    
+    <p align="center">
+        <img src=../graphics/m2/2.1.10.png width="50%" height="50%" >
+    </p>
+
+    - Refresh the table listing, by expanding the database, expanding tables and right clicking on Tables and select Refresh. The district table should now 
+
+    <p align="center">
+        <img src=../graphics/m2/2.1.11.png width="50%" height="50%" >
+    </p>
+
+## Cloning a snapshot and attaching a database
 But that seems a little heavy handed, let's try cloning the snapshot to a volume and then attaching the database
 - Log into the FlashArray Web Interface
 - Click Storage, Volumes
@@ -45,7 +114,7 @@ But that seems a little heavy handed, let's try cloning the snapshot to a volume
 - Destroy the Volume
 - You will still have this volume around for 24 hours, click the drop down Destroyed. You can bring this Volume back if needed.
 
-# 1.2 - Clone a database to another instance of SQL Server
+# 2.2 - Clone a database to another instance of SQL Server
 In this activity, you will clone a volume to a new instance of SQL Server. You can then attach the database on the target instance. Saving the need to backup and restore the database.
 
 - Log into the Window2 virtual machine and launch Disk Management on the desktop.
@@ -58,7 +127,7 @@ In this activity, you will clone a volume to a new instance of SQL Server. You c
 - Back on Windows1, in SSMS, connect to Windows2, and attache the databases
 - Once complete, in SSMS on Windows1 detach the database, and on Windows2, offline the volume. This step is needed for the next demo
 
-# 1.3 - Seed an Availability Group from an array-based snapshot
+# 2.3 - Seed an Availability Group from an array-based snapshot
 In this activity, you will build an Availability Group from Snapshot.
 
 ## Set up the databases
