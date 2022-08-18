@@ -11,16 +11,18 @@
 
 TODO - DESCRIPTION OF LOGGING INTO THE LAB
 
+**<i>Tip - Click Fit to Window to size the virtual desktop to your browser window. </i>**
+
+<img src=../graphics/1.1.png width="40%" height="40%" >
+
+<br />
+
 ## Download the source code files
 
 - On the lab desktop, open Google Chrome and browse to https://github.com/nocentino/ModernStoragePlatformsForSqlServer
 - On this page, click the green Code button and select Download ZIP. This will download the file to your Downloads folder. Extract the ZIP file to your desktop. 
 
     <img src=../graphics/1.1.1.png width="80%" height="80%" >
-
-**<i>Tip - Click Fit to Window to size the virtual desktop to your browser window. </i>**
-
-<img src=../graphics/1.1.png width="40%" height="40%" >
 
 <br />
 
@@ -57,12 +59,16 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
         - QoS Rate Limit Time
         - Queue Time
         - Read Latency
+        - Write Latency
         - Total
     - **IOPs**
         - Read IOPs
         - Read Average IO Size        
+        - Write IOPs
+        - Write Average IO Size 
     - **Bandwitdh**
        - Read Bandwith
+       - Write Bandwith
 
         <img src=../graphics/1.4.1.png width="75%" height="75%" >
 
@@ -72,21 +78,21 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
         
     <img src=../graphics/1.4.2.1.png width="100" height="100" >
 
-    - Examine the critical performance metrics
-        - **Latency**
-            - Avg. Disk sec/Read
-            - Avg. Disk sec/Write
-        - **IOPs**
-            - Disk Reads/sec
-            - Disk Writes/sec
-        - **IO Size**
-            - Avg. Disk Bytes/Read
-            - Avg. Disk Bytes/Write
-        - **Bandwitdh**
-            - Disk Reads Bytes/sec
-            - Disk Writes Bytes/sec
-      
-        <img src=../graphics/1.4.2.2.png width="75%" height="75%" >
+- Examine the critical performance metrics
+    - **Latency**
+        - Avg. Disk sec/Read
+        - Avg. Disk sec/Write
+    - **IOPs**
+        - Disk Reads/sec
+        - Disk Writes/sec
+    - **IO Size**
+        - Avg. Disk Bytes/Read
+        - Avg. Disk Bytes/Write
+    - **Bandwitdh**
+        - Disk Reads Bytes/sec
+        - Disk Writes Bytes/sec
+    
+    <img src=../graphics/1.4.2.2.png width="75%" height="75%" >
 
 
 ## SQL Server Dynamic Management Views (DMVs)
