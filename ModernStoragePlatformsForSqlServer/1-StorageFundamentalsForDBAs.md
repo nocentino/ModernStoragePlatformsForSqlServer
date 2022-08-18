@@ -110,6 +110,8 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
 
 - On the desktop, launch **SQL Server Management Studio (SSMS)** by clicking on the icon
 
+- ADD STEP TO CONNECT SQL TO WINDOWS1
+
 <p align="center">
     <img src=../graphics/m1/1.3.1.png  width="90" height="100" >
 </p>

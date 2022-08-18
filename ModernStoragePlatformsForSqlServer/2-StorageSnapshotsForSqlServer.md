@@ -27,14 +27,14 @@ In this activity, you will take a snapshot of a volume, the D:\ drive, that hold
         <img src=../graphics/m2/2.1.2.png width="50%" height="50%" >
     </p>
 
-    - Once complete, the snapshot will appear in the listing. The volume name is appended but an auto-incrementing integer.
+    - Once complete, the snapshot will appear in the listing. The snapshot name includes the Volume name a dot and is suffixed with an auto-incrementing, unique integer.
 
     <p align="center">
         <img src=../graphics/m2/2.1.3.png width="50%" height="50%" >
     </p>
 
 1. **Delete a Database Table**
-    - Open SSMS, and browse to the TPCC100 database, expand tables and delete the district table by right clicking on the table and clicking Delete. Click OK to conform.
+    - Open SSMS, and browse to the TPCC100 database, expand tables and delete the customer table by right clicking on the table and clicking Delete. Click OK to conform.
 
     <p align="center">
         <img src=../graphics/m2/2.1.4.png width="50%" height="50%" >
@@ -86,55 +86,204 @@ In this activity, you will take a snapshot of a volume, the D:\ drive, that hold
         <img src=../graphics/m2/2.1.10.png width="50%" height="50%" >
     </p>
 
-    - Refresh the table listing, by expanding the database, expanding tables and right clicking on Tables and select Refresh. The district table should now 
+1. **Verify the Restore**
+    - Refresh the table listing, by expanding the database, expanding tables and right clicking on Tables and select Refresh. The customer table should now be in the table listing.
 
     <p align="center">
-        <img src=../graphics/m2/2.1.11.png width="50%" height="50%" >
+        <img src=../graphics/m2/2.1.11.png width="25%" height="25%" >
     </p>
 
+Congratulations, you just restored an entire database in a matter of seconds without having to restore from a backup which can take a little bit longer :P 
+
+---
+
 ## Cloning a snapshot and attaching a database
-But that seems a little heavy handed, let's try cloning the snapshot to a volume and then attaching the database
-- Log into the FlashArray Web Interface
-- Click Storage, Volumes
-- Click the + to create a new volume and enter the name Windows1Vol2, enter 20GB for the size. 
-- Click on that Volume
-- In the Conntected Hosts panel, click the vertical three dots, and in the Available Hosts column, select windows1, and click Connect.
-- Open the Disk Management icon on the desktop.
-- You will now see Disk 2, right click select online, right click again select Initialize, and leave the settings default and click OK.
-- Format the volume - Right click, select New Simple Volume and then click Next, leave the volume size default and click Next, leave the drive letter as E and click next, select 64k for the Allocation Unit Size, and change the Volume label to SQLDATA2, click Next and Finish
-- Right click on Disk 2 and select offline
-- In the FlashArray Web Interface, click Storage, Volumes, and select Windows1Vol1
-- In the volumes Snapshots panel, find the snapshot you created in the activity above, its name will be Windows1Vol1.n where n is a number. Click the vertical three dots and select copy. 
-- For the Name, enter Windows1Vol2. This is the new volume attached to Windows2 that you just initialized and formated. 
-- Click the Overwrite slider to the right.
-- Click Copy. When the warning appears click Overwrite.
-- Back in Disk Management, right click on Disk 2 and online the volume. 
-- Open Windows explorer and browse to E:\ you should see an exact copy of the D:\ volume. 
-- In SSMS, you can attach the databases. Change the name to TPCC100_RESTORE.
-- Now you can use any method you like to get missing table back into the original database TPCC100 and you didn't have to take the original database offline
-- When you're finished, detach the database and set Disk 2 offline in Disk Management
-- Back in the FlashArray Web Interface, click on Storage, Volumes, Windows1Vol2
-- Disconnect the host
-- Destroy the Volume
-- You will still have this volume around for 24 hours, click the drop down Destroyed. You can bring this Volume back if needed.
+But that seems a little heavy handed, let's try cloning the snapshot to another volume and then attaching the database
+
+- **Create a New Volume**
+    - Log into the FlashArray Web Interface, and Click Storage, Volumes.
+
+    - Click the + to create a new volume
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.1.png  >
+        </p>
+
+    - Enter the name Windows1Vol2, enter 20GB for the size. 
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.2.png width="50%" height="50%" >
+        </p>
+
+    - Click on that Volume
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.3.png>
+        </p>
+
+    - In the Conntected Hosts panel, click the vertical three dots, and in the Available Hosts column, select windows1, and click Connect.
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.4.png width="50%" height="50%" > <img src=../graphics/m2/2.2.5.png width="50%" height="50%" >
+        </p>
+
+
+- **Online the Disk and Format the Volume**
+
+    In this section, you will create a new volume, format it with a file system and the offline the volume since it will be replaced with the contents of a snapshot in the next step.
+
+    - Open Disk Management by clicking on the icon on the Desktop.
+        - You will now see Disk 2, right click select online, right click again select Initialize, and leave the settings default and click OK.
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.6.png width="80%" height="80%" >
+        </p>
+
+    - Format the volume
+        - Right click, select New Simple Volume and then click Next.
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.7.png width="80%" height="80%" >
+        </p>
+
+        - Simple volume size in MB: leave default 20462 and click Next, 
+        - Leave the drive letter as E and click Next,
+        - Leave the file system as NTFS, select 64K for the Allocation Unit Size, and change the Volume label to SQLDATA2, leave Perform a quick format checked, then click Next and Finish
+
+    - Offline the volume
+        - Right click on Disk 2 and select offline
+
+
+- **Copy a snapshot to a Volume**
+
+    - In the FlashArray Web Interface, click Storage, Volumes, and select Windows1Vol1
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.8.png>
+        </p>
+
+    - In the volumes Snapshots panel, find the snapshot you created in the activity above, its name will be Windows1Vol1.n where n is a number. Click the elipsis next to that snapshot and click Copy.
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.9.png>
+        </p>
+
+
+    - For the Name, enter Windows1Vol2. This is the new volume attached to Windows2 that you just initialized and formated. Click the Overwrite slider to the right and click Copy.
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.10.png width="50%" height="50%" >
+        </p>
+
+    
+    - When the warning appears click Overwrite.
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.11.png width="50%" height="50%" >
+        </p>
+
+
+- **Online the Disk**
+
+    - Back in Disk Management, right click on Disk 2 and online the volume.  The volume label will no be SQLDATA since is an exact clone from the snapshot
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.12.png width="50%" height="50%" >
+        </p>
+
+    - Open Windows explorer and browse to E:\ you should see an exact copy of the D:\ volume and its contents. In this case, its our database and log files.
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.13.png width="50%" height="50%" >
+        </p>
+
+
+- **Attach the database**
+
+    - In SSMS, you can attach the databases and Change the name to TPCC100_RESTORE.
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.14.png width="50%" height="50%" >
+            <img src=../graphics/m2/2.2.15.png width="50%" height="50%" >
+            <img src=../graphics/m2/2.2.16.png width="50%" height="50%" >
+        </p>
+
+        <p align="center">
+            <img src=../graphics/m2/2.2.17.png width="50%" height="50%" >
+        </p>
+
+    - Now you can use any method you like to get missing customer table back into the original database TPCC100 and you didn't have to take the original database offline
+
+---
 
 # 2.2 - Clone a database to another instance of SQL Server
 In this activity, you will clone a volume to a new instance of SQL Server. You can then attach the database on the target instance. Saving the need to backup and restore the database.
 
-- Log into the Window2 virtual machine and launch Disk Management on the desktop.
-- Offline Disk 2
-- Back on Windows1, open the FlashArray Web Interface, and click on Storage, Volumes, Windows1Vol1.
-- In the volumes Snapshots panel, find the snapshot you created in the activity above, its name will be Windows1Vol1.n where n is a number. Click the vertical three dots and select copy. 
-- For the Name, enter Windows2Vol1, and move the Overwrite slider to the right. Click Copy. When the warning appears click Overwrite.
-- Back on Window2, in disk management, online Disk 2.
-- Right Click on the Volume, click open, you should now see the database files for TPCC100 from the clone of Windows1.
-- Back on Windows1, in SSMS, connect to Windows2, and attache the databases
-- Once complete, in SSMS on Windows1 detach the database, and on Windows2, offline the volume. This step is needed for the next demo
+- **Offline the Disk on Windows2**
+
+    - Log into the Window2 virtual machine and launch Disk Management on the desktop.
+    - Offline Disk 1
+
+        <p align="center">
+            <img src=../graphics/m2/2.3.1.png width="80%" height="80%" >
+        </p>
+
+- **Clone Windows1Vol1 Snapshot to the Volume attached to Windows2**
+
+    - Back on Windows1, open the FlashArray Web Interface, and click on Storage, Volumes, Windows1Vol1.
+
+        <p align="center">
+            <img src=../graphics/m2/2.3.2.png>
+        </p>
+
+    - In the volumes Snapshots panel, find the snapshot you created in the first activity in this module, its name will be Windows1Vol1.n where n is a number. Click the vertical elipsis and select Copy. 
+
+        <p align="center">
+            <img src=../graphics/m2/2.3.3.png width="50%" height="50%" >
+        </p>
+
+    - For the Name, enter Windows2Vol1, and move the Overwrite slider to the right. Click Copy. When the warning appears click Overwrite.
+    
+        <p align="center">
+            <img src=../graphics/m2/2.3.4.png width="50%" height="50%" >
+        </p>
+
+- **Online the disk**    
+    - Back on Window2, in disk management, online Disk 1.
+    - Open Windows Explorer and browe to D:\, you should now see the database files for TPCC100 from the clone of Windows1.
+
+- **Attach the database**
+
+    - Back on Windows1, in SSMS, connect to Windows2.
+    
+        <p align="center">
+            <img src=../graphics/m2/2.3.5.png width="50%" height="50%" >
+        </p>
+
+    - Attach the database files from D:\ with the name TPCC100.
+
+        <p align="center">
+            <img src=../graphics/m2/2.3.7.png width="50%" height="50%" >
+            <img src=../graphics/m2/2.3.7.png width="50%" height="50%" >
+            <img src=../graphics/m2/2.3.8.png width="50%" height="50%" >
+        </p>
+
+This this demo, you copied, nearly instantaneosuly a 10GB database between two instances of SQL Server. 
+
+---
 
 # 2.3 - Seed an Availability Group from an array-based snapshot
 In this activity, you will build an Availability Group from Snapshot.
 
 ## Set up the databases
+
+- **Detach the database and offlne the disk**
+ Once complete, in SSMS on Windows1 detach the database, and on Windows2, offline the volume. This step is needed for the next demo.
+
+        <p align="center">
+            <img src=../graphics/m2/2.3.9.png width="50%" height="50%" >
+        </p>
+
 
 - On Windows1, in SSMS, open a New Query Window and enter `ALTER DATABASE TPCC100 SET SUSPEND_FOR_SNAPSHOT_BACKUP = ON`
 - In the FlashArray Web Interface, create a snapshot of Windows1Vol1
