@@ -55,7 +55,7 @@ In this activity, you will take a snapshot of a volume, the D:\ drive, that hold
     - Right click on Disk 1 and click Offline.
      
     <p align="center">
-        <img src=../graphics/m2/2.1.7.png width="25%" height="2550%" >
+        <img src=../graphics/m2/2.1.7.png width="25%" height="20%" >
     </p>
 
 1. **Restore the Volume to a Previous Snapshot**
