@@ -6,7 +6,11 @@
 
 ## Module 2 - Storage based snapshots and SQL Server
 
+TODO ADD TEXT DESCRIBING LAB
+
+
 # 2.1 - Restore a database from an array-based snapshot
+
 ## In-place Restore of a database
 In this activity, you will take a snapshot of a volume, the D:\ drive, that holds both the MDF and LDF for the TPCH100 database. You will then delete a table and use the snapshot to revert the database back to the state prior to the table deletion. 
 

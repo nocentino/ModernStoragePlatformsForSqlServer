@@ -13,7 +13,7 @@ TODO - DESCRIPTION OF LOGGING INTO THE LAB
 
 **<i>Tip - Click Fit to Window to size the virtual desktop to your browser window. </i>**
 
-<img src=../graphics/1.1.png width="40%" height="40%" >
+<img src=../graphics/m1/1.1.png width="40%" height="40%" >
 
 <br />
 
@@ -22,7 +22,7 @@ TODO - DESCRIPTION OF LOGGING INTO THE LAB
 - On the lab desktop, open Google Chrome and browse to https://github.com/nocentino/ModernStoragePlatformsForSqlServer
 - On this page, click the green Code button and select Download ZIP. This will download the file to your Downloads folder. Extract the ZIP file to your desktop. 
 
-    <img src=../graphics/1.1.1.png width="80%" height="80%" >
+    <img src=../graphics/m1/1.1.1.png width="80%" height="80%" >
 
 <br />
 
@@ -31,11 +31,11 @@ In this lab you will log into the FlashArray web interface. The web interface is
 
 - Click on the Google Chrome for **FlashArray1** icon on the desktop. This will open to https://flasharray1.testdrive.local
    
-    <img src=../graphics/1.2.1.png width="100" height="100" >
+    <img src=../graphics/m1/1.2.1.png width="100" height="100" >
 
 - Username: pureuser / Password: pureuser
         
-    <img src=../graphics/1.2.2.png width="40%" height="40%" >
+    <img src=../graphics/m1/1.2.2.png width="40%" height="40%" >
 
 <br />
 
@@ -70,13 +70,13 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
        - Read Bandwith
        - Write Bandwith
 
-        <img src=../graphics/1.4.1.png width="75%" height="75%" >
+        <img src=../graphics/m1/1.4.1.png width="75%" height="75%" >
 
 ## Windows Performance Monitor
 
 - On the desktop, launch the Microsoft Management Console named **Disk Performance Metrics**
         
-    <img src=../graphics/1.4.2.1.png width="100" height="100" >
+    <img src=../graphics/m1/1.4.2.1.png width="100" height="100" >
 
 - Examine the critical performance metrics
     - **Latency**
@@ -92,7 +92,7 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
         - Disk Reads Bytes/sec
         - Disk Writes Bytes/sec
     
-    <img src=../graphics/1.4.2.2.png width="75%" height="75%" >
+    <img src=../graphics/m1/1.4.2.2.png width="75%" height="75%" >
 
 
 ## SQL Server Dynamic Management Views (DMVs)
@@ -104,7 +104,7 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
 - Open the query named [`diskperformancemetrics.sql`](./demos/m1/diskperformancemetrics.sql), execute the query.
 - Username sa/pureuser
 
-    <img src=../graphics/1.4.3.png width="75%" height="75%" >
+    <img src=../graphics/m1/1.4.3.png width="75%" height="75%" >
 
 # 1.4 Lab Cleanup
 
