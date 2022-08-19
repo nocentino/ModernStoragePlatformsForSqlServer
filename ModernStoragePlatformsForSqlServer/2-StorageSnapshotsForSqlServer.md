@@ -71,7 +71,7 @@ In this activity, you will take a snapshot of a volume, the D:\ drive, that hold
 
 1. **Online the Volume Supporting the Database**
 
-    - Open Disk Managment back up, right click on Disk 2 and click online
+    - Open Disk Managment back up, right click on Disk 1 and click Online
 
     <p align="center">
         <img src=../graphics/m2/2.1.9.png width="25%" height="25%" >
@@ -222,7 +222,7 @@ In this activity, you will clone a volume to a new instance of SQL Server. You c
 - **Offline the Disk on Windows2**
 
     - Log into the Window2 virtual machine and launch Disk Management on the desktop.
-    - Offline Disk 1
+    - Open Disk Management on Windows2 and Offline Disk 1
 
         <p align="center">
             <img src=../graphics/m2/2.3.1.png width="80%" height="80%" >
@@ -277,38 +277,92 @@ In this activity, you will build an Availability Group from Snapshot.
 
 ## Set up the databases
 
+For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL based snapshot backup of TPCC100 from Windows1. You will start by detaching the database and offlining Disk 1. 
+
 - **Detach the database and offlne the disk**
- Once complete, in SSMS on Windows1 detach the database, and on Windows2, offline the volume. This step is needed for the next demo.
+    - In SSMS, detach TPCC100 by right clicking, selecting Tasks, and Detach
+    <p align="center">
+        <img src=../graphics/m2/2.4.1.png width="50%" height="50%" >
+    </p>
+    
+    - Open Disk Management on Windows2 and Offline Disk 1
+        <p align="center">
+            <img src=../graphics/m2/2.3.1.png width="80%" height="80%" >
+        </p>
+
+- **Set the database into snapshot mode**
+    - On Windows1, in SSMS, open a New Query Window and enter `ALTER DATABASE TPCC100 SET SUSPEND_FOR_SNAPSHOT_BACKUP = ON`
+        <p align="center">
+            <img src=../graphics/m2/2.4.2.png>
+        </p>
+
+- **Create a Snapshot of the Volume Windows1Vol1**
+    - In the FlashArray Web Interface, click, Storage, Volumes and select Windows1Vol1, in the Volume Snapshots panel, click the elipsis and select Create. Click Create when prompted.
+    
+    <p align="center">
+        <img src=../graphics/m2/2.4.3.png>
+    </p>
+
+    <p align="center">
+        <img src=../graphics/m2/2.4.4.png width="50%" height="50%" >
+    </p>
+
+- **Create the metadata backup file**
+    - In SSMS, open a New Query Window connecting to the WINDOWS1 SQL Instance and enter `BACKUP DATABASE TPCC100 TO DISK='\\WINDOWS2\BACKUP\TPCC100-Replica.bkm' WITH METADATA_ONLY`.
+
+    <p align="center">
+        <img src=../graphics/m2/2.4.5.png>
+    </p>
+
+- **Clone the snapshot to Windows1**
+    - In the FlashArray Web Interface, clone the snapshot to overwrite the database volume on Window2. 
+    Click Storage, Volumes, Windows1Vol1, in the snapshot panel, select the snapshot you just made, click the three vertical dots and select copy. Enter for the Name Windows2Vol1, and move the overwrite slider to the right. Click Overwrite when prompted.
 
         <p align="center">
-            <img src=../graphics/m2/2.3.9.png width="50%" height="50%" >
+            <img src=../graphics/m2/2.4.6.png>
+        </p>
+        <p align="center">
+            <img src=../graphics/m2/2.4.7.png width="50%" height="50%" >
+        </p>
+
+- **Online Disk2 on Windows2**
+    - On Windows2, in Disk Management, online Disk 2
+
+- **Restore the metadata backup on Windows2**
+    - On the Desktop of Windows1, in SSMS, open a New Query window connecting to Windows2 and restore the database from snapshot `RESTORE DATABASE TPCC100 FROM DISK = 'C:\BACKUP\TPCC100-Replica.bkm' WITH METADATA_ONLY, REPLACE, NORECOVERY` In SSMS, you should now see the TPCC100 database in a Restoring state.
+
+        <p align="center">
+            <img src=../graphics/m2/2.4.8.png>
+        </p>
+
+- **Complete the Availability Group Initilization Process**
+    - Let's complete the remainder of the availbility group intilization process.
+    - Take a log backup on connected to the SQL instance on WINDOWS1 with `BACKUP LOG TPCC100 TO DISK = '\\WINDOWS2\BACKUP\\TPCC100-seed.trn'`
+
+        <p align="center">
+            <img src=../graphics/m2/2.4.9.png>
+        </p>
+
+    - Restore the log file on Window2 `RESTORE LOG TPCC100 FROM DISK = 'C:\BACKUP\TPCC100-seed.trn' WITH NORECOVERY`
+
+        <p align="center">
+            <img src=../graphics/m2/2.4.10.png>
         </p>
 
 
-- On Windows1, in SSMS, open a New Query Window and enter `ALTER DATABASE TPCC100 SET SUSPEND_FOR_SNAPSHOT_BACKUP = ON`
-- In the FlashArray Web Interface, create a snapshot of Windows1Vol1
-- In SSMS, open a New Query Window and enter `BACKUP DATABASE TPCC100 TO DISK='C:\BACKUP\TPCC100-Replica.bkm' WITH METADATA_ONLY`
-- Copy this file to \\WINDOWS2\BACKUP\
-- In the FlashArray Web Interface, clone the snapshot to overwrite the database volume on Window2. Click Storage, Volumes, Windows1Vol1, in the snapshot panel, select the snapshot you just made, click the three vertical dots and select copy. Enter for the Name Windows2Vol1, and move the overwrite slider to the right.
-- On Windows2, in Disk Management, online Disk 2
+# Create the Availability Group
+    - Right Click Always On High Availability, click New Availability Group Wizard. On the first page, click Next
 
-- On Windows1, in SSMS, open a New Query window and restore the database from snapshot
-RESTORE DATABASE TPCC100 FROM DISK = 'C:\BACKUP\TPCC100-Replica.bkm' WITH METADATA_ONLY, REPLACE, NORECOVERY
-- In SSMS, you should now see the TPCC100 database in a Restoring state.
-- Let's complete the remainder of the availbility group intilization process.
-- Take a log backup on WINDOWS1 with `BACKUP LOG TPCC100 TO DISK = 'C:\BACKUP\TPCC100-seed.trn' WITH FORMAT`
-- Copy this file to \\WINDOWS2\BACKUP\
-- Restore the log file on Window2 `RESTORE LOG TPCC100 FROM DISK C:\BACKUP\TPCC100-seed.trn WITH NORECOVERY`
+    - Availability Group Name: AG1
+    - Cluster Type: NONE
 
-## Create the Availability Group
-- Right Click Always On High Availability, click New Availability Group Wizard.
-- Availability Group Name: AG1
-- Cluster Type: NONE
-- Check the checkbox for TPCC100 to add it to the AG, click next
-- Click Add Replica, enter WINDOWS2, click CONNECT, click Next.
-- For Data Synchronizatoin Mode, select Join Only, click Next
-- On the Validation screen, click next. 
-- On the summary screen, click Finish.
+
+
+    - Check the checkbox for TPCC100 to add it to the AG, click next
+    - Click Add Replica, enter WINDOWS2, click CONNECT, click Next.
+    - For Data Synchronizatoin Mode, select Join Only, click Next
+    - On the Validation screen, click next. 
+    - On the summary screen, click Finish.
 
 
 TODO - ACTIVITY
