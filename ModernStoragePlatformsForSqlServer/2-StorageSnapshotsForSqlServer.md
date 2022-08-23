@@ -212,7 +212,9 @@ But that seems a little heavy handed, let's try cloning the snapshot to another 
             <img src=../graphics/m2/2.2.17.png width="50%" height="50%" >
         </p>
 
-    - Now you can use any method you like to get missing customer table back into the original database TPCC100 and you didn't have to take the original database offline
+    - Now you can use any method you like to get missing customer table back into the original database `TPCC100` and you didn't have to take the original database offline
+
+    
 
 ---
 
@@ -270,6 +272,8 @@ In this activity, you will clone a volume to a new instance of SQL Server. You c
 
 This this demo, you copied, nearly instantaneosuly a 10GB database between two instances of SQL Server. 
 
+ADD SCREENSHOT OF CLONED DB HERE
+
 ---
 
 # 2.4 - Seed an Availability Group from an array-based snapshot (Optional)
@@ -277,9 +281,9 @@ In this activity, you will build an Availability Group from Snapshot.
 
 ## Set up the databases
 
-For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL based snapshot backup of TPCC100 from Windows1. You will start by detaching the database and offlining Disk 1. 
+For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL based snapshot backup of TPCC100 from Windows1. You will start preparing Windows2 for this operation by detaching the TPCC100 database and offlining Disk 1. 
 
-- **Detach the database and offlne the disk**
+- **Detach the database and offlne the disk on Windows2**
     - In SSMS, detach TPCC100 by right clicking, selecting Tasks, and Detach
     <p align="center">
         <img src=../graphics/m2/2.4.1.png width="50%" height="50%" >
@@ -291,7 +295,10 @@ For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL
         </p>
 
 - **Set the database into snapshot mode**
-    - On Windows1, in SSMS, open a New Query Window and enter `ALTER DATABASE TPCC100 SET SUSPEND_FOR_SNAPSHOT_BACKUP = ON`
+    - On Windows1, in SSMS, open a New Query Window and enter:
+    
+        ```ALTER DATABASE TPCC100 SET SUSPEND_FOR_SNAPSHOT_BACKUP = ON```
+
         <p align="center">
             <img src=../graphics/m2/2.4.2.png>
         </p>
@@ -308,7 +315,9 @@ For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL
     </p>
 
 - **Create the metadata backup file**
-    - In SSMS, open a New Query Window connecting to the WINDOWS1 SQL Instance and enter `BACKUP DATABASE TPCC100 TO DISK='\\WINDOWS2\BACKUP\TPCC100-Replica.bkm' WITH METADATA_ONLY`.
+    - In SSMS, open a New Query Window connecting to the WINDOWS1 SQL Instance and enter: 
+    
+    ```BACKUP DATABASE TPCC100 TO DISK='\\WINDOWS2\BACKUP\TPCC100-Replica.bkm' WITH METADATA_ONLY, INIT```
 
     <p align="center">
         <img src=../graphics/m2/2.4.5.png>
@@ -337,7 +346,7 @@ For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL
 
 - **Complete the Availability Group Initilization Process**
     - Let's complete the remainder of the availbility group intilization process.
-    - Take a log backup on connected to the SQL instance on WINDOWS1 with `BACKUP LOG TPCC100 TO DISK = '\\WINDOWS2\BACKUP\\TPCC100-seed.trn'`
+    - Take a log backup on connected to the SQL instance on WINDOWS1 with `BACKUP LOG TPCC100 TO DISK = '\\WINDOWS2\BACKUP\\TPCC100-seed.trn' WITH INIT`
 
         <p align="center">
             <img src=../graphics/m2/2.4.9.png>
@@ -351,26 +360,73 @@ For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL
 
 
 # Create the Availability Group
-    - Right Click Always On High Availability, click New Availability Group Wizard. On the first page, click Next
+- Right Click Always On High Availability, click New Availability Group Wizard. On the first page, click Next.
+
+    <p align="center">
+        <img src=../graphics/m2/2.4.11.png width="50%" height="50%" >
+    </p>
 
     - Availability Group Name: AG1
     - Cluster Type: NONE
 
+    <p align="center">
+        <img src=../graphics/m2/2.4.12.png width="50%" height="50%" >
+    </p>
+
+- Check the checkbox for TPCC100 to add it to the AG, click next
+
+    <p align="center">
+        <img src=../graphics/m2/2.4.13.png width="50%" height="50%" >
+    </p>
+
+- Click Add Replica, enter WINDOWS2, click CONNECT, click Next.
 
 
-    - Check the checkbox for TPCC100 to add it to the AG, click next
-    - Click Add Replica, enter WINDOWS2, click CONNECT, click Next.
-    - For Data Synchronizatoin Mode, select Join Only, click Next
-    - On the Validation screen, click next. 
-    - On the summary screen, click Finish.
+    <p align="center">
+        <img src=../graphics/m2/2.4.14.png width="50%" height="50%" >
+    </p>
+
+- For Data Synchronization Mode, select Join Only, click Next
+
+    <p align="center">
+        <img src=../graphics/m2/2.4.15.png width="50%" height="50%" >
+    </p>
+
+- On the Validation screen, click next. 
+
+    <p align="center">
+        <img src=../graphics/m2/2.4.16.png width="50%" height="50%" >
+    </p>
+
+- On the summary screen, click Finish.
+
+    <p align="center">
+        <img src=../graphics/m2/2.4.17.png width="50%" height="50%" >
+    </p>
+
+- Once on the Results screen click close.
+
+    <p align="center">
+        <img src=../graphics/m2/2.4.18.png width="50%" height="50%" >
+    </p>
+
+- Check the state of the Availability Group Replication
+    - Right click on 'Availbility Group' Select 'Show Dashboard'
+    <p align="center">
+        <img src=../graphics/m2/2.4.19.png width="25%" height="25%" >
+    </p>
+
+    - With the dashboard loaded, notice that the Availbility group state is Healty. Data is activly replicating between the two instances. WINDOWS2 is in Synchronizing mode since the current AG Availbility Mode is Asynchronous. If we changed the Availability Mode to Synchronous for Windows2 the sate will change to Synchronized.
+
+    <p align="center">
+        <img src=../graphics/m2/2.4.20.png width="50%" height="50%" >
+    </p>
 
 
 TODO - ACTIVITY
 
 # More Resources
-- one
-- one
-- one
+- [Seeding an Availability Group Replica from Snapshot](https://www.nocentino.com/posts/2022-05-26-seed-ag-replica-from-snapshot/)
 
 ---
 
