@@ -4,8 +4,9 @@
 
 #### <i>A Course from the Pure Storage Field Solution Architecture team</i>
 
-## Module 1 - Storage fundamentals for DBAs
+# Module 1 - Storage fundamentals for DBAs
 
+TODO ADD TEXT DESCRIBING LAB
 
 # 1.1 - Logging into the lab
 
@@ -129,7 +130,7 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
 
 ---
 
-## More Resources
+# More Resources
 - [Understanding SQL Server IO Size](https://www.nocentino.com/posts/2021-12-10-sqlserver-io-size/)
 - [Measuring SQL Server File Latency](https://www.nocentino.com/posts/2021-10-06-sql-server-file-latency)
 

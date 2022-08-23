@@ -4,10 +4,9 @@
 
 #### <i>A Course from the Pure Storage Field Solution Architecture team</i>
 
-## Module 2 - Storage based snapshots and SQL Server
+# Module 2 - Storage based snapshots and SQL Server
 
 TODO ADD TEXT DESCRIBING LAB
-
 
 # 2.1 - In-place restore a database from an array-based snapshot
 
@@ -100,7 +99,7 @@ Congratulations, you just restored an entire database in a matter of seconds wit
 
 But that seems a little heavy handed, let's try cloning the snapshot to another volume and then attaching the database
 
-- **Create a New Volume**
+1. **Create a New Volume**
     - Log into the FlashArray Web Interface, and Click Storage, Volumes.
 
     - Click the + to create a new volume
@@ -128,7 +127,7 @@ But that seems a little heavy handed, let's try cloning the snapshot to another 
         </p>
 
 
-- **Online the Disk and Format the Volume**
+1. **Online the Disk and Format the Volume**
 
     In this section, you will create a new volume, format it with a file system and the offline the volume since it will be replaced with the contents of a snapshot in the next step.
 
@@ -154,7 +153,7 @@ But that seems a little heavy handed, let's try cloning the snapshot to another 
         - Right click on Disk 2 and select offline
 
 
-- **Copy a snapshot to a Volume**
+1. **Copy a snapshot to a Volume**
 
     - In the FlashArray Web Interface, click Storage, Volumes, and select Windows1Vol1
 
@@ -183,7 +182,7 @@ But that seems a little heavy handed, let's try cloning the snapshot to another 
         </p>
 
 
-- **Online the Disk**
+1. **Online the Disk**
 
     - Back in Disk Management, right click on Disk 2 and online the volume.  The volume label will no be SQLDATA since is an exact clone from the snapshot
 
@@ -198,7 +197,7 @@ But that seems a little heavy handed, let's try cloning the snapshot to another 
         </p>
 
 
-- **Attach the database**
+1. **Attach the database**
 
     - In SSMS, you can attach the databases and Change the name to TPCC100_RESTORE.
 
@@ -221,7 +220,7 @@ But that seems a little heavy handed, let's try cloning the snapshot to another 
 # 2.3 - Clone a database to another instance of SQL Server
 In this activity, you will clone a volume to a new instance of SQL Server. You can then attach the database on the target instance. Saving the need to backup and restore the database.
 
-- **Offline the Disk on Windows2**
+1. **Offline the Disk on Windows2**
 
     - Log into the Window2 virtual machine and launch Disk Management on the desktop.
     - Open Disk Management on Windows2 and Offline Disk 1
@@ -230,7 +229,7 @@ In this activity, you will clone a volume to a new instance of SQL Server. You c
             <img src=../graphics/m2/2.3.1.png width="80%" height="80%" >
         </p>
 
-- **Clone Windows1Vol1 Snapshot to the Volume attached to Windows2**
+1. **Clone Windows1Vol1 Snapshot to the Volume attached to Windows2**
 
     - Back on Windows1, open the FlashArray Web Interface, and click on Storage, Volumes, Windows1Vol1.
 
@@ -250,11 +249,11 @@ In this activity, you will clone a volume to a new instance of SQL Server. You c
             <img src=../graphics/m2/2.3.4.png width="50%" height="50%" >
         </p>
 
-- **Online the disk**    
+1. **Online the disk**    
     - Back on Window2, in disk management, online Disk 1.
     - Open Windows Explorer and browe to D:\, you should now see the database files for TPCC100 from the clone of Windows1.
 
-- **Attach the database**
+1. **Attach the database**
 
     - Back on Windows1, in SSMS, connect to Windows2.
     
@@ -283,7 +282,7 @@ In this activity, you will build an Availability Group from Snapshot.
 
 For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL based snapshot backup of TPCC100 from Windows1. You will start preparing Windows2 for this operation by detaching the TPCC100 database and offlining Disk 1. 
 
-- **Detach the database and offlne the disk on Windows2**
+1. **Detach the database and offlne the disk on Windows2**
     - In SSMS, detach TPCC100 by right clicking, selecting Tasks, and Detach
     <p align="center">
         <img src=../graphics/m2/2.4.1.png width="50%" height="50%" >
@@ -294,7 +293,7 @@ For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL
             <img src=../graphics/m2/2.3.1.png width="80%" height="80%" >
         </p>
 
-- **Set the database into snapshot mode**
+1. **Set the database into snapshot mode**
     - On Windows1, in SSMS, open a New Query Window and enter:
     
         ```ALTER DATABASE TPCC100 SET SUSPEND_FOR_SNAPSHOT_BACKUP = ON```
@@ -303,7 +302,7 @@ For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL
             <img src=../graphics/m2/2.4.2.png>
         </p>
 
-- **Create a Snapshot of the Volume Windows1Vol1**
+1. **Create a Snapshot of the Volume Windows1Vol1**
     - In the FlashArray Web Interface, click, Storage, Volumes and select Windows1Vol1, in the Volume Snapshots panel, click the elipsis and select Create. Click Create when prompted.
     
     <p align="center">
@@ -314,7 +313,7 @@ For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL
         <img src=../graphics/m2/2.4.4.png width="50%" height="50%" >
     </p>
 
-- **Create the metadata backup file**
+1. **Create the metadata backup file**
     - In SSMS, open a New Query Window connecting to the WINDOWS1 SQL Instance and enter: 
     
     ```BACKUP DATABASE TPCC100 TO DISK='\\WINDOWS2\BACKUP\TPCC100-Replica.bkm' WITH METADATA_ONLY, INIT```
@@ -323,7 +322,7 @@ For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL
         <img src=../graphics/m2/2.4.5.png>
     </p>
 
-- **Clone the snapshot to Windows1**
+1. **Clone the snapshot to Windows1**
     - In the FlashArray Web Interface, clone the snapshot to overwrite the database volume on Window2. 
     Click Storage, Volumes, Windows1Vol1, in the snapshot panel, select the snapshot you just made, click the three vertical dots and select copy. Enter for the Name Windows2Vol1, and move the overwrite slider to the right. Click Overwrite when prompted.
 
@@ -334,17 +333,17 @@ For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL
             <img src=../graphics/m2/2.4.7.png width="50%" height="50%" >
         </p>
 
-- **Online Disk2 on Windows2**
+1. **Online Disk2 on Windows2**
     - On Windows2, in Disk Management, online Disk 2
 
-- **Restore the metadata backup on Windows2**
+1. **Restore the metadata backup on Windows2**
     - On the Desktop of Windows1, in SSMS, open a New Query window connecting to Windows2 and restore the database from snapshot `RESTORE DATABASE TPCC100 FROM DISK = 'C:\BACKUP\TPCC100-Replica.bkm' WITH METADATA_ONLY, REPLACE, NORECOVERY` In SSMS, you should now see the TPCC100 database in a Restoring state.
 
         <p align="center">
             <img src=../graphics/m2/2.4.8.png>
         </p>
 
-- **Complete the Availability Group Initilization Process**
+1. **Complete the Availability Group Initilization Process**
     - Let's complete the remainder of the availbility group intilization process.
     - Take a log backup on connected to the SQL instance on WINDOWS1 with `BACKUP LOG TPCC100 TO DISK = '\\WINDOWS2\BACKUP\\TPCC100-seed.trn' WITH INIT`
 
@@ -359,7 +358,7 @@ For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL
         </p>
 
 
-# Create the Availability Group
+1. **Create the Availability Group**
 - Right Click Always On High Availability, click New Availability Group Wizard. On the first page, click Next.
 
     <p align="center">
@@ -388,40 +387,28 @@ For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL
 
 - For Data Synchronization Mode, select Join Only, click Next
 
-    <p align="center">
-        <img src=../graphics/m2/2.4.15.png width="50%" height="50%" >
-    </p>
+    <img src=../graphics/m2/2.4.15.png width="50%" height="50%" >
 
 - On the Validation screen, click next. 
 
-    <p align="center">
-        <img src=../graphics/m2/2.4.16.png width="50%" height="50%" >
-    </p>
+    <img src=../graphics/m2/2.4.16.png width="50%" height="50%" >
 
 - On the summary screen, click Finish.
 
-    <p align="center">
-        <img src=../graphics/m2/2.4.17.png width="50%" height="50%" >
-    </p>
+    <img src=../graphics/m2/2.4.17.png width="50%" height="50%" >
 
 - Once on the Results screen click close.
 
-    <p align="center">
-        <img src=../graphics/m2/2.4.18.png width="50%" height="50%" >
-    </p>
+    <img src=../graphics/m2/2.4.18.png width="50%" height="50%" >
 
-- Check the state of the Availability Group Replication
+1. **Check the state of the Availability Group Replication**
     - Right click on 'Availbility Group' Select 'Show Dashboard'
-    <p align="center">
+
         <img src=../graphics/m2/2.4.19.png width="25%" height="25%" >
-    </p>
 
     - With the dashboard loaded, notice that the Availbility group state is Healty. Data is activly replicating between the two instances. WINDOWS2 is in Synchronizing mode since the current AG Availbility Mode is Asynchronous. If we changed the Availability Mode to Synchronous for Windows2 the sate will change to Synchronized.
 
-    <p align="center">
         <img src=../graphics/m2/2.4.20.png width="50%" height="50%" >
-    </p>
-
 
 TODO - ACTIVITY
 
