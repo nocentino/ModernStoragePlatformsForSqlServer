@@ -8,6 +8,9 @@
 
 TODO ADD TEXT DESCRIBING LAB
 
+<br />
+<br />
+
 # 3.1 - Exploring your Flashblade Enviroment
 
 - A bucket created on your s3 compatible object storage platform or AWS s3. Refer to your platform’s documentation to get this going.
@@ -15,6 +18,8 @@ TODO ADD TEXT DESCRIBING LAB
 - To perform both backups and restores, this user will need readwrite access to the bucket
 - And finally, your s3 compatible object storage needs a valid TLS Certificate
 
+<br />
+<br />
 
 # 3.2 - Backing up databases to S3 compatible object storage
 
@@ -43,6 +48,11 @@ TODO ADD TEXT DESCRIBING LAB
             TO URL = 's3://s3.example.com:9000/sqlbackups/TestDB1.bak' 
             WITH COMPRESSION, STATS = 10, FORMAT, INIT
         ```
+<br />
+
+
+
+<br />
 
 # 3.3 - Restoring databases from S3 compatible object storage
 
@@ -57,6 +67,11 @@ TODO - DESCRIPTION
         ```
 
 
+
+
+<br />
+<br />
+
 # 3.4 - Backup tuning fundamentals
 
 TODO - DESCRIPTION
@@ -70,12 +85,17 @@ TODO - ACTIVITY
             WITH COMPRESSION, STATS = 10, FORMAT, INIT
 
 
+
+
+<br />
+<br />
+
 # More Resources
 - [Backing up to s3 Compatible Object Storage with SQL Server](https://www.nocentino.com/posts/2022-06-06-backing-up-to-s3-storage-with-sqlserver/)
 - [Setting up MinIO for SQL Server 2022 s3 Object Storage Integration](https://www.nocentino.com/posts/2022-06-10-setting-up-minio-for-sqlserver-object-storage)
 - [Setting up SQL Server 2022 s3 Object Storage Integration using MinIO with Docker Compose](https://www.nocentino.com/posts/2022-08-13-setting-up-minio-for-sqlserver-object-storage-docker-compose/)
 
----
+
 
 Next, Continue to [SQL Server Object Integration: Data Virtualization](./4-SQLObjectIntegrationDataVirtualization.md)
 

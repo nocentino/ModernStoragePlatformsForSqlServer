@@ -8,8 +8,13 @@
 
 TODO ADD TEXT DESCRIBING LAB
 
-## 4.1 - Query data on S3 compatible object storage with OPENROWSET
 ---
+
+<br />
+<br />
+
+## 4.1 - Query data on S3 compatible object storage with OPENROWSET
+
 TODO - DESCRIPTION
 
 1. **Configure Polybase in SQL Server instance**
@@ -83,7 +88,10 @@ TODO - DESCRIPTION
         WITH ( c1 varchar(50) )             
         AS   [Test1]
         ```
+---
 
+<br />
+<br />
 
 ## 4.2 - Query data on S3 compatible object storage with EXTERNAL TABLE
 
@@ -124,16 +132,21 @@ TODO - DESCRIPTION
         SELECT * FROM
         [HelloWorld];
         ```
+---
 
-
+<br />
+<br />
 
 ## 4.3 - Query data on S3 compatible object storage with CREATE EXTERNAL TABLE AS SELECT
----
+
 TODO - DESCRIPTION
 
 TODO - ACTIVITY
 
 ---
+
+<br />
+<br />
 
 # More Resources
 - [Backing up to s3 Compatible Object Storage with SQL Server](https://www.nocentino.com/posts/2022-06-06-backing-up-to-s3-storage-with-sqlserver/)

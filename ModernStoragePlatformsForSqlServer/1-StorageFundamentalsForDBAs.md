@@ -14,7 +14,7 @@ TODO - DESCRIPTION OF LOGGING INTO THE LAB
 
 **<i>Tip - Click Fit to Window to size the virtual desktop to your browser window. </i>**
 
-<img src=../graphics/m1/1.1.png width="40%" height="40%" >
+<img src=../graphics/m1/1.1.png width="50%" height="50%" >
 
 <br />
 
@@ -35,11 +35,12 @@ In this lab you will log into the FlashArray web interface. The web interface is
    
     <img src=../graphics/m1/1.2.1.png width="100" height="100" >
 
-- Username: pureuser / Password: pureuser
+    - **Username:** pureuser
+    - **Password:** pureuser
 
     <img src=../graphics/m1/1.2.2.png width="40%" height="40%" >
-</p>
 
+<br />
 <br />
 
 # 1.3 - Start up a database workload
@@ -48,6 +49,7 @@ In this lab you will start a database workload.
 
 In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos/m1/workload.bat). This will start a read and write workload against the database. Leave this workload running for the next activity.
 
+<br />
 <br />
 
 # 1.4 - Viewing Performance Metrics
@@ -111,11 +113,15 @@ In the [`demos/m1`](./demos/m1/) folder, run the script [`workload.cmd`](./demos
 
         <img src=../graphics/m1/1.4.3.png>
 
-# 1.4 Lab Cleanup
+<br />
+<br />
 
- - Terminate the query running from [activity 1.3](#13---start-up-a-database-workload) by closing each of the running command prompt boxes
+# 1.5 Lab Cleanup
 
----
+ - Terminate the query running from [activity 1.3](#13start-up-a-database-workload) by closing each of the running command prompt boxes
+
+<br />
+<br />
 
 # More Resources
 - [Understanding SQL Server IO Size](https://www.nocentino.com/posts/2021-12-10-sqlserver-io-size/)

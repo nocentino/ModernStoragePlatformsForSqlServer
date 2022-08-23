@@ -8,6 +8,11 @@
 
 TODO ADD TEXT DESCRIBING LAB
 
+
+
+<br />
+<br />
+
 # 2.1 - In-place restore a database from an array-based snapshot
 
 In this activity, you will take a snapshot of a volume, the D:\ drive, that holds both the MDF and LDF for the TPCH100 database. You will then delete a table and use the snapshot to revert the database back to the state prior to the table deletion. 
@@ -71,7 +76,10 @@ In this activity, you will take a snapshot of a volume, the D:\ drive, that hold
 
 Congratulations, you just restored an entire database in a matter of seconds without having to restore from a backup which can take a little bit longer :P 
 
----
+
+
+<br />
+<br />
 
 # 2.2 - Cloning a snapshot to a new volume and attaching the database
 
@@ -161,9 +169,9 @@ But that seems a little heavy handed, let's try cloning the snapshot to another 
 
     - Now you can use any method you like to get missing customer table back into the original database `TPCC100` and you didn't have to take the original database offline
 
-    
 
----
+<br />
+<br />
 
 # 2.3 - Clone a database to another instance of SQL Server
 In this activity, you will clone a volume to a new instance of SQL Server. You can then attach the database on the target instance. Saving the need to backup and restore the database.
@@ -211,7 +219,10 @@ This this demo, you copied, nearly instantaneosuly a 10GB database between two i
 
 ADD SCREENSHOT OF CLONED DB HERE
 
----
+
+
+<br />
+<br />
 
 # 2.4 - Seed an Availability Group from an array-based snapshot (Optional)
 In this activity, you will build an Availability Group from Snapshot.
@@ -319,12 +330,16 @@ For this activity, you are going to refresh TPCC100 on the D:\ drive with a TSQL
 
         <img src=../graphics/m2/2.4.20.png width="50%" height="50%" >
 
-TODO - ACTIVITY
+
+
+<br />
+<br />
+
 
 # More Resources
 - [Seeding an Availability Group Replica from Snapshot](https://www.nocentino.com/posts/2022-05-26-seed-ag-replica-from-snapshot/)
 
----
+
 
 Next, Continue to [SQL Server Object Integration: Backup and Restore](./3-SQLObjectIntegrationBackupRestore.md)
 
