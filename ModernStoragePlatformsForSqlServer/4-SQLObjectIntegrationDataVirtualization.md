@@ -8,8 +8,6 @@
 
 TODO ADD TEXT DESCRIBING LAB
 
----
-
 <br />
 <br />
 
