@@ -17,7 +17,6 @@ TODO ADD TEXT DESCRIBING LAB
 
 
 # 3.2 - Backing up databases to S3 compatible object storage
----
 
 1. **Create a CREDENTIAL**
 
@@ -46,7 +45,7 @@ TODO ADD TEXT DESCRIBING LAB
         ```
 
 # 3.3 - Restoring databases from S3 compatible object storage
----
+
 TODO - DESCRIPTION
 
 1. **Restoring a Backup**
@@ -59,7 +58,7 @@ TODO - DESCRIPTION
 
 
 # 3.4 - Backup tuning fundamentals
----
+
 TODO - DESCRIPTION
 
 TODO - ACTIVITY
@@ -70,8 +69,6 @@ TODO - ACTIVITY
             TO URL = 's3://s3.example.com:9000/sqlbackups/TestDB1_3.bak' 
             WITH COMPRESSION, STATS = 10, FORMAT, INIT
 
-
----
 
 # More Resources
 - [Backing up to s3 Compatible Object Storage with SQL Server](https://www.nocentino.com/posts/2022-06-06-backing-up-to-s3-storage-with-sqlserver/)
