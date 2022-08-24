@@ -134,7 +134,7 @@ Leave these workloads running as we'll need the workloads to generate performanc
 
         <img src=../graphics/m1/1.2.3-perf.png>
 
-        Here is the definition of each of the performance metrics reported on the Array Perforamnce Dashboard
+        Here are the definitions of each of the performance metrics reported on the Array Performance Dashboard
 
         - **Latency**
             - The Latency chart displays the average latency times for various operations.
@@ -167,7 +167,7 @@ Leave these workloads running as we'll need the workloads to generate performanc
 
     - Now, navigate to the **Performance page**. In the left menu bar, under **Analysis**, click **Performance** and change the time range dropdown to **5 minutes**.
         
-    - On this page, you have a high-level overview of the key performance metrics for FlashArray, **Latency**, **IOPs**, and **Bandwidth**. Move your mouse over the charts to get metrics split by the IO type.
+    - On this page, you have a high-level overview of the key performance metrics for FlashArray, **Latency**, **IOPs**, and **Bandwidth**. Move your mouse over the charts to get metrics split by the IO type, Read, Write and Mirrored Write. Mirrored Write is a special consideration when using array-based replication.
     
         <img src=../graphics/m1/1.4.1.0.png>
     
@@ -183,7 +183,9 @@ Leave these workloads running as we'll need the workloads to generate performanc
 
         <img src=../graphics/m1/1.4.1.2.png>
 
-    - Examine the critical performance metrics for Read and Write. You can view the different types of IO by checking or unchecking read or write. Mirrored Write is a special consideration when using array-based replication.
+    - Examine the critical performance metrics for Read and Write. You can view the different types of IO by checking or unchecking read or write. 
+
+        Here are the definitions of each of the performance metrics reported on the Array Performance Analysis Panel
 
         - **Latency**
             - **SAN Time** - Time required transferring data between initiator and purity target. 
