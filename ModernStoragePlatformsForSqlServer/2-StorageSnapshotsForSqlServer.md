@@ -6,7 +6,7 @@
 
 # Module 2 - Storage based snapshots and SQL Server
 
-TODO ADD TEXT DESCRIBING LAB
+In this module, you will learn how to use array based volume snapshots to decouple the time it takes to perform DBA operations from the size of the data. You will restore a database, clone a database and present it back to the same SQL Server instance, clone a database and present it to another SQL Server instance, and also initilized a SQL Server AlwaysOn Availability Group from a snapshot. 
 
 <br />
 <br />

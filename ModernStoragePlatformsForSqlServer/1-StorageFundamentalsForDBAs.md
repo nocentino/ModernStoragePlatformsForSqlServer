@@ -143,10 +143,10 @@ Leave these workloads running as we'll need the workloads to generate performanc
 
                 - **Write Latency (W)** - Average arrival-to-completion time, measured in milliseconds, for a write operation.
 
-                - **Queue Time (Q)** - Average time, measured in microseconds, that an I/O request spends in the array waiting to be served. The time is averaged across all I/Os of the selected types.
+                - **Queue Time (Q)** - Average time, measured in microseconds, that an IO request spends in the array waiting to be served. The time is averaged across all IOs of the selected types.
 
         * **IOPS**
-            - The IOPS (Input/output Operations Per Second) chart displays I/O requests processed per second by the array. This metric counts requests per second, regardless of how much or how little data is transferred in each.
+            - The IOPS (Input/output Operations Per Second) chart displays IO requests processed per second by the array. This metric counts requests per second, regardless of how much or how little data is transferred in each.
 
                 - **Read IOPS (R)** - Number of read requests processed per second.
 
@@ -177,7 +177,7 @@ Leave these workloads running as we'll need the workloads to generate performanc
 
         <img src=../graphics/m1/1.4.1.1.png>
 
-    - Next, to examine Write IO, **uncheck the Read checkbox** and **check the Write checkbox**. Leaving Mirrored Write unchecked. 
+    - Next, to examine Write IO, **uncheck the Read checkbox** and **check the Write checkbox**. Leave Mirrored Write unchecked. 
         
     - Again, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
 
@@ -189,11 +189,11 @@ Leave these workloads running as we'll need the workloads to generate performanc
 
         - **Latency**
             - **SAN Time** - Time required transferring data between initiator and purity target. 
-            - **QoS Rate Limit Time** - Average time, measured in microseconds, that an I/O request spends waiting on user-defined QoS Policies
-            - **Queue Time** - Average time, measured in microseconds, that an I/O request spends in the array waiting to be served. 
+            - **QoS Rate Limit Time** - Average time, measured in microseconds, that an IO request spends waiting on user-defined QoS Policies
+            - **Queue Time** - Average time, measured in microseconds, that an IO request spends in the array waiting to be served. 
             - **Read Latency** - Average arrival-to-completion time, measured in milliseconds, for a read operation.
             - **Write Latency** - Average arrival-to-completion time, measured in milliseconds, for a write operation.
-            - **Total** - The total amount of latency across all types, measured in milliesecond.
+            - **Total** - The total amount of latency across all types, measured in millieseconds.
 
         - **IOPs**
             - **Read IOPs** - Number of read requests processed per second.
@@ -202,8 +202,8 @@ Leave these workloads running as we'll need the workloads to generate performanc
             - **Write Average IO Size** - The average write IO Size measured in Kilobytes
 
         - **Bandwidth**
-            - **Read Bandwidth** - Number of bytes read per second.
-            - **Write Bandwidth**- Number of bytes read per second.
+            - **Read Bandwidth** - Amount of data read per second. Unit of measure will scale (KB/s, MB/s, GB/s)
+            - **Write Bandwidth**- Amount of data written per second. Unit of measure will scale (KB/s, MB/s, GB/s)
 
 <br />
 
@@ -262,7 +262,7 @@ So far, we've looked at performance from the array's perspective. When troublesh
 
 1. **Examining Performance Metrics with Windows Performance Monitor - Optional**
 
-    - On the desktop, launch the Microsoft Management Console named **Disk Performance Metrics**
+    - On the desktop, launch the Microsoft Management Console named **Disk Metrics**
 
         <img src=../graphics/m1/1.4.2.1.png width="100" height="100" >
 
@@ -291,7 +291,7 @@ So far, we've looked at performance from the array's perspective. When troublesh
 
 # 1.6 Lab Cleanup
 
- - Terminate the query running from [activity 1.3](#13start-up-a-database-workload) by clicking the Stop icon in the SSMS toolbar.
+ - Terminate the query running from [activity 1.3](#13---start-up-a-database-workload) by clicking the Stop icon in the SSMS toolbar.
 
 <br />
 <br />
