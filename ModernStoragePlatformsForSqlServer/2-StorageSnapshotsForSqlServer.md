@@ -74,8 +74,6 @@ In this activity, you will take a snapshot of a volume, the D:\ drive, that hold
 
 Congratulations, you just restored an entire database in a matter of seconds without having to restore from a backup which can take a little bit longer :P 
 
-
-
 <br />
 <br />
 

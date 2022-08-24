@@ -134,6 +134,8 @@ Leave these workloads running as we'll need the workloads to generate performanc
 
         <img src=../graphics/m1/1.2.3-perf.png>
 
+        Here is the definition of each of the performance metrics reported on the Array Perforamnce Dashboard
+
         - **Latency**
             - The Latency chart displays the average latency times for various operations.
 
@@ -159,7 +161,7 @@ Leave these workloads running as we'll need the workloads to generate performanc
 
 <br />
 
-1. **Open FlashArray Performance Metrics, a Closer Look**
+2. **Open FlashArray Performance Metrics, a Closer Look**
 
     The dashboard is excellent for a glance at the health of the array. Now let's take a deeper dive into the performance metrics exposed. The performance dashboard is a great place to go when you need to understand the workload running on the array. Latency, IOPs, and Bandwidth are all broken down very granularly so that you can identify performance issues if they arise.
 
@@ -167,19 +169,19 @@ Leave these workloads running as we'll need the workloads to generate performanc
         
     - On this page, you have a high-level overview of the key performance metrics for FlashArray, **Latency**, **IOPs**, and **Bandwidth**. Move your mouse over the charts to get metrics split by the IO type.
     
-        <img src=../graphics/m1/1.4.1.0.png width="75%" height="75%" >
+        <img src=../graphics/m1/1.4.1.0.png>
     
     - To examine one type of IO such as **Read, uncheck the Write** and **Mirrored Write** checkboxes above the charts. 
         
     - Then, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
 
-        <img src=../graphics/m1/1.4.1.1.png width="75%" height="75%" >
+        <img src=../graphics/m1/1.4.1.1.png>
 
     - Next, to examine Write IO, **uncheck the Read checkbox** and **check the Write checkbox**. Leaving Mirrored Write unchecked. 
         
     - Again, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
 
-        <img src=../graphics/m1/1.4.1.2.png width="75%" height="75%" >
+        <img src=../graphics/m1/1.4.1.2.png>
 
     - Examine the critical performance metrics for Read and Write. You can view the different types of IO by checking or unchecking read or write. Mirrored Write is a special consideration when using array-based replication.
 
