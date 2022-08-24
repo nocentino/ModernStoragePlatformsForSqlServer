@@ -4,168 +4,213 @@
 
 #### <i>A Course from the Pure Storage Field Solution Architecture team</i>
 
+<br />
+<br />
+
 # Module 1 - Storage fundamentals for DBAs
 
-TODO ADD TEXT DESCRIBING LAB
+In this module, you will log into the administrative desktop to perform all of the activities in this course and learn the core administrative tools for monitoring the performance of storage platforms. 
 
 <br />
 <br />
 
 # 1.1 - Logging into the lab
 
-TODO - DESCRIPTION OF LOGGING INTO THE LAB
+Follow the instructions in this section to launch the lab to use with this course.
+
+1. Navigate to the Sky Tap Portal. The link was sent to your registered email address.
+2. Select your Profile by clicking on your Name in the Top-Right Corner or the Purple photo.
+3. If the Lab is not started, Power on the VMs using the button up top; this will start the VMs in the proper sequence.
+
+You will be automatically logged into Windows when you connect to the Virtual Machine's console.
+
+TODO: Add a screenshot of the actual lab interface
+
+### **Lab Information**
+
+| Resource      | Description |
+| -----------   | ----------- |
+| **Windows1**  | **Primary administrator desktop and SQL Server Instance** |
+| Windows2      | SQL Server Instance |
+| FlashArray1   | Primary block storage device and storage subsystem for SQL Server instances|
+| FlashBlade1   | Primary object storage device as external object storage used by SQL Server |
+
 
 **<i>Tip - Click Fit to Window to size the virtual desktop to your browser window. </i>**
 
 <img src=../graphics/m1/1.1.png width="50%" height="50%" >
 
 <br />
-
-## Download the source code files
-
-- On the lab desktop, open Google Chrome and browse to https://github.com/nocentino/ModernStoragePlatformsForSqlServer
-- On this page, click the green Code button and select Download ZIP. This will download the file to your Downloads folder. Extract the ZIP file to your desktop. 
-
-    <img src=../graphics/m1/1.1.1.png width="60%" height="60%" >
-
-<br />
 <br />
 
 # 1.2 - Log into FlashArray Web Interface
-In this lab you will log into the FlashArray web interface. The web interface is where you can configure and monitor your FlashArray. 
+In this activity, you will log into the FlashArray web interface. The web interface is where you can configure and monitor your FlashArray. 
 
-1.  Click on the Google Chrome for **FlashArray1** icon on the desktop. 
+1.  **Click on the Google Chrome for FlashArray1 icon on the desktop**
     
     - This will open to https://flasharray1.testdrive.local
    
         <img src=../graphics/m1/1.2.1.png width="100" height="100" >
 
-2. **Log into the FlashArray Web Interface**
+2. **Log in to the FlashArray Web Interface**
 
-    - Enter the following username and password and click `Log In`.
+    - Enter the following username and password and click **Log In**.
 
         - **Username:** pureuser
         - **Password:** pureuser
 
           <img src=../graphics/m1/1.2.2.png width="40%" height="40%" >
 
+    - On the landing page, there is a menu on the left for various configuration elements and a dashboard showing overall capacity, recent alerts, array performance, and health. 
+
+        <img src=../graphics/m1/1.2.3.png>
+
+Now that you've logged into FlashArray's Web Interface let's kick off a workload so we can dive into some of the performance metrics available.
+
 <br />
 <br />
 
 # 1.3 - Start up a database workload
 
-In this lab you will start a database workload. 
+So far, those performance charts above are pretty boring. Let's start up a database workload so you can look at the various performance metrics on the dashboard. 
 
-1. Launch **SQL Server Management Studio (SSMS)** 
+1. **Launch SQL Server Management Studio (SSMS)** 
 
     - On the desktop, launch **SQL Server Management Studio (SSMS)** by clicking on the icon on the desktop
+
+        <img src=../graphics/m1/1.3.1.png width="100" height="100" >
 
         - Click **File**, **Connect Object Explorer**
             - **Server Name:** WINDOWS1
             - **Authentication:** Windows Authentication
 
-                <img src=../graphics/m1/1.4.3.1.png width="50%" height="50%" >
+                <img src=../graphics/m1/1.3.2.png width="50%" height="50%" >
 
-2. Open a new query window, by clicking new query and pasting the following code into the Window and click Execute. 
+2. **Start up a workload**
 
-    ```
-    USE [TPCC100];
-    GO
+    - Open a new query window by clicking **New Query** on the toolbar, pasting the following code into the Window, and clicking **Execute**. 
 
-    WHILE (1=1)
+        ```
+        USE [TPCC100];
+        GO
+
         SELECT * FROM customer
-    GO
-    ```
+        GO
+        ```
 
-    In another query window, let's start a write workload.
+    - In another query window, let's start a write workload.
 
-    ```
-    USE [TPCC100];
-    GO
+        ```
+        USE [TPCC100];
+        GO
 
-    SET NOCOUNT ON;
+        SET NOCOUNT ON;
 
-    WHILE (1=1)
+        DECLARE @i INT 
+        SET @i = 1
+        WHILE ( @i <= 1000)
         BEGIN
             INSERT INTO addresses SELECT REPLICATE('a',7000)
             INSERT INTO addresses SELECT REPLICATE('a',7000)
             INSERT INTO addresses SELECT REPLICATE('a',7000)
             INSERT INTO addresses SELECT REPLICATE('a',7000)
             INSERT INTO addresses SELECT REPLICATE('a',7000)
-            WAITFOR DELAY '00:00:01'
+            WAITFOR DELAY '00:00:01'    SET @i  = @i  + 1
         END
-    ```
+        ```
 
-Leave these workloads running as we'll need the workloads to generate performance data in the remainder of the lab
+Leave these workloads running as we'll need the workloads to generate performance data in the remainder of this module. If the workload stops before you complete the activities below, head back into SSMS and click **Execute** again.
 
 <br />
 <br />
 
 # 1.4 - Viewing Performance Metrics
 
-1. **FlashArray Web interface**
+1. **Open the FlashArray Web Interface Dashboard**
 
-    - Back in the FlashArray web interface, navigate to the Performance page. In the left menu bar, under Analysis, click Performance. 
+    Now that we have a workload running let's examine some key performance metrics displayed on the dashboard.
+
+    - Back in the FlashArray web interface, the **Array Performance** panel shows the current **Latency**, **IOPs**, and **Bandwidth** metrics for the array. 
+
+        <img src=../graphics/m1/1.2.3-perf.png>
+
+        - **Latency**
+            - The Latency chart displays the average latency times for various operations.
+
+                - **Read Latency (R)** - Average arrival-to-completion time, measured in milliseconds, for a read operation.
+
+                - **Write Latency (W)** - Average arrival-to-completion time, measured in milliseconds, for a write operation.
+
+                - **Queue Time (Q)** - Average time, measured in microseconds, that an I/O request spends in the array waiting to be served. The time is averaged across all I/Os of the selected types.
+
+        * **IOPS**
+            - The IOPS (Input/output Operations Per Second) chart displays I/O requests processed per second by the array. This metric counts requests per second, regardless of how much or how little data is transferred in each.
+
+                - **Read IOPS (R)** - Number of read requests processed per second.
+
+                - **Write IOPS (W)** - Number of write requests processed per second.
+
+        * **Bandwidth**
+            - The Bandwidth chart displays the number of bytes transferred per second to and from all file systems. The data is counted in its expanded form rather than the reduced form stored in the array to reflect what is transferred over the storage network. 
+
+                - **Read Bandwidth (R)** - Number of bytes read per second.
+
+                - **Write Bandwidth (W)** - Number of bytes written per second.
+
+<br />
+
+1. **Open FlashArray Performance Metrics, a Closer Look**
+
+    The dashboard is excellent for a glance at the health of the array. Now let's take a deeper dive into the performance metrics exposed. The performance dashboard is a great place to go when you need to understand the workload running on the array. Latency, IOPs, and Bandwidth are all broken down very granularly so that you can identify performance issues if they arise.
+
+    - Now, navigate to the **Performance page**. In the left menu bar, under **Analysis**, click **Performance** and change the time range dropdown to **5 minutes**.
         
-        Right now you are looking at the averages for the Read, Write and Mirrored Write IO types. 
+    - On this page, you have a high-level overview of the key performance metrics for FlashArray, **Latency**, **IOPs**, and **Bandwidth**. Move your mouse over the charts to get metrics split by the IO type.
+    
+        <img src=../graphics/m1/1.4.1.0.png width="75%" height="75%" >
+    
+    - To examine one type of IO such as **Read, uncheck the Write** and **Mirrored Write** checkboxes above the charts. 
         
-        To examine one type of IO such as read, uncheck the Write and Mirrored Write checkboxes above the charts.  Then take your mouse and hover over a point in the chart to examine more deeper dive values. You should see output similar to the screenshot below.
+    - Then, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
 
         <img src=../graphics/m1/1.4.1.1.png width="75%" height="75%" >
 
-        Next, to examine write IO, uncked the Read box and check the Write box. Leaving Mirrored Write unchecked. Again, take your mouse and hover over a point in the chart to examine more deeper dive values. You should see output similar to the screenshot below.
+    - Next, to examine Write IO, **uncheck the Read checkbox** and **check the Write checkbox**. Leaving Mirrored Write unchecked. 
+        
+    - Again, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
 
         <img src=../graphics/m1/1.4.1.2.png width="75%" height="75%" >
 
-    - Examine the critical performance metrics for read and write. You can view the different types of IO by checking or un checking read or write. Mirrored Write is a special consideration when using array based replication.
+    - Examine the critical performance metrics for Read and Write. You can view the different types of IO by checking or unchecking read or write. Mirrored Write is a special consideration when using array-based replication.
 
         - **Latency**
-            - SAN Time
-            - QoS Rate Limit Time
-            - Queue Time
-            - Read Latency
-            - Write Latency
-            - Total
+            - **SAN Time** - Time required transferring data between initiator and purity target. 
+            - **QoS Rate Limit Time** - Average time, measured in microseconds, that an I/O request spends waiting on user-defined QoS Policies
+            - **Queue Time** - Average time, measured in microseconds, that an I/O request spends in the array waiting to be served. 
+            - **Read Latency** - Average arrival-to-completion time, measured in milliseconds, for a read operation.
+            - **Write Latency** - Average arrival-to-completion time, measured in milliseconds, for a write operation.
+            - **Total** - The total amount of latency across all types, measured in milliesecond.
 
         - **IOPs**
-            - Read IOPs
-            - Read Average IO Size        
-            - Write IOPs
-            - Write Average IO Size 
+            - **Read IOPs** -  Number of read requests processed per second.
+            - **Read Average IO Size** - The average read IO Size measured in Kilobytes
+            - **Write IOPs** - Number of write requests processed per second.
+            - **Write Average IO Size** - The average write IO Size measured in Kilobytes
 
-        - **Bandwitdh**
-            - Read Bandwith
-            - Write Bandwith
+        - **Bandwidth**
+            - **Read Bandwidth** - Number of bytes read per second.
+            - **Write Bandwidth** - Number of bytes written per second.
 
-1. **Windows Performance Monitor**
+<br />
 
-    - On the desktop, launch the Microsoft Management Console named **Disk Performance Metrics**
 
-        <img src=../graphics/m1/1.4.2.1.png width="100" height="100" >
+# 1.5 - Viewing Additional Performance Metrics (Optional)
 
-    - Examine the critical performance metrics
-        - **Latency**
-            - Avg. Disk sec/Read
-            - Avg. Disk sec/Write
-
-        - **IOPs**
-            - Disk Reads/sec
-            - Disk Writes/sec
-
-        - **IO Size**
-            - Avg. Disk Bytes/Read
-            - Avg. Disk Bytes/Write
-
-        - **Bandwitdh**
-            - Disk Reads Bytes/sec
-            - Disk Writes Bytes/sec
-        
-           <img src=../graphics/m1/1.4.2.2.png width="75%" height="75%" >
-
+So far, we've looked at performance from the array's perspective. When troubleshooting a performance, trying to get a fuller picture of what's occurring, you can use the following techniques to get performance metrics from SQL Server DMVs and Windows Performance Monitor. 
 
 1. **SQL Server Dynamic Management Views (DMVs)**
 
-    - Open a new query window and paste in the following query.
+    - Next, open a **New Query** window and paste in the following query.
 
         ```
         SELECT 
@@ -211,12 +256,37 @@ Leave these workloads running as we'll need the workloads to generate performanc
 
         <img src=../graphics/m1/1.4.3.2.png>
 
+1. **Examining Performance Metrics with Windows Performance Monitor - Optional**
+
+    - On the desktop, launch the Microsoft Management Console named **Disk Performance Metrics**
+
+        <img src=../graphics/m1/1.4.2.1.png width="100" height="100" >
+
+    - Examine the critical performance metrics
+        - **Latency**
+            - Avg. Disk sec/Read
+            - Avg. Disk sec/Write
+
+        - **IOPs**
+            - Disk Reads/sec
+            - Disk Writes/sec
+
+        - **IO Size**
+            - Avg. Disk Bytes/Read
+            - Avg. Disk Bytes/Write
+
+        - **Bandwidth**
+            - Disk Reads Bytes/sec
+            - Disk Writes Bytes/sec
+        
+        <img src=../graphics/m1/1.4.2.2.png width="75%" height="75%" >
+
 <br />
 <br />
 
-# 1.5 Lab Cleanup
+# 1.6 Lab Cleanup
 
- - Terminate the query running from [activity 1.3](#13start-up-a-database-workload) by closing each of the running command prompt boxes
+ - Terminate the query running from [activity 1.3](#13start-up-a-database-workload) by clicking the Stop icon in the SSMS toolbar.
 
 <br />
 <br />
