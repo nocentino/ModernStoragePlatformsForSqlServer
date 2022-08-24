@@ -196,14 +196,14 @@ Leave these workloads running as we'll need the workloads to generate performanc
             - **Total** - The total amount of latency across all types, measured in milliesecond.
 
         - **IOPs**
-            - **Read IOPs** -  Number of read requests processed per second.
+            - **Read IOPs** - Number of read requests processed per second.
             - **Read Average IO Size** - The average read IO Size measured in Kilobytes
             - **Write IOPs** - Number of write requests processed per second.
             - **Write Average IO Size** - The average write IO Size measured in Kilobytes
 
         - **Bandwidth**
             - **Read Bandwidth** - Number of bytes read per second.
-            - **Write Bandwidth** - Number of bytes written per second.
+            - **Write Bandwidth**- Number of bytes read per second.
 
 <br />
 
@@ -266,22 +266,23 @@ So far, we've looked at performance from the array's perspective. When troublesh
 
         <img src=../graphics/m1/1.4.2.1.png width="100" height="100" >
 
-    - Examine the critical performance metrics
-        - **Latency**
-            - Avg. Disk sec/Read
-            - Avg. Disk sec/Write
+    - Examine the critical performance metrics as measured from the operating system level. These are valuable performance metrics especially when used in conjuntion with FlashArray performance metrics which can help you identify latency issue outside of the operating system's control, such as in the storage network or array.
 
-        - **IOPs**
-            - Disk Reads/sec
-            - Disk Writes/sec
+        - **Latency**
+            - Avg. Disk sec/Read - Average arrival-to-completion time, measured in milliseconds, for a read operation.
+            - Avg. Disk sec/Write - Average arrival-to-completion time, measured in milliseconds, for a write operation.
 
         - **IO Size**
-            - Avg. Disk Bytes/Read
-            - Avg. Disk Bytes/Write
+            - Avg. Disk Bytes/Read - The average read IO Size measured in Kilobytes.
+            - Avg. Disk Bytes/Write - The average write IO Size measured in Kilobytes.
+
+        - **IOPs**
+            - Disk Reads/sec - Number of read requests processed per second.
+            - Disk Writes/sec - Number of write requests processed per second.
 
         - **Bandwidth**
-            - Disk Reads Bytes/sec
-            - Disk Writes Bytes/sec
+            - Disk Reads Bytes/sec - Number of bytes read per second.
+            - Disk Writes Bytes/sec - Number of bytes read per second.
         
         <img src=../graphics/m1/1.4.2.2.png width="75%" height="75%" >
 
