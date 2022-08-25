@@ -6,7 +6,7 @@
 
 # Module 2 - Storage based snapshots and SQL Server
 
-In this module, you will learn how to use array based volume snapshots to decouple the time it takes to perform DBA operations from the size of the data. You will restore a database, clone a database and present it back to the same SQL Server instance, clone a database and present it to another SQL Server instance, and also initilized a SQL Server AlwaysOn Availability Group from a snapshot. 
+In this module, you will learn how to use array based volume snapshots to decouple the time it takes to perform DBA operations from the size of the data. You will restore a database, clone a database and present it back to the same SQL Server instance, clone a database and present it to another SQL Server instance, and also initilize a SQL Server AlwaysOn Availability Group from a snapshot. 
 
 ### **Lab Information**
 
@@ -21,7 +21,7 @@ In this module, you will learn how to use array based volume snapshots to decoup
 
 # 2.1 - In-place restore a database from an array-based snapshot
 
-In this activity, you will take a snapshot of a volume, that holds both the MDF and LDF for the TPCH100 database. You will then delete a table and use the snapshot to revert the database back to the state prior to the table deletion. 
+In this activity, you will take a snapshot of a volume, that holds both the MDF and LDF for the `TPCC100` database. You will then delete a table and use the snapshot to revert the database back to the state prior to the table deletion. 
 
 1. **Take a Volume Snapshot**
     - Open the FlashArray Web interface. And browse to **Storage**, **Volumes**. In the Volumes pane, click **Windows1Vol1**.
@@ -213,7 +213,7 @@ At this point, you have the original database `TPCC100` on the D:\ drive with th
 <br />
 
 # 2.3 - Clone a database to another instance of SQL Server
-In this activity, you will clone volume from Windows1 to Windows2. You can then attach the a copy of the TPCC100 database on the target instance. Saving the need to backup and restore the database. Since this operation is inside the array it happens nearly instantneously. 
+In this activity, you will clone volume from **Windows1** to **Windows2**. You will then attach the `TPCC100` database on the target instance, **Windows2**. Saving the need to backup and restore the database. Since this operation is inside the array it happens nearly instantneously. 
 
 **ADD TEXT AROUND DATA REDUCTION
 
@@ -293,7 +293,7 @@ This this demo, you copied, nearly instantaneosuly a 10GB database between two i
 <br />
 
 # 2.4 - Seed an Availability Group from an array-based snapshot (Optional)
-In this activity, you will build an Availability Group from Snapshot leveraging the new (TSQL Based Snapshot Backup](https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/create-a-transact-sql-snapshot-backup?view=sql-server-ver16) functionality in SQL Serve 2022.
+In this activity, you will build an Availability Group from Snapshot leveraging the FlashArray snapshots and the new (TSQL Based Snapshot Backup](https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/create-a-transact-sql-snapshot-backup?view=sql-server-ver16) functionality in SQL Server 2022.
 
 ## Set up the databases
 
@@ -374,7 +374,7 @@ For this activity, you are going to restore `TPCC100` on **Window2** with a TSQL
     <br />
     <br />
 
-1. **Complete the Availability Group Initilization Process**
+## Complete the Availability Group Initilization Process
     Let's complete the remainder of the availbility group intilization process.
     
     - Take a log backup on connected to the SQL instance on **WINDOWS1**. Copy and 
@@ -436,7 +436,7 @@ For this activity, you are going to restore `TPCC100` on **Window2** with a TSQL
         <br />
         <br />
 
-1. **Check the state of the Availability Group Replication**
+## Check the state of the Availability Group Replication
     - **In SSMS Object Explorer, right click on Availbility Group** Select **Show Dashboard**, and then double click on **AG1**.
 
         <img src=../graphics/m2/2.4.19.png width="25%" height="25%" >
