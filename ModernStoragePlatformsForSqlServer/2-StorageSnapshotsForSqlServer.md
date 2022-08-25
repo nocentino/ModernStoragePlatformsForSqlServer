@@ -297,6 +297,13 @@ In this activity, you will build an Availability Group from Snapshot leveraging 
 
 TODO: Add high level description of process
 
+1. [Prepare Windows2](#prepare-windows2)
+1. [Take a snapshot backup of TPCC100 on Windows1](#take-a-snapshot-backup-of-tpcc100-on-windows1)
+1. [Restore the snapshot backup to Windows2](#restore-the-snapshot-backup-to-windows2)
+1. [Complete the Availability Group Initilization Process](#complete-the-availability-group-initilization-process)
+1. [Create the Availability Group](#create-the-availability-group)
+1. [Check the state of the Availability Group Replication](#check-the-state-of-the-availability-group-replication)
+
 ## Prepare Windows2
 
 For this activity, you are going to restore `TPCC100` on **Window2** with a TSQL based snapshot backup of `TPCC100` from **Windows1**. You will by start preparing **Windows2** for this operation by detaching the `TPCC100` database and offlining Disk 1. 
@@ -348,7 +355,7 @@ For this activity, you are going to restore `TPCC100` on **Window2** with a TSQL
     <br />
     <br />
 
-## Restore the snapshot backup on Windows2
+## Restore the snapshot backup to Windows2
 
 1. **Clone the snapshot of Windows1Vol1 to Windows2Vol1**
     - **Click Storage, Volumes, Windows1Vol1**, in the **Volume Snapshot** Panel, **click the eplisis** next to the snapshot you just took and **select Copy**. Enter for the Name **Windows2Vol1**, and move the **Overwrite slider** to the right. **Click Overwrite** when prompted.
@@ -403,45 +410,45 @@ Let's complete the remainder of the availbility group intilization process.
     <br />
     <br />
 
-1. **Create the Availability Group**
+## Create the Availability Group
 
-    - **Right Click Always On High Availability**, **click New Availability Group Wizard**. On the first page, **click Next**.
+- **Right Click Always On High Availability**, **click New Availability Group Wizard**. On the first page, **click Next**.
 
-        <img src=../graphics/m2/2.4.11.png width="25%" height="25%" >
+    <img src=../graphics/m2/2.4.11.png width="25%" height="25%" >
 
-    - Specify Availability Group Options, enter the following values then **click Next**.
+- Specify Availability Group Options, enter the following values then **click Next**.
 
-        - **Availability Group Name:** AG1
-        - **Cluster Type:** NONE
+    - **Availability Group Name:** AG1
+    - **Cluster Type:** NONE
 
-        <img src=../graphics/m2/2.4.12.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.4.12.png width="75%" height="75%" >
 
-    - **Check the checkbox** for `TPCC100` to add it to the AG, **click Next**.
+- **Check the checkbox** for `TPCC100` to add it to the AG, **click Next**.
 
-        <img src=../graphics/m2/2.4.13.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.4.13.png width="75%" height="75%" >
 
-    - Click **Add Replica**, enter **WINDOWS2** for the serve rname, **click Connect**, **click Next**.
+- Click **Add Replica**, enter **WINDOWS2** for the serve rname, **click Connect**, **click Next**.
 
-        <img src=../graphics/m2/2.4.14.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.4.14.png width="75%" height="75%" >
 
-    - For Data Synchronization Mode, **select Join Only, click Next**.
+- For Data Synchronization Mode, **select Join Only, click Next**.
 
-        <img src=../graphics/m2/2.4.15.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.4.15.png width="75%" height="75%" >
 
-    - On the Validation screen, **click Next**. 
+- On the Validation screen, **click Next**. 
 
-        <img src=../graphics/m2/2.4.16.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.4.16.png width="75%" height="75%" >
 
-    - On the summary screen, **click Finish**.
+- On the summary screen, **click Finish**.
 
-        <img src=../graphics/m2/2.4.17.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.4.17.png width="75%" height="75%" >
 
-    - Once on the Results, review the results, a successful Availabiliy Group initilization will have output similar to the screeshot below. Once finished **click Close**.
+- Once on the Results, review the results, a successful Availabiliy Group initilization will have output similar to the screeshot below. Once finished **click Close**.
 
-        <img src=../graphics/m2/2.4.18.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.4.18.png width="75%" height="75%" >
 
-        <br />
-        <br />
+    <br />
+    <br />
 
 ## Check the state of the Availability Group Replication
 
