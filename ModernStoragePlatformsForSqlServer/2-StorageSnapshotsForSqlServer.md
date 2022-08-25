@@ -42,7 +42,7 @@ In this activity, you will take a snapshot of a volume, that holds both the MDF 
 1. **Delete a Database Table**
     - Open **SSMS**, and **browse** to the TPCC100 database, expand tables and delete the `customer` table by **right clicking** on the table and clicking **Delete**. **Click OK** to confirm.
 
-        <img src=../graphics/m2/2.1.4.png width="75%" height="75%" >
+        <img src=../graphics/m2/2.1.4.png width="50%" height="50%" >
     <br />
     <br />
 1. **Set the Database Offline**
@@ -98,7 +98,7 @@ In this activity, you will take a snapshot of a volume, that holds both the MDF 
 1. **Verify the Restore**
     - Refresh the table listing, by expanding the database, **expanding tables and right clicking on Tables and select Refresh**. The `customer` table should now be in the table listing.
 
-        <img src=../graphics/m2/2.1.11.png width="25%" height="25%" >
+        <img src=../graphics/m2/2.1.11.png width="50%" height="50%" >
 
     <br />
     <br />
@@ -243,7 +243,7 @@ In this activity, you will clone volume from Windows1 to Windows2. You can then 
 
     - For the Name, enter **Windows2Vol1**, and move the **Overwrite slider** to the right. **Click Copy.** When the warning appears click **Overwrite**.
     
-        <img src=../graphics/m2/2.3.4.png width="25%" height="25%" >
+        <img src=../graphics/m2/2.3.4.png width="75%" height="75%" >
 
     <br />
     <br />
