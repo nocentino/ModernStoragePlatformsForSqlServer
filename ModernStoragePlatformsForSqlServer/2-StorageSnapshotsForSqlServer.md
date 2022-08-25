@@ -375,23 +375,24 @@ For this activity, you are going to restore `TPCC100` on **Window2** with a TSQL
     <br />
 
 ## Complete the Availability Group Initilization Process
-    Let's complete the remainder of the availbility group intilization process.
-    
-    - Take a log backup on connected to the SQL instance on **WINDOWS1**. Copy and 
-    
-        ```
-        BACKUP LOG TPCC100 TO DISK = '\\WINDOWS2\BACKUP\\TPCC100-seed.trn' WITH INIT
-        ```
 
-        <img src=../graphics/m2/2.4.9.png>
-
-    - Restore the log file on **WINDOWS2** 
+Let's complete the remainder of the availbility group intilization process.
     
-        ```
-        RESTORE LOG TPCC100 FROM DISK = 'C:\BACKUP\TPCC100-seed.trn' WITH NORECOVERY
-        ```
+- Take a log backup on connected to the SQL instance on **WINDOWS1**. Copy and 
 
-        <img src=../graphics/m2/2.4.10.png>
+    ```
+    BACKUP LOG TPCC100 TO DISK = '\\WINDOWS2\BACKUP\\TPCC100-seed.trn' WITH INIT
+    ```
+
+    <img src=../graphics/m2/2.4.9.png>
+
+- Restore the log file on **WINDOWS2** 
+
+    ```
+    RESTORE LOG TPCC100 FROM DISK = 'C:\BACKUP\TPCC100-seed.trn' WITH NORECOVERY
+    ```
+
+    <img src=../graphics/m2/2.4.10.png>
 
     <br />
     <br />
@@ -437,15 +438,16 @@ For this activity, you are going to restore `TPCC100` on **Window2** with a TSQL
         <br />
 
 ## Check the state of the Availability Group Replication
-    - **In SSMS Object Explorer, right click on Availbility Group** Select **Show Dashboard**, and then double click on **AG1**.
 
-        <img src=../graphics/m2/2.4.19.png width="25%" height="25%" >
+- **In SSMS Object Explorer, right click on Availbility Group** Select **Show Dashboard**, and then double click on **AG1**.
 
-    - With the dashboard loaded, notice that the Availbility group state is **Healty**. Data is activly replicating between the two instances, WINDOWS1 and WINDOWS2. 
-    
-        <img src=../graphics/m2/2.4.20.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.4.19.png width="25%" height="25%" >
 
-    - WINDOWS2's Synchronization State is in **synchronizing** since the current AG Availbility Mode is Asynchronous. If we changed the Availability Mode to Synchronous for Windows2 the sate will change to Synchronized.
+- With the dashboard loaded, notice that the Availbility group state is **Healty**. Data is activly replicating between the two instances, WINDOWS1 and WINDOWS2. 
+
+    <img src=../graphics/m2/2.4.20.png width="75%" height="75%" >
+
+- WINDOWS2's Synchronization State is in **synchronizing** since the current AG Availbility Mode is Asynchronous. If we changed the Availability Mode to Synchronous for Windows2 the sate will change to Synchronized.
 
 
 <br />
