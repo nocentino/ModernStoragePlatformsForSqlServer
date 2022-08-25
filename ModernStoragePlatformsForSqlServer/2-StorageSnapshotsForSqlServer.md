@@ -295,7 +295,9 @@ This this demo, you copied, nearly instantaneosuly a 10GB database between two i
 # 2.4 - Seed an Availability Group from an array-based snapshot (Optional)
 In this activity, you will build an Availability Group from Snapshot leveraging the FlashArray snapshots and the new (TSQL Based Snapshot Backup](https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/create-a-transact-sql-snapshot-backup?view=sql-server-ver16) functionality in SQL Server 2022.
 
-## Set up the databases
+TODO: Add high level description of process
+
+## Prepare Windows2
 
 For this activity, you are going to restore `TPCC100` on **Window2** with a TSQL based snapshot backup of `TPCC100` from **Windows1**. You will by start preparing **Windows2** for this operation by detaching the `TPCC100` database and offlining Disk 1. 
 
@@ -310,6 +312,8 @@ For this activity, you are going to restore `TPCC100` on **Window2** with a TSQL
 
     <br />
     <br />
+
+## Take a snapshot backup of TPCC100 on Windows1
 
 1. **Set the database into snapshot mode**
     - On **Windows1**, in **SSMS**, open a **New Query Window** connecting to the **WINDOWS1** SQL Instance and **enter** and **Execute** the following: 
@@ -343,6 +347,8 @@ For this activity, you are going to restore `TPCC100` on **Window2** with a TSQL
 
     <br />
     <br />
+
+## Restore the snapshot backup on Windows2
 
 1. **Clone the snapshot of Windows1Vol1 to Windows2Vol1**
     - **Click Storage, Volumes, Windows1Vol1**, in the **Volume Snapshot** Panel, **click the eplisis** next to the snapshot you just took and **select Copy**. Enter for the Name **Windows2Vol1**, and move the **Overwrite slider** to the right. **Click Overwrite** when prompted.
