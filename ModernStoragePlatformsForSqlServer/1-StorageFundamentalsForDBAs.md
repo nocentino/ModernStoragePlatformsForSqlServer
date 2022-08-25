@@ -298,6 +298,6 @@ So far, we've looked at performance from the array's perspective. When troublesh
 
 # More Resources
 - [Understanding SQL Server IO Size](https://www.nocentino.com/posts/2021-12-10-sqlserver-io-size/) - a blog post deep diving into SQL Servers varying IO sizes
-- [Measuring SQL Server File Latency](https://www.nocentino.com/posts/2021-10-06-sql-server-file-latency) - a blog post diving into measuring disk latency at the SQL Server level.
+- [Measuring SQL Server File Latency](https://www.nocentino.com/posts/2021-10-06-sql-server-file-latency) - a blog post on measuring disk latency at the SQL Server level.
 
 Next, Continue to [Storage based snapshots and SQL Server](./2-StorageSnapshotsForSqlServer.md)
