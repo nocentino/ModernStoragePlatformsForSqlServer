@@ -10,20 +10,19 @@ In this module, you will learn how to use array-based volume snapshots to decoup
 
 
 # 2.4 - Seeding an Availability Group from an array-based snapshot (Optional)
-In this activity, you will build an Availability Group from Snapshot leveraging the FlashArray snapshots and the new (TSQL Based Snapshot Backup](https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/create-a-transact-sql-snapshot-backup?view=sql-server-ver16) functionality in SQL Server 2022.
+In this activity, you will build an Availability Group from Snapshot leveraging the FlashArray snapshots and the new [TSQL Based Snapshot Backup](https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/create-a-transact-sql-snapshot-backup?view=sql-server-ver16) functionality in SQL Server 2022.
 
-TODO: Add a high-level description of the process
-
-1. [Prepare Windows2](#prepare-windows2)
-1. [Take a snapshot backup of TPCC100 on Windows1](#take-a-snapshot-backup-of-tpcc100-on-windows1)
-1. [Restore the snapshot backup to Windows2](#restore-the-snapshot-backup-to-windows2)
-1. [Complete the Availability Group Initialization Process](#complete-the-availability-group-initilization-process)
-1. [Create the Availability Group](#create-the-availability-group)
-1. [Check the state of the Availability Group Replication](#check-the-state-of-the-availability-group-replication)
+An overview of the process
+* [Prepare Windows2](#prepare-windows2)
+* [Take a snapshot backup of TPCC100 on Windows1](#take-a-snapshot-backup-of-tpcc100-on-windows1)
+* [Restore the snapshot backup to Windows2](#restore-the-snapshot-backup-to-windows2)
+* [Complete the Availability Group Initialization Process](#complete-the-availability-group-initilization-process)
+* [Create the Availability Group](#create-the-availability-group)
+* [Check the state of the Availability Group Replication](#check-the-state-of-the-availability-group-replication)
 
 ## Prepare Windows2
 
-For this activity, you will restore `TPCC100` on **Window2** with a TSQL-based snapshot backup of `TPCC100` from **Windows1**. You will start preparing **Windows2** for this operation by detaching the `TPCC100` database and offlining Disk 1. 
+In this activity, you will restore `TPCC100` on **Window2** with a TSQL-based snapshot backup of `TPCC100` from **Windows1**. You will start preparing **Windows2** for this operation by detaching the `TPCC100` database and offlining Disk 1. 
 
 1. **Detach the database and offline the disk on Windows2**
     - In **SSMS**, connect to **Windows2** and detach `TPCC100` by right-clicking, selecting **Tasks**, and **Detach**

@@ -231,7 +231,7 @@ At this point, you have the original database `TPCC100` on the D:\ drive with th
 # 2.3 - Cloning a database to another instance of SQL Server
 In this activity, you will clone volume from **Windows1** to **Windows2**. You will then attach the `TPCC100` database on the target instance, **Windows2**. Saving the need to back up and restore the database. Since this operation is inside the array, it happens nearly instantaneously. 
 
-**ADD TEXT AROUND DATA REDUCTION
+When you clone a volume and present it to another host. It does not consume space until data starts changing. Then each of the changed blocks are tracked and exposed as a peformance metric on the FlashArray Web Interface Dashboard and Array Capacity panel.
 
 1. **Offline the Disk on Windows2**
 

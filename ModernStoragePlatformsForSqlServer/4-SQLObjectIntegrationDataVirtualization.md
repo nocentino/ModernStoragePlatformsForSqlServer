@@ -6,16 +6,19 @@
 
 # Module 4 - SQL Server Object Integration: Data Virtualization
 
-TODO ADD TEXT DESCRIBING LAB
+In this module you learn how to use Polybase to interact with data files on s3 compatible object storage.
 
 <br />
 <br />
 
 ## 4.1 - Query data on S3 compatible object storage with OPENROWSET
 
-TODO - DESCRIPTION
+In this activity you will configure SQL Server to use Polybase to query data that's stored in s3 compatible object storage.
+
 
 1. **Configure Polybase in SQL Server instance**
+
+    In SQL Server 2022, Polybase is the feature that allows SQL Server to integrate with s3 compatbile object storage. You must install this feature during the installation of SQL Server or add it to your SQL Server instance after installation. Once the feature is installed, you must configure the Polybase feature, you can do that with the steps listed in this section.
 
     - Confirm if the Polybase feature is installed, 1 = installed
 
@@ -37,7 +40,9 @@ TODO - DESCRIPTION
 
 1. **Configure access to external data using Polybase over S3**
 
-    - Create a database to hold objects for the demo
+    Once Polybase is installed and configured, you can use it within a user database in SQL Server 2022. In this section you will create a database and configure a `CREDENTIAL` used to authentcate to the FlashBlade in your lab enviroment. 
+
+    - Create a database to hold objects used in this module
 
         ```
         CREATE DATABASE [PolybaseDemo];
@@ -48,12 +53,13 @@ TODO - DESCRIPTION
         USE PolybaseDemo
         ```
 
-    - Create a database master key, this is use to protect the credentials you're about to create
+    - Create a `MASTER KEY`, this is use to protect the credentials you're about to create
         ```
         CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'S0methingS@Str0ng!';  
         ```
 
-    - Create a database scoped credential, this should have at minimum ReadOnly and ListBucket access to the s3 bucket
+    - Create a `DATABASE SCOPED CREDENTIAL`, this should have at minimum ReadOnly and ListBucket access to the s3 bucket. Your bucket in FlashBlade1 already has this access policy configured.
+
         ```
         CREATE DATABASE SCOPED CREDENTIAL s3_dc 
         WITH IDENTITY = 'S3 Access Key', 
@@ -62,7 +68,7 @@ TODO - DESCRIPTION
 
 1. **Create an EXTERNAL DATA SOURCE**
 
-    - Create your external datasource on your s3 compatible object storage, referencing where it is on the network `LOCATION`, and the credential you just defined
+    * Create your `EXTERNAL DATA SOURCE` on your s3 compatible object storage, referencing where it is on the network `LOCATION`, and the `CREDENTIAL` you defined in the previous step used to authenticate to your s3 compatible object storage.
 
         ```
         CREATE EXTERNAL DATA SOURCE s3_ds
@@ -74,7 +80,7 @@ TODO - DESCRIPTION
 
 1. **Query data on S3 compatible object storage with OPENROWSET**
 
-    - First, we can access data in the s3 bucket and for a simple test, let's start with CSV.  During the docker compose up, the build copied a CSV into the bucket it created.  This should output `Hello World!`
+    - You can access data in the s3 bucket and for a simple test, let's start with CSV. This should output `Hello World!`
 
         ```
         SELECT  * 
@@ -93,7 +99,7 @@ TODO - DESCRIPTION
 
 ## 4.2 - Query data on S3 compatible object storage with EXTERNAL TABLE
 
-- `OPENROWSET` is cool for infrequent access, but if you want to layer on SQL Server security or use statistics on the data in the external data source, let's create an external table.  This first requires defining an external file format.  In this example, its CSV
+- `OPENROWSET` is cool for infrequent access, but if you want to layer on SQL Server security or use statistics on the data in the external data source, let's create an external table.  This first requires defining an external file format.  In this example, its CSV again.
 
 1. **Create and EXTERNAL FILE FORMAT**
 
@@ -130,16 +136,6 @@ TODO - DESCRIPTION
         SELECT * FROM
         [HelloWorld];
         ```
----
-
-<br />
-<br />
-
-## 4.3 - Query data on S3 compatible object storage with CREATE EXTERNAL TABLE AS SELECT
-
-TODO - DESCRIPTION
-
-TODO - ACTIVITY
 
 ---
 
