@@ -47,13 +47,13 @@ Your hands on lab consistes of two Windows Servers each with SQL Server installe
 # 1.2 - Log into FlashArray Web Interface
 In this activity, you will log into the FlashArray web interface. The web interface is where you can configure and monitor your FlashArray. 
 
-1.  **Click on the Google Chrome for FlashArray1 icon on the desktop**
+- [ ] **Click on the Google Chrome for FlashArray1 icon on the desktop**
     
     - This will open to https://flasharray1.testdrive.local
    
         <img src=../graphics/m1/1.2.1.png width="100" height="100" >
 
-2. **Log in to the FlashArray Web Interface**
+- [ ]  **Log in to the FlashArray Web Interface**
 
     - Enter the following username and password and click **Log In**.
 
