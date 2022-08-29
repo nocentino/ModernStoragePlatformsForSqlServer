@@ -87,7 +87,9 @@ Snapshots are Volume based operations. So to restore a Volume from a snapshot, y
 <br />
 
 ## **Restore the Volume to a Previous Snapshot**
-- [ ] **Open the FlashArray Web Interface** and **browse back to the Volume Windows1Vol1**. Click on the **ellipsis** next to the snapshot you took at the start of this activity in the Volume Snapshots panel and **click Restore**. This reverts the volume's contents to the state captured in the snapshot. Undoing our 'accidental' table deletion.
+- [ ] **Open the FlashArray Web Interface** and **browse back to the Volume Windows1Vol1**. Click on the **ellipsis** next to the snapshot you took at the start of this activity in the Volume Snapshots panel and **click Restore**. 
+
+This reverts the volume's contents to the state captured in the snapshot. Undoing our 'accidental' table deletion.
 
     <img src=../graphics/m2/2.1.8.png width="75%" height="75%" >
 
@@ -117,6 +119,8 @@ Snapshots are Volume based operations. So to restore a Volume from a snapshot, y
 
 <br />
 <br />
+
+## Activity Summary
 
 ***Congratulations, you just restored an entire 10GB database in a matter of seconds without having to restore from a backup which can take a little bit longer :P***
 
@@ -219,6 +223,8 @@ But restoring the entire database to recover one missing table seems a little he
 <br />
 <br />
 
+## Activity Summary
+
 At this point, you have the original database `TPCC100` on the D:\ drive with the missing `customer` table, and you have a clone of the original snapshot we took before we deleted the customer table. You can now use any method you copy the customer table from `TPCC100_RESTORE` back into the original database `TPCC100`, and you can do this without taking the database offline.
 
 <br />
@@ -231,12 +237,12 @@ When you clone a volume and present it to another host. It does not consume spac
 
 ## **Offline the Disk on Windows2**
 
-- Log into the Window2 virtual machine 
-- Launch **Disk Management** on the desktop and **Offline Disk 1** by **right clicking** on Disk 1 and **selecting Offline**.
+- [ ] Log into the **Window2** virtual machine's desktop
+- [ ] Launch **Disk Management** on the desktop and **Offline Disk 1** by **right clicking** on Disk 1 and **selecting Offline**.
 
     <img src=../graphics/m2/2.3.1.a.png width="80%" height="80%" >
 
-- Once finished, you can see the status of Disk 1 is now, Offline.
+- [ ] Once finished, you can see the status of Disk 1 is now, Offline.
 
     <img src=../graphics/m2/2.3.1.png width="80%" height="80%" >
 
@@ -245,7 +251,7 @@ When you clone a volume and present it to another host. It does not consume spac
 
 ## **Clone Windows1Vol1 Snapshot to the Volume attached to Windows2**
 
-- [ ] Back on **Windows1**, **open the FlashArray Web Interface**, and click on **Storage, Volumes, Windows1Vol1**.
+- [ ] Back on **Windows1**, **open the FlashArray Web Interface**, and click on **Storage, Volumes** and select **Windows1Vol1** from the listing.
 
     <img src=../graphics/m2/2.3.2.png>
 
@@ -260,25 +266,25 @@ When you clone a volume and present it to another host. It does not consume spac
 <br />
 <br />
 
-## **Online the disk**    
+## **Online the disk on Windows2**
 - [ ] Back on **Window2**, in **Disk Management**, **online Disk 1**.
 
-- [ ] Open Windows Explorer and browse to `D:\`; you should now see the database files for `TPCC100` from the snapshot of Windows1.
+- [ ] **Open** Windows Explorer and **browse** to `D:\`; you should now see the database files for `TPCC100` from the snapshot of Windows1.
 
 <br />
 <br />
 
 ## **Attach the database**
 
-- [ ] Back on **Windows1**, in **SSMS**, connect to **Windows2**.
+- [ ] Back on the **Windows1** desktop, use **SSMS** to connect to the SQL Instance running on **Windows2**.
 
     <p align="center">
         <img src=../graphics/m2/2.3.5.png width="75%" height="75%" >
     </p>
 
-- In SSMS, you can attach the database files from `D:\` with the name `TPCC100`.
+- In SSMS, you can now attach the database files from `D:\` with the name `TPCC100`.
 
-    - [ ] Right-click on the Databases folder in the SSMS Object Explorer
+    - [ ] **Right-click** on the Databases folder in the SSMS Object Explorer
 
         <img src=../graphics/m2/2.3.6.png width="40%" height="40%" >
 
@@ -297,6 +303,10 @@ When you clone a volume and present it to another host. It does not consume spac
     - [ ] Finally, **right-click on Databases** in Object Explorer and click **Refresh** to see the newly attached database in the list.
 
         <img src=../graphics/m2/2.3.9.png width="40%" height="40%" >
+
+
+
+## Activity Summary
 
 In this demo, you copied, nearly instantaneously, a 10GB database between two instances of SQL Server. This snapshot does not take up any additional space in the array since the shared blocks between the volumes will be data reduced and any changed blocks are reported a Snapshot space in the FlashArray Web Interface Dasbhboard on on the Array Capacity panel.
 
