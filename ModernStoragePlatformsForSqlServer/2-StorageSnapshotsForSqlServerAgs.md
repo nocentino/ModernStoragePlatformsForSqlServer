@@ -113,22 +113,19 @@ In this activity...Let's complete the remainder of the availability group initia
     
 - [ ] Take a log backup connected to the SQL instance on **WINDOWS1**. Copy and 
 
-```
-BACKUP LOG TPCC100 TO DISK = '\\WINDOWS2\BACKUP\\TPCC100-seed.trn' WITH INIT
-```
+    ```
+    BACKUP LOG TPCC100 TO DISK = '\\WINDOWS2\BACKUP\\TPCC100-seed.trn' WITH INIT
+    ```
 
-<img src=../graphics/m2/2.4.9.png>
-
-<br />
-<br />
+    <img src=../graphics/m2/2.4.9.png>
 
 - [ ] Restore the log file on **WINDOWS2** 
 
-```
-RESTORE LOG TPCC100 FROM DISK = 'C:\BACKUP\TPCC100-seed.trn' WITH NORECOVERY
-```
+    ```
+    RESTORE LOG TPCC100 FROM DISK = 'C:\BACKUP\TPCC100-seed.trn' WITH NORECOVERY
+    ```
 
-<img src=../graphics/m2/2.4.10.png>
+    <img src=../graphics/m2/2.4.10.png>
 
 <br />
 <br />

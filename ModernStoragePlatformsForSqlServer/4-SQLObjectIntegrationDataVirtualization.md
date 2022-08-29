@@ -15,49 +15,55 @@ In this module you learn how to use Polybase to interact with data files on s3 c
 In this activity you will configure SQL Server to use Polybase to query data that's stored in s3 compatible object storage.
 
 
-1. **Configure Polybase in SQL Server instance**
+## **Configure Polybase in SQL Server instance**
 
-    In SQL Server 2022, Polybase is the feature that allows SQL Server to integrate with s3 compatbile object storage. You must install this feature during the installation of SQL Server or add it to your SQL Server instance after installation. Once the feature is installed, you must configure the Polybase feature, you can do that with the steps listed in this section.
+In SQL Server 2022, Polybase is the feature that allows SQL Server to integrate with s3 compatbile object storage. You must install this feature during the installation of SQL Server or add it to your SQL Server instance after installation. Once the feature is installed, you must configure the Polybase feature, you can do that with the steps listed in this section.
 
-    - Confirm if the Polybase feature is installed, 1 = installed
+- On the desktop of **Windows1**, in SSMS, open a **New Query window**. Connect to the SQL Instance on **WINDOWS1** and enable Polybase copying each line of code below into a new query window and clicking **Execute**.
+
+
+    - [ ] Confirm if the Polybase feature is installed, 1 = installed
 
         ```
         SELECT SERVERPROPERTY ('IsPolyBaseInstalled') AS IsPolyBaseInstalled;
         ```
 
-    - Next, enable Polybase in your instance's configuration
-    
+    - [ ] Next, enable Polybase in your instance's configuration
+
         ```
         exec sp_configure @configname = 'polybase enabled', @configvalue = 1;
         ```
 
-    - Confirm if Polybase is in your running config, run_value should be 1
+    - [ ] Confirm if Polybase is in your running config, run_value should be 1
 
         ```
         exec sp_configure @configname = 'polybase enabled'
         ```
 
-1. **Configure access to external data using Polybase over S3**
+## **Configure access to external data using Polybase over S3**
 
-    Once Polybase is installed and configured, you can use it within a user database in SQL Server 2022. In this section you will create a database and configure a `CREDENTIAL` used to authentcate to the FlashBlade in your lab enviroment. 
+Once Polybase is installed and configured, you can use it within a user database in SQL Server 2022. In this section you will create a database and configure a `CREDENTIAL` used to authentcate to the FlashBlade in your lab enviroment. 
 
-    - Create a database to hold objects used in this module
+- [ ] On the desktop of **Windows1**, in SSMS, open a **New Query window**. Connect to the SQL Instance on **WINDOWS1** and configure access to external data by copying each block of code below into a new query window and clicking **Execute**
+
+
+    - [ ] Create a database to hold objects used in this module
 
         ```
         CREATE DATABASE [PolybaseDemo];
         ```
 
-    - Switch into the database context for the PolybaseDemo database
+    - [ ] Switch into the database context for the PolybaseDemo database
         ```
         USE PolybaseDemo
         ```
 
-    - Create a `MASTER KEY`, this is use to protect the credentials you're about to create
+    - [ ] Create a `MASTER KEY`, this is use to protect the credentials you're about to create
         ```
         CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'S0methingS@Str0ng!';  
         ```
 
-    - Create a `DATABASE SCOPED CREDENTIAL`, this should have at minimum ReadOnly and ListBucket access to the s3 bucket. Your bucket in FlashBlade1 already has this access policy configured.
+    - [ ] Create a `DATABASE SCOPED CREDENTIAL`, this should have at minimum ReadOnly and ListBucket access to the s3 bucket. Your bucket in FlashBlade1 already has this access policy configured.
 
         Next, `WITH IDENTITY = 'S3 Access Key'` this string must be set to this value when using s3.
 
@@ -69,32 +75,36 @@ In this activity you will configure SQL Server to use Polybase to query data tha
         SECRET = 'anthony:nocentino' ;
         ```
 
-1. **Create an EXTERNAL DATA SOURCE**
+## **Create an `EXTERNAL DATA SOURCE`**
 
-    * Create your `EXTERNAL DATA SOURCE` on your s3 compatible object storage, referencing where it is on the network `LOCATION`, and the `CREDENTIAL` you defined in the previous step used to authenticate to your s3 compatible object storage.
+Create your `EXTERNAL DATA SOURCE` on your s3 compatible object storage, referencing where it is on the network `LOCATION`, and the `CREDENTIAL` you defined in the previous step used to authenticate to your s3 compatible object storage. Use this code in a new query window on Windows1 to configure your external data
 
-        ```
-        CREATE EXTERNAL DATA SOURCE s3_ds
-        WITH
-        (    LOCATION = 's3://s3.example.com:9000/'
-        ,    CREDENTIAL = s3_dc
-        )
-        ```
+- [ ] Execute this code on **Windows1** to create your `EXTERNAL DATA SOURCE`
 
-1. **Query data on S3 compatible object storage with OPENROWSET**
+    ```
+    CREATE EXTERNAL DATA SOURCE s3_ds
+    WITH
+    (    LOCATION = 's3://s3.example.com:9000/'
+    ,    CREDENTIAL = s3_dc
+    )
+    ```
 
-    - You can access data in the s3 bucket and for a simple test, let's start with CSV. This should output `Hello World!`. The structure of the data depends upon the datastore in used. Since this is a CSV we have to define its structure. Here's we're using a simple one column CSV for an example using ` WITH ( c1 varchar(50) )`.
+## **Query data on S3 compatible object storage with OPENROWSET**
 
-        ```
-        SELECT  * 
-        FROM OPENROWSET
-        (    BULK '/sqldatavirt/helloworld.csv'
-        ,    FORMAT       = 'CSV'
-        ,    DATA_SOURCE  = 's3_ds'
-        ) 
-        WITH ( c1 varchar(50) )             
-        AS   [Test1]
-        ```
+You can access data in the s3 bucket and for a simple test, let's start with CSV. This should output `Hello World!`. The structure of the data depends upon the datastore in used. Since this is a CSV we have to define its structure. Here's we're using a simple one column CSV for an example using ` WITH ( c1 varchar(50) )`.
+
+*-[ ] Execute this code on **Windows1** to query your CSV file using Polybase over s3.
+
+    ```
+    SELECT  * 
+    FROM OPENROWSET
+    (    BULK '/sqldatavirt/helloworld.csv'
+    ,    FORMAT       = 'CSV'
+    ,    DATA_SOURCE  = 's3_ds'
+    ) 
+    WITH ( c1 varchar(50) )             
+    AS   [Test1]
+    ```
 ---
 
 <br />
@@ -102,43 +112,49 @@ In this activity you will configure SQL Server to use Polybase to query data tha
 
 ## 4.2 - Query data on S3 compatible object storage with `EXTERNAL TABLE`
 
-- `OPENROWSET` is cool for infrequent access, but if you want to layer on SQL Server security or use statistics on the data in the external data source, let's create an external table.  This first requires defining an `EXTERNAL FILE FORMAT`.  In this example, its CSV again.
+In this activity  `OPENROWSET` is cool for infrequent access, but if you want to layer on SQL Server security or use statistics on the data in the external data source, let's create an external table.  This first requires defining an `EXTERNAL FILE FORMAT`.  In this example, its CSV again.
 
-1. **Create an `EXTERNAL FILE FORMAT`**
+## **Create an `EXTERNAL FILE FORMAT`**
 
-    - Define an `EXTERNAL FILE FORMAT`
+In this step...you will define an external file format.
 
-        ```
-        CREATE EXTERNAL FILE FORMAT CSVFileFormat
-        WITH
-        (    FORMAT_TYPE = DELIMITEDTEXT
-        ,    FORMAT_OPTIONS  ( FIELD_TERMINATOR = ','
-        ,                      STRING_DELIMITER = '"'
-        ,                      FIRST_ROW = 1 )
-        );
-        ```
+[ ] Execute this code on **Windows1** to define an `EXTERNAL FILE FORMAT`
 
-1. **Define the table's structure**
+    ```
+    CREATE EXTERNAL FILE FORMAT CSVFileFormat
+    WITH
+    (    FORMAT_TYPE = DELIMITEDTEXT
+    ,    FORMAT_OPTIONS  ( FIELD_TERMINATOR = ','
+    ,                      STRING_DELIMITER = '"'
+    ,                      FIRST_ROW = 1 )
+    );
+    ```
 
-    - The CSV here is mega simple, just a couple rows with a two columns. When defining the external table where the data lives on our network with `DATA_SOURCE`, the `LOCATION` within that `DATA_SOURCE` and the `FILE_FORMAT`
+## **Define the table's structure**
 
-        ```
-        CREATE EXTERNAL TABLE HelloWorld ( c1 varchar(50) )
-        WITH (
-            DATA_SOURCE = s3_ds
-        ,    LOCATION = '/sqldatavirt/helloworld.csv'
-        ,    FILE_FORMAT = CSVFileFormat
-        );
-        ```
+The CSV here is mega simple, just a couple rows with a two columns. When defining the external table where the data lives on our network with `DATA_SOURCE`, the `LOCATION` within that `DATA_SOURCE` and the `FILE_FORMAT`
 
-1. **Query the EXTERNAL TABLE**
+[ ] Execute this code on **Windows1** to create an `EXTERNAL TABLE`
 
-    - Now we can access the data just like any other table in SQL server. 
+    ```
+    CREATE EXTERNAL TABLE HelloWorld ( c1 varchar(50) )
+    WITH (
+        DATA_SOURCE = s3_ds
+    ,    LOCATION = '/sqldatavirt/helloworld.csv'
+    ,    FILE_FORMAT = CSVFileFormat
+    );
+    ```
 
-        ```
-        SELECT * FROM
-        [HelloWorld];
-        ```
+## **Query the EXTERNAL TABLE**
+
+Now we can access the data just like any other table in SQL server. 
+
+[ ] Execute this code on **Windows1** to query the data in your `EXTERNAL TABLE` using Polybase over s3.
+
+    ```
+    SELECT * FROM
+    [HelloWorld];
+    ```
 
 ---
 
