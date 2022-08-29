@@ -37,88 +37,86 @@ In this module, you will learn how to use array-based volume snapshots to decoup
 
 In this activity, you will take a snapshot of a volume that holds the MDF and LDF for the `TPCC100` database. You will then delete a table and use the snapshot to revert the database to the state before the table deletion. 
 
-1. **Take a Volume Snapshot**
-    - Open the FlashArray Web interface. And browse to **Storage**, **Volumes**. In the Volumes pane, click **Windows1Vol1**.
+## **Take a Volume Snapshot**
+- [ ] Open the FlashArray Web interface. And browse to **Storage**, **Volumes**. In the Volumes pane, click **Windows1Vol1**.
 
-        <img src=../graphics/m2/2.1.1.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.1.1.png width="75%" height="75%" >
 
-    - Next, in the **Volume Snapshots** panel, click the **ellipsis**. Then click **Create** to create a snapshot of the volume. Then click **Create** on the popup screen to create the snapshot. 
+- [ ] Next, in the **Volume Snapshots** panel, click the **ellipsis**. Then click **Create** to create a snapshot of the volume. Then click **Create** on the popup screen to create the snapshot. 
 
-        <img src=../graphics/m2/2.1.2.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.1.2.png width="75%" height="75%" >
 
-    - Once complete, the snapshot will appear in the listing. The snapshot name includes the Volume name, a dot, and suffixed with an auto-incrementing, unique integer.
+    Once complete, the snapshot will appear in the listing. The snapshot name includes the Volume name, a dot, and suffixed with an auto-incrementing, unique integer.
 
-        <img src=../graphics/m2/2.1.3.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.1.3.png width="75%" height="75%" >
 
-    <br />
-    <br />
+<br />
+<br />
 
-1. **Delete a Database Table**
-    - Open **SSMS**, and **browse** to the TPCC100 database, expand tables and delete the `customer` table by **right clicking** on the table and clicking **Delete**. **Click OK** to confirm.
+## **Delete a Database Table**
+- [ ] Open **SSMS**, and **browse** to the TPCC100 database, expand tables and delete the `customer` table by **right clicking** on the table and clicking **Delete**. **Click OK** to confirm.
 
-        <img src=../graphics/m2/2.1.4.png width="50%" height="50%" >
-    <br />
-    <br />
-    
-1. **Set the Database Offline**
-     
-     To recover the database, we need to change the database state to offline.
-     
-     - **Right click** on the database, click **Tasks**, click **Take Offline**. Check the box to **Drop All Active Connections** and **click OK** to confirm.
+    <img src=../graphics/m2/2.1.4.png width="50%" height="50%" >
+<br />
+<br />
 
-        <img src=../graphics/m2/2.1.5.png width="75%" height="75%" >
-    
-    <br />
-    <br />
+## **Set the Database Offline**    
+To recover the database, we need to change the database state to offline.
 
-1. **Offline the Volume Supporting the Database** 
+- [ ] **Right click** on the database, click **Tasks**, click **Take Offline**. Check the box to **Drop All Active Connections** and **click OK** to confirm.
 
-    Snapshots are Volume based operations. So to restore a Volume from a snapshot, you must first offline the volume. 
-    
-    - To offline a Volume, **Open Disk Management** on the Windows1 Desktop.
+    <img src=../graphics/m2/2.1.5.png width="75%" height="75%" >
 
-        <img src=../graphics/m2/2.1.6.png  width="90" height="100" >
+<br />
+<br />
 
-    - **Right click** on Disk 1 and **click Offline**.
+## **Offline the Volume Supporting the Database** 
+Snapshots are Volume based operations. So to restore a Volume from a snapshot, you must first offline the volume. 
 
-        <img src=../graphics/m2/2.1.7.png width="25%" height="20%" >
+- [ ] To offline a Volume, **Open Disk Management** on the Windows1 Desktop.
 
-    <br />
-    <br />
+    <img src=../graphics/m2/2.1.6.png  width="90" height="100" >
 
-1. **Restore the Volume to a Previous Snapshot**
-    - **Open the FlashArray Web Interface** and **browse back to the Volume Windows1Vol1**. Click on the **ellipsis** next to the snapshot you took at the start of this activity in the Volume Snapshots panel and **click Restore**. This reverts the volume's contents to the state captured in the snapshot. Undoing our 'accidental' table deletion.
+- **Right click** on Disk 1 and **click Offline**.
 
-        <img src=../graphics/m2/2.1.8.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.1.7.png width="25%" height="20%" >
 
-    <br />
-    <br />
+<br />
+<br />
 
-1. **Online the Volume Supporting the Database**
-    - **Open Disk Management** back up, **right click** on Disk 1 and **click Online**.
+## **Restore the Volume to a Previous Snapshot**
+- [ ] **Open the FlashArray Web Interface** and **browse back to the Volume Windows1Vol1**. Click on the **ellipsis** next to the snapshot you took at the start of this activity in the Volume Snapshots panel and **click Restore**. This reverts the volume's contents to the state captured in the snapshot. Undoing our 'accidental' table deletion.
 
-        <img src=../graphics/m2/2.1.9.png width="25%" height="25%" >
+    <img src=../graphics/m2/2.1.8.png width="75%" height="75%" >
 
-    <br />
-    <br />
+<br />
+<br />
 
-1. **Online the Database**
-    - In **SSMS**, right-click on the database, click Tasks, and click Bring Online. 
-    
-        <img src=../graphics/m2/2.1.10.png width="75%" height="75%" >
+## **Online the Volume Supporting the Database**
+- [ ] **Open Disk Management** back up, **right click** on Disk 1 and **click Online**.
 
-    <br />
-    <br />
+    <img src=../graphics/m2/2.1.9.png width="25%" height="25%" >
 
-1. **Verify the Restore**
-    - Refresh the table listing by expanding the database, **expanding tables, right-clicking on Tables, and selecting Refresh**. The `customer` table should now be in the table listing.
+<br />
+<br />
 
-        <img src=../graphics/m2/2.1.11.png width="50%" height="50%" >
+## **Online the Database**
+- [ ] In **SSMS**, right-click on the database, click Tasks, and click Bring Online. 
 
-    <br />
-    <br />
+    <img src=../graphics/m2/2.1.10.png width="75%" height="75%" >
 
-Congratulations, you just restored an entire 10GB database in a matter of seconds without having to restore from a backup which can take a little bit longer :P 
+<br />
+<br />
+
+## **Verify the Restore**
+- [ ] Refresh the table listing by expanding the database, **expanding tables, right-clicking on Tables, and selecting Refresh**. The `customer` table should now be in the table listing.
+
+    <img src=../graphics/m2/2.1.11.png width="50%" height="50%" >
+
+<br />
+<br />
+
+***Congratulations, you just restored an entire 10GB database in a matter of seconds without having to restore from a backup which can take a little bit longer :P***
 
 <br />
 <br />

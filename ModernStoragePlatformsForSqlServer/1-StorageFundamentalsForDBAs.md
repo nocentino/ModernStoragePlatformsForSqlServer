@@ -55,14 +55,14 @@ In this activity, you will log into the FlashArray web interface. The web interf
 
 - [ ]  **Log in to the FlashArray Web Interface**
 
-    - Enter the following username and password and click **Log In**.
+    - [ ] Enter the following username and password and click **Log In**.
 
         - **Username:** pureuser
         - **Password:** pureuser
 
           <img src=../graphics/m1/1.2.2.png width="40%" height="40%" >
 
-    - On the landing page, there is a menu on the left for various configuration elements and a dashboard showing overall capacity, recent alerts, array performance, and health. 
+    - On the landing page, there is a menu on the left for various configuration elements and a dashboard showing overall capacity, recent alerts, array performance, and health. We'll look closer at the Array Performance dashboard in an upcoming activity.
 
         <img src=../graphics/m1/1.2.3.png>
 
@@ -81,7 +81,7 @@ So far, those performance charts above are pretty boring. Let's start up a datab
 
     <img src=../graphics/m1/1.3.1.png width="100" height="100" >
 
-    - Click **File**, **Connect Object Explorer**
+    - [ ] Click **File**, **Connect Object Explorer**
         - **Server Name:** WINDOWS1
         - **Authentication:** Windows Authentication
 

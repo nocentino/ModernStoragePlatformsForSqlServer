@@ -80,6 +80,9 @@ This workshop expects that you understand:
 | [3 - SQL Server Object Integration: Backup and Restore](./ModernStoragePlatformsForSqlServer/3-SQLObjectIntegrationBackupRestore.md) | This module will focus on getting started with using S3 compatible object storage for backups. We’ll discuss why this is an important feature, how to configure backups to S3 and performance tuning considerations. | 35 mins
 | [4 - SQL Server Object Integration: Data Virtualization](./ModernStoragePlatformsForSqlServer/4-SQLObjectIntegrationDataVirtualization.md) | Describe and show how to use SQL Server 2022’s S3 object integration to access data outside of SQL Server in various storage formats such as parquet and CSV. Using this technique you can easily access datasets in various formats to enable analytics scenarios. | 35 mins
 
+In each of the modules, anywhere you see a - [ ], there is an activity you need to perform.
+
+
 <br />
 <br />
 
