@@ -53,7 +53,7 @@ Once Polybase is installed and configured, you can use it within a user database
         CREATE DATABASE [PolybaseDemo];
         ```
 
-    - [ ] Switch into the database context for the PolybaseDemo database
+    - [ ] Switch into the database context for the `PolybaseDemo` database
         ```
         USE PolybaseDemo
         ```
@@ -63,7 +63,7 @@ Once Polybase is installed and configured, you can use it within a user database
         CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'S0methingS@Str0ng!';  
         ```
 
-    - [ ] Create a `DATABASE SCOPED CREDENTIAL`, this should have at minimum ReadOnly and ListBucket access to the s3 bucket. Your bucket in FlashBlade1 already has this access policy configured.
+    - [ ] Create a `DATABASE SCOPED CREDENTIAL`, this should have at minimum `ReadOnly` and `ListBucket` access to the s3 bucket. Your bucket in FlashBlade1 already has this access policy configured.
 
         Next, `WITH IDENTITY = 'S3 Access Key'` this string must be set to this value when using s3.
 
@@ -138,8 +138,8 @@ The CSV here is mega simple, just a couple rows with a two columns. When definin
 
     ```
     CREATE EXTERNAL TABLE HelloWorld ( c1 varchar(50) )
-    WITH (
-        DATA_SOURCE = s3_ds
+    WITH 
+    (    DATA_SOURCE = s3_ds
     ,    LOCATION = '/sqldatavirt/helloworld.csv'
     ,    FILE_FORMAT = CSVFileFormat
     );
