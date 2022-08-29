@@ -62,7 +62,7 @@ And last, `SECRET = 'anthony:nocentino;` this is the username (Access Key ID) wh
 
 With everything ready to go, a bucket created, permissions set, and a credential defined, let’s now go ahead and run a backup to our s3 compatible object storage. Let’s walk through that code. First, we define the database we want to back up with `BACKUP DATABASE TestDB1`. Next, we tell the backup command where to put the backup file with `TO URL = 's3://s3.example.com:9000/sqlbackups/TestDB1.bak'` Using this, if there’s more than one credential defined, the database engine can find the correct credential to use based off of URLs matching using the most specific match. And to round things off, I’m adding `WITH COMPRESSION` to compress the data written into the backup file(s).
 
-- [ ] On the desktop of **Windows1**, in SSMS, open a **New Query window**. Connect to the SQL Instance on **WINDOWS1** and run a backup using this code.
+- [ ] On the desktop of **Windows1**, in SSMS, open a **New Query window**. Connect to the SQL Instance on **WINDOWS1** and run a backup using this code below.
 
     First, let's create small sample database to this activity and then back it up.
 
@@ -73,7 +73,7 @@ With everything ready to go, a bucket created, permissions set, and a credential
     BACKUP DATABASE TestDB1 
         TO URL = 's3://s3.example.com:9000/sqlbackups/TestDB1.bak' 
         WITH COMPRESSION, STATS = 10, FORMAT, INIT
-        ```
+    ```
 
 <br />
 <br />
