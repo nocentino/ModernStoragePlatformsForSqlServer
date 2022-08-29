@@ -71,8 +71,8 @@ Once Polybase is installed and configured, you can use it within a user database
 
         ```
         CREATE DATABASE SCOPED CREDENTIAL s3_dc 
-        WITH IDENTITY = 'S3 Access Key', 
-        SECRET = 'anthony:nocentino' ;
+            WITH IDENTITY = 'S3 Access Key', 
+            SECRET = 'anthony:nocentino' ;
         ```
 
 ## **Create an `EXTERNAL DATA SOURCE`**
