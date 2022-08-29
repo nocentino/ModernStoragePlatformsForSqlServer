@@ -1,8 +1,7 @@
 ![](./../graphics/purestorage.png)
 
 # Workshop: Modern Storage Platforms for SQL Server
-
-#### <i>A Course from the Pure Storage Field Solution Architecture team</i>
+<br />
 
 # Module 2 - Storage based snapshots and SQL Server
 

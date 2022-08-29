@@ -1,8 +1,7 @@
 ![](./../graphics/purestorage.png)
 
 # Workshop: Modern Storage Platforms for SQL Server
-
-#### <i>A Course from the Pure Storage Field Solution Architecture team</i>
+<br />
 
 # Module 2 - Storage based snapshots and SQL Server
 
@@ -301,16 +300,7 @@ When you clone a volume and present it to another host. It does not consume spac
 
             <img src=../graphics/m2/2.3.9.png width="40%" height="40%" >
 
-In this demo, you copied, nearly instantaneously, a 10GB database between two instances of SQL Server. This snapshot does not take up any additional space in the array. 
-
-**Explain why
-
-<br />
-<br />
-
-# More Resources
-- [Seeding an Availability Group Replica from Snapshot](https://www.nocentino.com/posts/2022-05-26-seed-ag-replica-from-snapshot/)
-
+In this demo, you copied, nearly instantaneously, a 10GB database between two instances of SQL Server. This snapshot does not take up any additional space in the array since the shared blocks between the volumes will be data reduced and any changed blocks are reported a Snapshot space in the FlashArray Web Interface Dasbhboard on on the Array Capacity panel.
 
 <br />
 <br />

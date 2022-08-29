@@ -1,10 +1,6 @@
 ![](./../graphics/purestorage.png)
 
 # Workshop: Modern Storage Platforms for SQL Server
-
-#### <i>A Course from the Pure Storage Field Solution Architecture team</i>
-
-<br />
 <br />
 
 # Module 1 - Storage fundamentals for DBAs
@@ -26,19 +22,24 @@ You will be automatically logged into Windows when you connect to the Virtual Ma
 
 TODO: Add a screenshot of the actual lab interface
 
-### **Lab Information**
+
+**<i>Tip - Click Fit to Window to size the virtual desktop to your browser window. </i>**
+
+<img src=../graphics/m1/1.1.png width="50%" height="50%" >
+
+<br />
+<br />
+
+# Lab Information
+
+Your hands on lab consistes of two Windows Servers each with SQL Server installed, and the Polybase feature installed. Also in your lab is a FlashArray for use the primary block storage device and storage subsystem for SQL Server instances. There is also a FlashBlade, for use as the primary external object storage device used by SQL Server
 
 | Resource      | Description |
 | -----------   | ----------- |
 | **Windows1**  | **Primary administrator desktop and SQL Server Instance** |
 | Windows2      | SQL Server Instance |
-| FlashArray1   | Primary block storage device and storage subsystem for SQL Server instances|
-| FlashBlade1   | Primary object storage device as external object storage used by SQL Server |
-
-
-**<i>Tip - Click Fit to Window to size the virtual desktop to your browser window. </i>**
-
-<img src=../graphics/m1/1.1.png width="50%" height="50%" >
+| FlashArray1   | Primary block storage device and storage subsystem for SQL Server instances |
+| FlashBlade1   | Primary external object storage used by SQL Server |
 
 <br />
 <br />
@@ -72,139 +73,144 @@ Now that you've logged into FlashArray's Web Interface let's kick off a workload
 
 # 1.3 - Start up a database workload
 
-So far, those performance charts above are pretty boring. Let's start up a database workload so you can look at the various performance metrics on the dashboard. 
+So far, those performance charts above are pretty boring. Let's start up a database workload on Windows1 so you can look at the various performance metrics on the dashboard. 
 
-1. **Launch SQL Server Management Studio (SSMS)** 
+## **Launch SQL Server Management Studio (SSMS)** 
 
-    - On the desktop, launch **SQL Server Management Studio (SSMS)** by clicking on the icon on the desktop
+- [ ] On the desktop, launch **SQL Server Management Studio (SSMS)** by clicking on the icon on the desktop
 
-        <img src=../graphics/m1/1.3.1.png width="100" height="100" >
+    <img src=../graphics/m1/1.3.1.png width="100" height="100" >
 
-        - Click **File**, **Connect Object Explorer**
-            - **Server Name:** WINDOWS1
-            - **Authentication:** Windows Authentication
+    - Click **File**, **Connect Object Explorer**
+        - **Server Name:** WINDOWS1
+        - **Authentication:** Windows Authentication
 
-                <img src=../graphics/m1/1.3.2.png width="50%" height="50%" >
+            <img src=../graphics/m1/1.3.2.png width="50%" height="50%" >
 
-2. **Start up a workload**
+## **Start up a workload**
 
-    - Open a new query window by clicking **New Query** on the toolbar, pasting the following code into the Window, and clicking **Execute**. 
+- [ ]  Open a new query window by clicking **New Query** on the toolbar, pasting the following code into the window, and clicking **Execute**. 
 
-        ```
-        USE [TPCC100];
-        GO
+    ```
+    USE [TPCC100];
+    GO
 
-        SELECT * FROM customer
-        GO
-        ```
+    SELECT * FROM customer
+    GO
+    ```
 
-    - In another query window, let's start a write workload.
+- [ ]  Open another query window, let's start a write workload. Click **New Query** once more and paste the following code into the window and click **Execute**.
 
-        ```
-        USE [TPCC100];
-        GO
+    ```
+    USE [TPCC100];
+    GO
 
-        SET NOCOUNT ON;
+    SET NOCOUNT ON;
 
-        DECLARE @i INT 
-        SET @i = 1
-        WHILE ( @i <= 1000)
-        BEGIN
-            INSERT INTO addresses SELECT REPLICATE('a',7000)
-            INSERT INTO addresses SELECT REPLICATE('a',7000)
-            INSERT INTO addresses SELECT REPLICATE('a',7000)
-            INSERT INTO addresses SELECT REPLICATE('a',7000)
-            INSERT INTO addresses SELECT REPLICATE('a',7000)
-            WAITFOR DELAY '00:00:01'    SET @i  = @i  + 1
-        END
-        ```
+    DECLARE @i INT 
+    SET @i = 1
+    WHILE ( @i <= 1000)
+    BEGIN
+        INSERT INTO addresses SELECT REPLICATE('a',7000)
+        INSERT INTO addresses SELECT REPLICATE('a',7000)
+        INSERT INTO addresses SELECT REPLICATE('a',7000)
+        INSERT INTO addresses SELECT REPLICATE('a',7000)
+        INSERT INTO addresses SELECT REPLICATE('a',7000)
+        WAITFOR DELAY '00:00:01'    SET @i  = @i  + 1
+    END
+    ```
 
 Leave these workloads running as we'll need the workloads to generate performance data in the remainder of this module. If the workload stops before you complete the activities below, head back into SSMS and click **Execute** again.
 
 <br />
 <br />
 
-# 1.4 - Viewing Performance Metrics
+# 1.4 - Viewing Performance Metrics in FlashArray
 
-1. **Open the FlashArray Web Interface Dashboard**
+## **Examinging Performance Metrics in the FlashArray Web Interface Dashboard**
 
-    Now that we have a workload running let's examine some key performance metrics displayed on the dashboard.
+Now that we have a workload running let's examine some key performance metrics displayed on the FlashArray Array Performance Dashboard.
 
-    - Back in the FlashArray web interface, the **Array Performance** panel shows the current **Latency**, **IOPs**, and **Bandwidth** metrics for the array. 
+- Back in the FlashArray web interface, the **Array Performance** panel shows the current **Latency**, **IOPS**, and **Bandwidth** metrics for the array. 
+
+- **Examine** each of the performance metrics in the Array Performance Panel. 
+    
+    - The metrics reported on the chart show the latests values sampled. To see values from pervious points in time, hover your mouse over the charts and the valus in the fields on the upper right of each chart will be updated with the values at that time interval.
 
         <img src=../graphics/m1/1.2.3-perf.png>
 
-        Here are the definitions of each of the performance metrics reported on the Array Performance Dashboard
+        Chart metric definitions for the Array Performance Dashboard
 
-        - **Latency**
-            - The Latency chart displays the average latency times for various operations.
+        - **Latency** - The Latency chart displays the average latency times for various operations.
 
-                - **Read Latency (R)** - Average arrival-to-completion time, measured in milliseconds, for a read operation.
+            - **(R) - Read Latency** - Average arrival-to-completion time, measured in milliseconds, for a read operation.
+            - **(W) - Write Latency** - Average arrival-to-completion time, measured in milliseconds, for a write operation.
+            - **(Q) - Queue Time** - Average time, measured in microseconds, that an IO request spends in the array waiting to be served. The time is averaged across all IOs of the selected types.
 
-                - **Write Latency (W)** - Average arrival-to-completion time, measured in milliseconds, for a write operation.
+        <br />
 
-                - **Queue Time (Q)** - Average time, measured in microseconds, that an IO request spends in the array waiting to be served. The time is averaged across all IOs of the selected types.
+        - **IOPS** - The IOPS (Input/output Operations Per Second) chart displays IO requests processed per second by the array. This metric counts requests per second, regardless of how much or how little data is transferred in each.
 
-        * **IOPS**
-            - The IOPS (Input/output Operations Per Second) chart displays IO requests processed per second by the array. This metric counts requests per second, regardless of how much or how little data is transferred in each.
+            - **(R) - Read IOPS** - Number of read requests processed per second.
+            - **(W) - Write IOPS** - Number of write requests processed per second.
 
-                - **Read IOPS (R)** - Number of read requests processed per second.
+        <br />
 
-                - **Write IOPS (W)** - Number of write requests processed per second.
+        - **Bandwidth** - The Bandwidth chart displays the number of bytes transferred per second to and from all file systems. The data is counted in its expanded form rather than the reduced form stored in the array to reflect what is transferred over the storage network. 
 
-        * **Bandwidth**
-            - The Bandwidth chart displays the number of bytes transferred per second to and from all file systems. The data is counted in its expanded form rather than the reduced form stored in the array to reflect what is transferred over the storage network. 
+            - **(R) - Read Bandwidth** - Number of bytes read per second.
+            - **(W) - Write Bandwidth** - Number of bytes written per second.
 
-                - **Read Bandwidth (R)** - Number of bytes read per second.
 
-                - **Write Bandwidth (W)** - Number of bytes written per second.
 
 <br />
+<br />
 
-2. **Open FlashArray Performance Metrics, a Closer Look**
+## **FlashArray Performance Metrics, a Closer Look**
 
-    The dashboard is excellent for a glance at the health of the array. Now let's take a deeper dive into the performance metrics exposed. The performance dashboard is a great place to go when you need to understand the workload running on the array. Latency, IOPs, and Bandwidth are all broken down very granularly so that you can identify performance issues if they arise.
+The Array Performance Dashboard is excellent for a glance at the health of the array. Now let's take a deeper dive into the performance metrics exposed. The Performance Dashboard is a great place to go when you need to understand the workload running on the array. Latency, IOPS, and Bandwidth are all broken down very granularly so that you can identify performance issues if they arise.
 
-    - Now, navigate to the **Performance page**. In the left menu bar, under **Analysis**, click **Performance** and change the time range dropdown to **5 minutes**.
-        
-    - On this page, you have a high-level overview of the key performance metrics for FlashArray, **Latency**, **IOPs**, and **Bandwidth**. Move your mouse over the charts to get metrics split by the IO type, Read, Write and Mirrored Write. Mirrored Write is a special consideration when using array-based replication.
+- Navigate to the **Performance page**. In the left menu bar, under **Analysis**, click **Performance** and change the time range dropdown to **5 minutes**.
+
+    On this page, you have a high-level overview of the key performance metrics for FlashArray, **Latency**, **IOPS**, and **Bandwidth**. Move your mouse over the charts to get metrics split by the IO type, Read, Write and Mirrored Write. Mirrored Write is a special consideration when using array-based replication.
+
+    <img src=../graphics/m1/1.4.1.0.png>
+
+- To examine one type of IO such as **Read, uncheck the Write** and **Mirrored Write** checkboxes above the charts. 
     
-        <img src=../graphics/m1/1.4.1.0.png>
+- Then, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
+
+    <img src=../graphics/m1/1.4.1.1.png>
+
+- Next, to examine Write IO, **uncheck the Read checkbox** and **check the Write checkbox**. Leave Mirrored Write unchecked. 
     
-    - To examine one type of IO such as **Read, uncheck the Write** and **Mirrored Write** checkboxes above the charts. 
-        
-    - Then, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
+- Again, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
 
-        <img src=../graphics/m1/1.4.1.1.png>
+    <img src=../graphics/m1/1.4.1.2.png>
 
-    - Next, to examine Write IO, **uncheck the Read checkbox** and **check the Write checkbox**. Leave Mirrored Write unchecked. 
-        
-    - Again, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
+- Examine the critical performance metrics for Read and Write. You can view the different types of IO by checking or unchecking read or write. 
 
-        <img src=../graphics/m1/1.4.1.2.png>
+    Here are the definitions of each of the performance metrics reported on the Array Performance Analysis Panel
 
-    - Examine the critical performance metrics for Read and Write. You can view the different types of IO by checking or unchecking read or write. 
+    - **Latency**
+        - **SAN Time** - Time required transferring data between initiator and purity target. 
+        - **QoS Rate Limit Time** - Average time, measured in microseconds, that an IO request spends waiting on user-defined QoS Policies
+        - **Queue Time** - Average time, measured in microseconds, that an IO request spends in the array waiting to be served. 
+        - **Read Latency** - Average arrival-to-completion time, measured in milliseconds, for a read operation.
+        - **Write Latency** - Average arrival-to-completion time, measured in milliseconds, for a write operation.
+        - **Total** - The total amount of latency across all types, measured in millieseconds.
 
-        Here are the definitions of each of the performance metrics reported on the Array Performance Analysis Panel
+    - **IOPS**
+        - **Read IOPS** - Number of read requests processed per second.
+        - **Read Average IO Size** - The average read IO Size measured in Kilobytes
+        - **Write IOPS** - Number of write requests processed per second.
+        - **Write Average IO Size** - The average write IO Size measured in Kilobytes
 
-        - **Latency**
-            - **SAN Time** - Time required transferring data between initiator and purity target. 
-            - **QoS Rate Limit Time** - Average time, measured in microseconds, that an IO request spends waiting on user-defined QoS Policies
-            - **Queue Time** - Average time, measured in microseconds, that an IO request spends in the array waiting to be served. 
-            - **Read Latency** - Average arrival-to-completion time, measured in milliseconds, for a read operation.
-            - **Write Latency** - Average arrival-to-completion time, measured in milliseconds, for a write operation.
-            - **Total** - The total amount of latency across all types, measured in millieseconds.
+    - **Bandwidth**
+        - **Read Bandwidth** - Amount of data read per second. Unit of measure will scale (KB/s, MB/s, GB/s)
+        - **Write Bandwidth**- Amount of data written per second. Unit of measure will scale (KB/s, MB/s, GB/s)
 
-        - **IOPs**
-            - **Read IOPs** - Number of read requests processed per second.
-            - **Read Average IO Size** - The average read IO Size measured in Kilobytes
-            - **Write IOPs** - Number of write requests processed per second.
-            - **Write Average IO Size** - The average write IO Size measured in Kilobytes
-
-        - **Bandwidth**
-            - **Read Bandwidth** - Amount of data read per second. Unit of measure will scale (KB/s, MB/s, GB/s)
-            - **Write Bandwidth**- Amount of data written per second. Unit of measure will scale (KB/s, MB/s, GB/s)
-
+<br />
 <br />
 
 
@@ -276,7 +282,7 @@ So far, we've looked at performance from the array's perspective. When troublesh
             - Avg. Disk Bytes/Read - The average read IO Size measured in Kilobytes.
             - Avg. Disk Bytes/Write - The average write IO Size measured in Kilobytes.
 
-        - **IOPs**
+        - **IOPS**
             - Disk Reads/sec - Number of read requests processed per second.
             - Disk Writes/sec - Number of write requests processed per second.
 

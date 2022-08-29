@@ -1,8 +1,7 @@
 ![](./../graphics/purestorage.png)
 
 # Workshop: Modern Storage Platforms for SQL Server
-
-#### <i>A Course from the Pure Storage Field Solution Architecture team</i>
+<br />
 
 # Module 4 - SQL Server Object Integration: Data Virtualization
 
@@ -60,6 +59,10 @@ In this activity you will configure SQL Server to use Polybase to query data tha
 
     - Create a `DATABASE SCOPED CREDENTIAL`, this should have at minimum ReadOnly and ListBucket access to the s3 bucket. Your bucket in FlashBlade1 already has this access policy configured.
 
+        Next, `WITH IDENTITY = 'S3 Access Key'` this string must be set to this value when using s3.
+
+        And last, `SECRET = 'anthony:nocentino;` this is the username (Access Key ID) which is currently anthony and the password (Secret Key ID) is nocentino. Notice that there’s a colon as a delimiter. This means neither the username nor the password can have a colon in their values. So watch out for that.
+
         ```
         CREATE DATABASE SCOPED CREDENTIAL s3_dc 
         WITH IDENTITY = 'S3 Access Key', 
@@ -80,7 +83,7 @@ In this activity you will configure SQL Server to use Polybase to query data tha
 
 1. **Query data on S3 compatible object storage with OPENROWSET**
 
-    - You can access data in the s3 bucket and for a simple test, let's start with CSV. This should output `Hello World!`
+    - You can access data in the s3 bucket and for a simple test, let's start with CSV. This should output `Hello World!`. The structure of the data depends upon the datastore in used. Since this is a CSV we have to define its structure. Here's we're using a simple one column CSV for an example using ` WITH ( c1 varchar(50) )`.
 
         ```
         SELECT  * 
@@ -97,13 +100,13 @@ In this activity you will configure SQL Server to use Polybase to query data tha
 <br />
 <br />
 
-## 4.2 - Query data on S3 compatible object storage with EXTERNAL TABLE
+## 4.2 - Query data on S3 compatible object storage with `EXTERNAL TABLE`
 
-- `OPENROWSET` is cool for infrequent access, but if you want to layer on SQL Server security or use statistics on the data in the external data source, let's create an external table.  This first requires defining an external file format.  In this example, its CSV again.
+- `OPENROWSET` is cool for infrequent access, but if you want to layer on SQL Server security or use statistics on the data in the external data source, let's create an external table.  This first requires defining an `EXTERNAL FILE FORMAT`.  In this example, its CSV again.
 
-1. **Create and EXTERNAL FILE FORMAT**
+1. **Create an `EXTERNAL FILE FORMAT`**
 
-    - Define an EXTERNAL FILE FORMAT
+    - Define an `EXTERNAL FILE FORMAT`
 
         ```
         CREATE EXTERNAL FILE FORMAT CSVFileFormat
