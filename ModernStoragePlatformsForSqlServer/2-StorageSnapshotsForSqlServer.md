@@ -91,7 +91,7 @@ Snapshots are Volume based operations. So to restore a Volume from a snapshot, y
 
 This reverts the volume's contents to the state captured in the snapshot. Undoing our 'accidental' table deletion.
 
-    <img src=../graphics/m2/2.1.8.png width="75%" height="75%" >
+<img src=../graphics/m2/2.1.8.png width="75%" height="75%" >
 
 <br />
 <br />

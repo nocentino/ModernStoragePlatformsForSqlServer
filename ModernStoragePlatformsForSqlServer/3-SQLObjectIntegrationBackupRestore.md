@@ -10,25 +10,26 @@ In this module you will learn how use s3 compatible object storage in FlashBlade
 <br />
 <br />
 
-# 3.1 - Exploring your Flashblade Enviroment
-
-### **Lab Information**
+# **Lab Information**
 
 In this module, the lab has a FlashBlade with a bucket already configured for use. 
 
-1. **Log into the FlashBlade Web Interface**
+# 3.1 - Exploring your Flashblade Enviroment
 
-    In this activity, you will log into the FlashBlade web interface. The web interface is where you can configure and monitor your FlashBlade. 
+## **Log into the FlashBlade Web Interface**
 
-1. **Examine the s3 Bucket Configuration**
+In this activity, you will log into the FlashBlade web interface. The web interface is where you can configure and monitor your FlashBlade. 
 
-    1. **Examine the access policy for the bucket**
+## **Examine the s3 Bucket Configuration**
 
-        To perform both backups and restores, this user will need readwrite access to the bucket
 
-    1. **Find the Access Key ID and Secret Key ID**
+- **Examine the access policy for the bucket**
 
-        You’ll need a username, sometimes called an Access Key ID, and its password, sometimes called a Secret Key ID
+    To perform both backups and restores, this user will need readwrite access to the bucket
+
+- **Find the Access Key ID and Secret Key ID**
+
+    You’ll need a username, sometimes called an Access Key ID, and its password, sometimes called a Secret Key ID
 
 Note, your s3 compatible object storage needs a valid TLS Certificate
 
@@ -75,6 +76,11 @@ With everything ready to go, a bucket created, permissions set, and a credential
         WITH COMPRESSION, STATS = 10, FORMAT, INIT
     ```
 
+
+## Activity Summary
+in this activity 
+
+
 <br />
 <br />
 
@@ -94,6 +100,8 @@ You now can backup to object storage from SQL Server. You don't have backups unl
 
 - [ ] Confirm that TestDB2 is restored. On the desktop of Windows1, in SSMS, in the Object Explorer, right click and select Refresh to update the listing of databases.
 
+## Activity Summary
+in this activity 
 
 <br />
 <br />

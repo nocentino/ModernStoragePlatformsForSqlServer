@@ -107,6 +107,10 @@ You can access data in the s3 bucket and for a simple test, let's start with CSV
     ```
 ---
 
+## Activity Summary
+in this activity 
+
+
 <br />
 <br />
 
@@ -157,6 +161,9 @@ Now we can access the data just like any other table in SQL server.
     ```
 
 ---
+
+## Activity Summary
+in this activity 
 
 <br />
 <br />
