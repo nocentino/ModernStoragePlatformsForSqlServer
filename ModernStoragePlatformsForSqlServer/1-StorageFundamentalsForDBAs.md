@@ -89,7 +89,7 @@ So far, those performance charts above are pretty boring. Let's start up a datab
 
 ## **Start up a workload**
 
-- [ ]  Open a new query window by clicking **New Query** on the toolbar, pasting the following code into the window, and clicking **Execute**. 
+- [ ] Open a new query window by clicking **New Query** on the toolbar, pasting the following code into the window, and clicking **Execute**. 
 
     ```
     USE [TPCC100];
@@ -99,7 +99,7 @@ So far, those performance charts above are pretty boring. Let's start up a datab
     GO
     ```
 
-- [ ]  Open another query window, let's start a write workload. Click **New Query** once more and paste the following code into the window and click **Execute**.
+- [ ] Open another query window, let's start a write workload. Click **New Query** once more and paste the following code into the window and click **Execute**.
 
     ```
     USE [TPCC100];
@@ -127,15 +127,15 @@ Leave these workloads running as we'll need the workloads to generate performanc
 
 # 1.4 - Viewing Performance Metrics in FlashArray
 
-## **Examinging Performance Metrics in the FlashArray Web Interface Dashboard**
+## **Examining Performance Metrics in the FlashArray Web Interface Dashboard**
 
 Now that we have a workload running let's examine some key performance metrics displayed on the FlashArray Array Performance Dashboard.
 
-- Back in the FlashArray web interface, the **Array Performance** panel shows the current **Latency**, **IOPS**, and **Bandwidth** metrics for the array. 
+- [ ] Open the FlashArray web interface again. On main dashboard, the **Array Performance** panel shows the current **Latency**, **IOPS**, and **Bandwidth** metrics for the array. 
 
-- **Examine** each of the performance metrics in the Array Performance Panel. 
+- [ ] **Examine** each of the performance metrics in the Array Performance Panel. The metrics reported on the chart show the latests values sampled. To see values from pervious points in time,
     
-    - The metrics reported on the chart show the latests values sampled. To see values from pervious points in time, hover your mouse over the charts and the valus in the fields on the upper right of each chart will be updated with the values at that time interval.
+    - [ ] **Hover** your mouse over the charts and the values in the fields on the upper right of each chart will be updated with the values at that time interval.
 
         <img src=../graphics/m1/1.2.3-perf.png>
 
@@ -170,25 +170,29 @@ Now that we have a workload running let's examine some key performance metrics d
 
 The Array Performance Dashboard is excellent for a glance at the health of the array. Now let's take a deeper dive into the performance metrics exposed. The Performance Dashboard is a great place to go when you need to understand the workload running on the array. Latency, IOPS, and Bandwidth are all broken down very granularly so that you can identify performance issues if they arise.
 
-- Navigate to the **Performance page**. In the left menu bar, under **Analysis**, click **Performance** and change the time range dropdown to **5 minutes**.
+- [ ] Navigate to the **Performance page**. In the left menu bar, under **Analysis**, click **Performance** and change the time range dropdown to **5 minutes**. On this page, you have a high-level overview of the key performance metrics for FlashArray, **Latency**, **IOPS**, and **Bandwidth**. 
 
-    On this page, you have a high-level overview of the key performance metrics for FlashArray, **Latency**, **IOPS**, and **Bandwidth**. Move your mouse over the charts to get metrics split by the IO type, Read, Write and Mirrored Write. Mirrored Write is a special consideration when using array-based replication.
+- [ ] Move your mouse over the charts to get metrics split by the IO type, Read, Write and Mirrored Write. Mirrored Write is a special consideration when using array-based replication.
 
     <img src=../graphics/m1/1.4.1.0.png>
 
-- To examine one type of IO such as **Read, uncheck the Write** and **Mirrored Write** checkboxes above the charts. 
+### **Examining one type of IO, Read IO**
+
+- [ ] To examine one type of IO such as **Read, uncheck the Write** and **Mirrored Write** checkboxes above the charts. 
     
-- Then, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
+- [ ] Then, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
 
     <img src=../graphics/m1/1.4.1.1.png>
 
-- Next, to examine Write IO, **uncheck the Read checkbox** and **check the Write checkbox**. Leave Mirrored Write unchecked. 
+### **Examining one type of IO, Write IO**
+
+- [ ] Next, to examine Write IO, **uncheck the Read checkbox** and **check the Write checkbox**. Leave Mirrored Write unchecked. 
     
-- Again, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
+- [ ] Again, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
 
     <img src=../graphics/m1/1.4.1.2.png>
 
-- Examine the critical performance metrics for Read and Write. You can view the different types of IO by checking or unchecking read or write. 
+- [ ] Examine the critical performance metrics for Read and Write. You can view the different types of IO by checking or unchecking read or write. 
 
     Here are the definitions of each of the performance metrics reported on the Array Performance Analysis Panel
 
@@ -218,86 +222,86 @@ The Array Performance Dashboard is excellent for a glance at the health of the a
 
 So far, we've looked at performance from the array's perspective. When troubleshooting a performance, trying to get a fuller picture of what's occurring, you can use the following techniques to get performance metrics from SQL Server DMVs and Windows Performance Monitor. 
 
-1. **SQL Server Dynamic Management Views (DMVs)**
+## **SQL Server Dynamic Management Views (DMVs)**
 
-    - Next, open a **New Query** window and paste in the following query.
+- [ ] Next, open a **New Query** window and paste in the following query.
 
-        ```
-        SELECT 
-        DB_NAME(mf.database_id) AS [DBName], 
-        mf.name AS [FileName], 
-        mf.type_desc AS [FileType],
-        vfs.num_of_reads AS [NumReads],           --Number of reads issued on the file.
-        vfs.num_of_writes AS [NumWrites],         --Number of writes made on this file.
-        vfs.num_of_bytes_read AS [ReadBytes],     --Total number of bytes read on this file.
-        vfs.num_of_bytes_written AS [WriteBytes], --Total number of bytes written to the file.
+    ```
+    SELECT 
+    DB_NAME(mf.database_id) AS [DBName], 
+    mf.name AS [FileName], 
+    mf.type_desc AS [FileType],
+    vfs.num_of_reads AS [NumReads],           --Number of reads issued on the file.
+    vfs.num_of_writes AS [NumWrites],         --Number of writes made on this file.
+    vfs.num_of_bytes_read AS [ReadBytes],     --Total number of bytes read on this file.
+    vfs.num_of_bytes_written AS [WriteBytes], --Total number of bytes written to the file.
 
-        --Calculate the percentage of bytes read or written to the file
-        vfs.num_of_bytes_read    * 100 / (( vfs.num_of_bytes_read + vfs.num_of_bytes_written ))  AS [PercentBytesRead],
-        vfs.num_of_bytes_written * 100 / (( vfs.num_of_bytes_read + vfs.num_of_bytes_written ))  AS [PercentBytesWrite],
+    --Calculate the percentage of bytes read or written to the file
+    vfs.num_of_bytes_read    * 100 / (( vfs.num_of_bytes_read + vfs.num_of_bytes_written ))  AS [PercentBytesRead],
+    vfs.num_of_bytes_written * 100 / (( vfs.num_of_bytes_read + vfs.num_of_bytes_written ))  AS [PercentBytesWrite],
 
-        --Calculate the average read latency and the average read IO size 
-        CASE WHEN vfs.num_of_reads = 0 THEN 0 ELSE   vfs.io_stall_read_ms  / vfs.num_of_reads          END AS [AvgReadLatency_(ms)], 
-        CASE WHEN vfs.num_of_reads = 0 THEN 0 ELSE ( vfs.num_of_bytes_read / vfs.num_of_reads ) / 1024 END AS [AvgReadSize_(KB)], 
-        
-        --Calculate the average write latency and the average write IO size
-        CASE WHEN vfs.num_of_writes = 0 THEN 0 ELSE   vfs.io_stall_write_ms    / vfs.num_of_writes          END AS [AvgWriteLatency_(ms)], 
-        CASE WHEN vfs.num_of_writes = 0 THEN 0 ELSE ( vfs.num_of_bytes_written / vfs.num_of_writes ) / 1024 END AS [AvgWriteSize_(KB)], 
+    --Calculate the average read latency and the average read IO size 
+    CASE WHEN vfs.num_of_reads = 0 THEN 0 ELSE   vfs.io_stall_read_ms  / vfs.num_of_reads          END AS [AvgReadLatency_(ms)], 
+    CASE WHEN vfs.num_of_reads = 0 THEN 0 ELSE ( vfs.num_of_bytes_read / vfs.num_of_reads ) / 1024 END AS [AvgReadSize_(KB)], 
+    
+    --Calculate the average write latency and the average write IO size
+    CASE WHEN vfs.num_of_writes = 0 THEN 0 ELSE   vfs.io_stall_write_ms    / vfs.num_of_writes          END AS [AvgWriteLatency_(ms)], 
+    CASE WHEN vfs.num_of_writes = 0 THEN 0 ELSE ( vfs.num_of_bytes_written / vfs.num_of_writes ) / 1024 END AS [AvgWriteSize_(KB)], 
 
-        --Calculate the average total latency and the average IO size
-        CASE WHEN vfs.num_of_reads + vfs.num_of_writes = 0 THEN 0 ELSE vfs.io_stall / ( vfs.num_of_reads + vfs.num_of_writes ) END AS [AvgLatency_(ms)],
-        CASE WHEN vfs.num_of_reads + vfs.num_of_writes = 0 THEN 0 
-        ELSE ( vfs.num_of_bytes_read + vfs.num_of_bytes_written ) / ( vfs.num_of_reads + vfs.num_of_writes ) / 1024 END AS [AvgIOSize_(KB)], 
+    --Calculate the average total latency and the average IO size
+    CASE WHEN vfs.num_of_reads + vfs.num_of_writes = 0 THEN 0 ELSE vfs.io_stall / ( vfs.num_of_reads + vfs.num_of_writes ) END AS [AvgLatency_(ms)],
+    CASE WHEN vfs.num_of_reads + vfs.num_of_writes = 0 THEN 0 
+    ELSE ( vfs.num_of_bytes_read + vfs.num_of_bytes_written ) / ( vfs.num_of_reads + vfs.num_of_writes ) / 1024 END AS [AvgIOSize_(KB)], 
 
-        --The physical file name
-        mf.physical_name AS [PhysicalFileName]
+    --The physical file name
+    mf.physical_name AS [PhysicalFileName]
 
-        FROM 
-        sys.dm_io_virtual_file_stats(NULL, NULL) as [vfs] 
-        inner join sys.master_files as [mf] ON [vfs].[database_id] = [mf].[database_id] 
-        AND [vfs].[file_id] = [mf].[file_id] 
-        ORDER BY
-        [AvgLatency_(ms)] DESC 
-        --  [AvgReadLatency_(ms)]
-        --  [AvgWriteLatency_(ms)]
-        ```
+    FROM 
+    sys.dm_io_virtual_file_stats(NULL, NULL) as [vfs] 
+    inner join sys.master_files as [mf] ON [vfs].[database_id] = [mf].[database_id] 
+    AND [vfs].[file_id] = [mf].[file_id] 
+    ORDER BY
+    [AvgLatency_(ms)] DESC 
+    --  [AvgReadLatency_(ms)]
+    --  [AvgWriteLatency_(ms)]
+    ```
 
-        You should see output similar to this.
+    You should see output similar to this.
 
-        <img src=../graphics/m1/1.4.3.2.png>
+    <img src=../graphics/m1/1.4.3.2.png>
 
-1. **Examining Performance Metrics with Windows Performance Monitor - Optional**
+## **Examining Performance Metrics with Windows Performance Monitor - Optional**
 
-    - On the desktop, launch the Microsoft Management Console named **Disk Metrics**
+- [ ] On the desktop, launch the Microsoft Management Console named **Disk Metrics**
 
-        <img src=../graphics/m1/1.4.2.1.png width="100" height="100" >
+    <img src=../graphics/m1/1.4.2.1.png width="100" height="100" >
 
-    - Examine the critical performance metrics as measured from the operating system level. These are valuable performance metrics especially when used in conjuntion with FlashArray performance metrics which can help you identify latency issue outside of the operating system's control, such as in the storage network or array.
+- [ ] Examine the critical performance metrics as measured from the operating system level. These are valuable performance metrics especially when used in conjuntion with FlashArray performance metrics which can help you identify latency issue outside of the operating system's control, such as in the storage network or array.
 
-        - **Latency**
-            - Avg. Disk sec/Read - Average arrival-to-completion time, measured in milliseconds, for a read operation.
-            - Avg. Disk sec/Write - Average arrival-to-completion time, measured in milliseconds, for a write operation.
+    - **Latency**
+        - Avg. Disk sec/Read - Average arrival-to-completion time, measured in milliseconds, for a read operation.
+        - Avg. Disk sec/Write - Average arrival-to-completion time, measured in milliseconds, for a write operation.
 
-        - **IO Size**
-            - Avg. Disk Bytes/Read - The average read IO Size measured in Kilobytes.
-            - Avg. Disk Bytes/Write - The average write IO Size measured in Kilobytes.
+    - **IO Size**
+        - Avg. Disk Bytes/Read - The average read IO Size measured in Kilobytes.
+        - Avg. Disk Bytes/Write - The average write IO Size measured in Kilobytes.
 
-        - **IOPS**
-            - Disk Reads/sec - Number of read requests processed per second.
-            - Disk Writes/sec - Number of write requests processed per second.
+    - **IOPS**
+        - Disk Reads/sec - Number of read requests processed per second.
+        - Disk Writes/sec - Number of write requests processed per second.
 
-        - **Bandwidth**
-            - Disk Reads Bytes/sec - Number of bytes read per second.
-            - Disk Writes Bytes/sec - Number of bytes read per second.
-        
-        <img src=../graphics/m1/1.4.2.2.png width="75%" height="75%" >
+    - **Bandwidth**
+        - Disk Reads Bytes/sec - Number of bytes read per second.
+        - Disk Writes Bytes/sec - Number of bytes read per second.
+    
+    <img src=../graphics/m1/1.4.2.2.png width="75%" height="75%" >
 
 <br />
 <br />
 
 # 1.6 Lab Cleanup
 
- - Terminate the query running from [activity 1.3](#13---start-up-a-database-workload) by clicking the Stop icon in the SSMS toolbar.
+- [ ] Terminate the query running from [activity 1.3](#13---start-up-a-database-workload) by clicking the Stop icon in the SSMS toolbar.
 
 <br />
 <br />
