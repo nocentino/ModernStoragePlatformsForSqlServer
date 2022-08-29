@@ -24,6 +24,8 @@ In this module, you will learn how to use array-based volume snapshots to decoup
 
 # Lab Information
 
+In this module, you have two Windows Servers each with SQL Server 2022 RC0 installed. Each server has one 20GB volume attached via iSCSI from FlashArray1. This volume is presented to the operating system as `Disk 1` and is mounted a Drive `D:\`.
+
 | Resource      | FlashArray Volume Name | Windows Disk Number | Windows Drive Letter
 | -----------   | -----------  | ----------- | -----------  |
 | Windows1      | Windows1Vol1 | 1           | D:\          |
@@ -125,100 +127,97 @@ Snapshots are Volume based operations. So to restore a Volume from a snapshot, y
 
 But restoring the entire database to recover one missing table seems a little heavy-handed. Let's try another technique to get the database. Let's now clone the snapshot we took in the first activity to a new volume in the server and then attach the database. This way, our primary database can stay online during the recovery process. And since snapshots share the same physical pages inside the array, this operation will not consume any space in the array.
 
-1. **Create a New Volume**
-    - Log into the FlashArray Web Interface, and **Click Storage**, **Volumes**.
+## **Create a New Volume**
+- [ ] Log into the FlashArray Web Interface, and **Click Storage**, **Volumes**.
 
-    - In the **Volumes** Panel, click the **+** to create a new volume
+- [ ] In the **Volumes** Panel, click the **+** to create a new volume
 
-        <img src=../graphics/m2/2.2.1.png>
+    <img src=../graphics/m2/2.2.1.png>
 
-    - Enter the name **Windows1Vol2**, enter **20GB** for the size. 
+- [ ] Enter the name **Windows1Vol2**, enter **20GB** for the size. 
 
-        <img src=../graphics/m2/2.2.2.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.2.2.png width="75%" height="75%" >
 
-    <br />
-    <br />
+<br />
+<br />
 
-1. **Copy a snapshot to a Volume**
+## **Copy a snapshot to a Volume**
+- [ ] In the **Volumes** Panel, select **Windows1Vol1**
 
-    -  In the **Volumes** Panel, select **Windows1Vol1**
+    <img src=../graphics/m2/2.2.8.png>
 
-        <img src=../graphics/m2/2.2.8.png>
+- [ ] In the **Volumes Snapshots** Panel, find the snapshot you created in the activity above; its name will be **Windows1Vol1.*n*** where n is a number. **Click the ellipsis** next to that snapshot and **click Copy**.
 
-    - In the **Volumes Snapshots** Panel, find the snapshot you created in the activity above; its name will be **Windows1Vol1.*n*** where n is a number. **Click the ellipsis** next to that snapshot and **click Copy**.
+    <img src=../graphics/m2/2.2.9.png  width="75%" height="75%" >
 
-        <img src=../graphics/m2/2.2.9.png  width="75%" height="75%" >
+- [ ] For the **Name, enter Windows1Vol2**. This is the new volume we just created. Move the **Overwrite slider to the right** and **click Copy**.
 
-    - For the **Name, enter Windows1Vol2**. This is the new volume we just created. Move the **Overwrite slider to the right** and **click Copy**.
+    <img src=../graphics/m2/2.2.10.png width="75%" height="75%" >
 
-        <img src=../graphics/m2/2.2.10.png width="75%" height="75%" >
-    
-    - When the warning appears **click Overwrite**. At this point, the contents of Windows1Vol1 are cloned into Window1Vol2. There is now a unique clone of the original volume. The contents of this cloned volume, such as the database files, can be attached to our server.
+- [ ] When the warning appears **click Overwrite**. At this point, the contents of Windows1Vol1 are cloned into Window1Vol2. There is now a unique clone of the original volume. The contents of this cloned volume, such as the database files, can be attached to our server.
 
-        <img src=../graphics/m2/2.2.11.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.2.11.png width="75%" height="75%" >
 
-    <br />
-    <br />
+<br />
+<br />
 
-1. **Connect the new Volume to Window1**
-    - In the **Volumes** Panel, click on **Windows1Vol2**
+## **Connect the new Volume to Window1**
+- [ ] In the **Volumes** Panel, click on **Windows1Vol2**
 
-        <img src=../graphics/m2/2.2.3.png>
+    <img src=../graphics/m2/2.2.3.png>
 
-    - In the **Conntected Hosts** Panel, **click the elipsis**, and in the **Available Hosts** column, **select windows1**, and **click Connect**.
+- [ ] In the **Conntected Hosts** Panel, **click the elipsis**, and in the **Available Hosts** column, **select windows1**, and **click Connect**.
 
-        <img src=../graphics/m2/2.2.4.png width="75%" height="75%" >
-        <img src=../graphics/m2/2.2.5.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.2.4.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.2.5.png width="75%" height="75%" >
 
-    <br />
-    <br />
+<br />
+<br />
 
-1. **Online the Disk**
+## **Online the Disk**
+- [ ] In **Disk Management**, **right click on Disk 2** and **online the volume**.  
+    <img src=../graphics/m2/2.2.12.b.png width="25%" height="25%" >
 
-    - In **Disk Management**, **right click on Disk 2** and **online the volume**.  
-        <img src=../graphics/m2/2.2.12.b.png width="25%" height="25%" >
+    - If Disk 2 doesn't show up, click Action, Refresh.
 
-        - If Disk 2 doesn't show up, click Action, Refresh.
+        <img src=../graphics/m2/2.2.12.a.png width="25%" height="25%" >
 
-            <img src=../graphics/m2/2.2.12.a.png width="25%" height="25%" >
+    - Once Disk 2 is online, you can see that the volume label is the same as Disk 1 since this is an exact clone of the volume inside the array.
 
-        - Once Disk 2 is online, you can see that the volume label is the same as Disk 1 since this is an exact clone of the volume inside the array.
+        <img src=../graphics/m2/2.2.12.png   width="75%" height="75%" >
 
-            <img src=../graphics/m2/2.2.12.png   width="75%" height="75%" >
+- [ ] Open Windows explorer and browse to `E:\`. You should see a copy of the `D:\` volume and its contents. In this case, it's our database and log files, which we can now attach as a unique database in our SQL Instance.
 
-    - Open Windows explorer and browse to `E:\`. You should see a copy of the `D:\` volume and its contents. In this case, it's our database and log files, which we can now attach as a unique database in our SQL Instance.
+    <img src=../graphics/m2/2.2.13.png width="75%" height="75%" >
 
-        <img src=../graphics/m2/2.2.13.png width="75%" height="75%" >
+<br />
+<br />
 
-    <br />
-    <br />
+## **Attach the database**
+- In SSMS, you can now attach the databases, change the name to `TPCC100_RESTORE`.
 
-1. **Attach the database**
+    - [ ] Right-click on the Databases folder in the SSMS Object Explorer
+        
+        <img src=../graphics/m2/2.2.14.png width="75%" height="75%" >
 
-    - In SSMS, you can attach the databases and Change the name to `TPCC100_RESTORE`.
+    - [ ] Click **Add**
 
-        - Right-click on the Databases folder in the SSMS Object Explorer
-            
-            <img src=../graphics/m2/2.2.14.png width="75%" height="75%" >
+        <img src=../graphics/m2/2.2.14.a.png width="75%" height="75%" >
 
-        - Click **Add**
+    - [ ] **Browse** to `E:\SQL`, select `tpcc100.mdf`, and **click OK**.
 
-            <img src=../graphics/m2/2.2.14.a.png width="75%" height="75%" >
+        <img src=../graphics/m2/2.2.15.png width="75%" height="75%" >
 
-        - **Browse** to `E:\SQL`, select `tpcc100.mdf`, and **click OK**.
+    - [ ] Enter `TPCC100_RESTORE` in the **Attach As** field and click **OK**.
 
-            <img src=../graphics/m2/2.2.15.png width="75%" height="75%" >
+        <img src=../graphics/m2/2.2.16.png width="75%" height="75%" >
 
-        - Enter `TPCC100_RESTORE` in the **Attach As** field and click **OK**.
+    - [ ] Finally, **right-click on Databases** in Object Explorer and click **Refresh** to see the newly attached database in the list.
 
-            <img src=../graphics/m2/2.2.16.png width="75%" height="75%" >
-    
-        - Finally, **right-click on Databases** in Object Explorer and click **Refresh** to see the newly attached database in the list.
+        <img src=../graphics/m2/2.2.17.png width="40%" height="40%" >
 
-            <img src=../graphics/m2/2.2.17.png width="40%" height="40%" >
-
-    <br />
-    <br />
+<br />
+<br />
 
 At this point, you have the original database `TPCC100` on the D:\ drive with the missing `customer` table, and you have a clone of the original snapshot we took before we deleted the customer table. You can now use any method you copy the customer table from `TPCC100_RESTORE` back into the original database `TPCC100`, and you can do this without taking the database offline.
 
@@ -230,73 +229,74 @@ In this activity, you will clone volume from **Windows1** to **Windows2**. You w
 
 When you clone a volume and present it to another host. It does not consume space until data starts changing. Then each of the changed blocks are tracked and exposed as a peformance metric on the FlashArray Web Interface Dashboard and Array Capacity panel.
 
-1. **Offline the Disk on Windows2**
+## **Offline the Disk on Windows2**
 
-    - Log into the Window2 virtual machine 
-    - Launch **Disk Management** on the desktop and **Offline Disk 1** by **right clicking** on Disk 1 and **selecting Offline**.
+- Log into the Window2 virtual machine 
+- Launch **Disk Management** on the desktop and **Offline Disk 1** by **right clicking** on Disk 1 and **selecting Offline**.
 
-        <img src=../graphics/m2/2.3.1.a.png width="80%" height="80%" >
+    <img src=../graphics/m2/2.3.1.a.png width="80%" height="80%" >
 
-    - Once finished, you can see the status of Disk 1 is now, Offline.
+- Once finished, you can see the status of Disk 1 is now, Offline.
 
-        <img src=../graphics/m2/2.3.1.png width="80%" height="80%" >
+    <img src=../graphics/m2/2.3.1.png width="80%" height="80%" >
 
-    <br />
-    <br />
+<br />
+<br />
 
-1. **Clone Windows1Vol1 Snapshot to the Volume attached to Windows2**
+## **Clone Windows1Vol1 Snapshot to the Volume attached to Windows2**
 
-    - Back on **Windows1**, **open the FlashArray Web Interface**, and click on **Storage, Volumes, Windows1Vol1**.
+- [ ] Back on **Windows1**, **open the FlashArray Web Interface**, and click on **Storage, Volumes, Windows1Vol1**.
 
-        <img src=../graphics/m2/2.3.2.png>
+    <img src=../graphics/m2/2.3.2.png>
 
-    - In the **Volumes Snapshots** Panel, find the snapshot you created in the first activity in this module; its name will be **Windows1Vol1.*n***, where n is a number. Click the **vertical ellipsis** and **select Copy**. 
+- [ ] In the **Volumes Snapshots** Panel, find the snapshot you created in the first activity in this module; its name will be **Windows1Vol1.*n***, where n is a number. Click the **vertical ellipsis** and **select Copy**. 
 
-        <img src=../graphics/m2/2.3.3.png width="75%" height="75%" >
+    <img src=../graphics/m2/2.3.3.png width="75%" height="75%" >
 
-    - For the Name, enter **Windows2Vol1**, and move the **Overwrite slider** to the right. **Click Copy.** When the warning appears, click **Overwrite**.
-    
-        <img src=../graphics/m2/2.3.4.png width="75%" height="75%" >
+- [ ] For the Name, enter **Windows2Vol1**, and move the **Overwrite slider** to the right. **Click Copy.** When the warning appears, click **Overwrite**.
 
-    <br />
-    <br />
+    <img src=../graphics/m2/2.3.4.png width="75%" height="75%" >
 
-1. **Online the disk**    
-    - Back on **Window2**, in **Disk Management**, **online Disk 1**.
-    - Open Windows Explorer and browse to `D:\`; you should now see the database files for `TPCC100` from the snapshot of Windows1.
+<br />
+<br />
 
-    <br />
-    <br />
+## **Online the disk**    
+- [ ] Back on **Window2**, in **Disk Management**, **online Disk 1**.
 
-1. **Attach the database**
+- [ ] Open Windows Explorer and browse to `D:\`; you should now see the database files for `TPCC100` from the snapshot of Windows1.
 
-    - Back on **Windows1**, in **SSMS**, connect to **Windows2**.
-    
-        <p align="center">
-            <img src=../graphics/m2/2.3.5.png width="75%" height="75%" >
-        </p>
+<br />
+<br />
 
-    - In SSMS, you can attach the database files from `D:\` with the name `TPCC100`.
+## **Attach the database**
 
-        - Right-click on the Databases folder in the SSMS Object Explorer
+- [ ] Back on **Windows1**, in **SSMS**, connect to **Windows2**.
 
-            <img src=../graphics/m2/2.3.6.png width="40%" height="40%" >
+    <p align="center">
+        <img src=../graphics/m2/2.3.5.png width="75%" height="75%" >
+    </p>
 
-        - Click **Add**
+- In SSMS, you can attach the database files from `D:\` with the name `TPCC100`.
 
-            <img src=../graphics/m2/2.3.7.a.png width="75%" height="75%" >
+    - [ ] Right-click on the Databases folder in the SSMS Object Explorer
 
-        - **Browse** to `D:\SQL`, select `tpcc100.mdf`, and **click OK**.
+        <img src=../graphics/m2/2.3.6.png width="40%" height="40%" >
 
-            <img src=../graphics/m2/2.3.7.png   width="75%" height="75%" >
+    - [ ] Click **Add**
 
-        - **Click OK** to attach the database.
+        <img src=../graphics/m2/2.3.7.a.png width="75%" height="75%" >
 
-            <img src=../graphics/m2/2.3.8.png width="75%" height="75%" >
+    - [ ] **Browse** to `D:\SQL`, select `tpcc100.mdf`, and **click OK**.
 
-        - Finally, **right-click on Databases** in Object Explorer and click **Refresh** to see the newly attached database in the list.
+        <img src=../graphics/m2/2.3.7.png   width="75%" height="75%" >
 
-            <img src=../graphics/m2/2.3.9.png width="40%" height="40%" >
+    - [ ] **Click OK** to attach the database.
+
+        <img src=../graphics/m2/2.3.8.png width="75%" height="75%" >
+
+    - [ ] Finally, **right-click on Databases** in Object Explorer and click **Refresh** to see the newly attached database in the list.
+
+        <img src=../graphics/m2/2.3.9.png width="40%" height="40%" >
 
 In this demo, you copied, nearly instantaneously, a 10GB database between two instances of SQL Server. This snapshot does not take up any additional space in the array since the shared blocks between the volumes will be data reduced and any changed blocks are reported a Snapshot space in the FlashArray Web Interface Dasbhboard on on the Array Capacity panel.
 
