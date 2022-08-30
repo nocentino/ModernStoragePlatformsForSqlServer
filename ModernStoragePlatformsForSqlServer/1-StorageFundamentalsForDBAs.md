@@ -7,6 +7,27 @@
 
 In this module, you will log into the administrative desktop to perform all of the activities in this course and learn the core administrative tools for monitoring the performance of storage platforms. 
 
+There are five activities in this module
+- [Logging into the lab](#11---logging-into-the-lab)
+- [Log in to FlashArray Web Interface](#12---log-into-flasharray-web-interface)
+- [Start up a database workload](#13---start-up-a-database-workload)
+- [Viewing Performance Metrics in FlashArray](#14---viewing-performance-metrics-in-flasharray)
+- [Viewing Additional Performance Metrics (Optional)](#15---viewing-additional-performance-metrics-optional)
+
+<br />
+<br />
+
+# Lab Information
+
+Your hands-on lab consists of two Windows Servers, each with SQL Server installed with the Polybase feature. Also in your lab is a FlashArray for the primary block storage device and storage subsystem for SQL Server instances. There is also a FlashBlade, for use as the primary external object storage device used by SQL Server
+
+| Resource      | Description |
+| -----------   | ----------- |
+| **Windows1**  | **Primary administrator desktop and SQL Server Instance** |
+| Windows2      | SQL Server Instance |
+| FlashArray1   | Primary block storage device and storage subsystem for SQL Server instances |
+| FlashBlade1   | Primary external object storage used by SQL Server |
+
 <br />
 <br />
 
@@ -30,19 +51,6 @@ TODO: Add a screenshot of the actual lab interface
 <br />
 <br />
 
-# Lab Information
-
-Your hands on lab consistes of two Windows Servers each with SQL Server installed, and the Polybase feature installed. Also in your lab is a FlashArray for use the primary block storage device and storage subsystem for SQL Server instances. There is also a FlashBlade, for use as the primary external object storage device used by SQL Server
-
-| Resource      | Description |
-| -----------   | ----------- |
-| **Windows1**  | **Primary administrator desktop and SQL Server Instance** |
-| Windows2      | SQL Server Instance |
-| FlashArray1   | Primary block storage device and storage subsystem for SQL Server instances |
-| FlashBlade1   | Primary external object storage used by SQL Server |
-
-<br />
-<br />
 
 # 1.2 - Log into FlashArray Web Interface
 In this activity, you will log into the FlashArray web interface. The web interface is where you can configure and monitor your FlashArray. 
@@ -73,7 +81,7 @@ Now that you've logged into FlashArray's Web Interface let's kick off a workload
 
 # 1.3 - Start up a database workload
 
-So far, those performance charts above are pretty boring. Let's start up a database workload on Windows1 so you can look at the various performance metrics on the dashboard. 
+So far, those performance charts above are pretty dull. Let's start up a database workload on Windows1 so you can look at the various performance metrics on the dashboard. 
 
 ## **Launch SQL Server Management Studio (SSMS)** 
 
@@ -99,7 +107,7 @@ So far, those performance charts above are pretty boring. Let's start up a datab
     GO
     ```
 
-- [ ] Open another query window, let's start a write workload. Click **New Query** once more and paste the following code into the window and click **Execute**.
+- [ ] Open another query window and let's start a write workload. Click **New Query** once more and paste the following code into the window and click **Execute**.
 
     ```
     USE [TPCC100];
@@ -120,7 +128,7 @@ So far, those performance charts above are pretty boring. Let's start up a datab
     END
     ```
 
-Leave these workloads running as we'll need the workloads to generate performance data in the remainder of this module. If the workload stops before you complete the activities below, head back into SSMS and click **Execute** again.
+Leave these workloads running, as we'll need the workloads to generate performance data in the remainder of this module. If the workload stops before you complete the activities below, head back into SSMS and click **Execute** again.
 
 <br />
 <br />
@@ -129,11 +137,11 @@ Leave these workloads running as we'll need the workloads to generate performanc
 
 ## **Examining Performance Metrics in the FlashArray Web Interface Dashboard**
 
-Now that we have a workload running let's examine some key performance metrics displayed on the FlashArray Array Performance Dashboard.
+Now that we have a workload running, let's examine some key performance metrics displayed on the FlashArray Array Performance Dashboard.
 
-- [ ] Open the FlashArray web interface again. On main dashboard, the **Array Performance** panel shows the current **Latency**, **IOPS**, and **Bandwidth** metrics for the array. 
+- [ ] Open the FlashArray web interface again. On the main dashboard, the **Array Performance** panel shows the current **Latency**, **IOPS**, and **Bandwidth** metrics for the array. 
 
-- [ ] **Examine** each of the performance metrics in the Array Performance Panel. The metrics reported on the chart show the latests values sampled. To see values from pervious points in time,
+- [ ] **Examine** each of the performance metrics in the Array Performance Panel. The metrics reported on the chart show the latest values sampled. To see values from previous points in time,
     
     - [ ] **Hover** your mouse over the charts and the values in the fields on the upper right of each chart will be updated with the values at that time interval.
 
@@ -170,15 +178,15 @@ Now that we have a workload running let's examine some key performance metrics d
 
 The Array Performance Dashboard is excellent for a glance at the health of the array. Now let's take a deeper dive into the performance metrics exposed. The Performance Dashboard is a great place to go when you need to understand the workload running on the array. Latency, IOPS, and Bandwidth are all broken down very granularly so that you can identify performance issues if they arise.
 
-- [ ] Navigate to the **Performance page**. In the left menu bar, under **Analysis**, click **Performance** and change the time range dropdown to **5 minutes**. On this page, you have a high-level overview of the key performance metrics for FlashArray, **Latency**, **IOPS**, and **Bandwidth**. 
+- [ ] Navigate to the **Performance page**. In the left menu bar, under **Analysis**, click **Performance** and change the time range dropdown to **5 minutes**. This page gives you a high-level overview of the key performance metrics for FlashArray, **Latency**, **IOPS**, and **Bandwidth**. 
 
-- [ ] Move your mouse over the charts to get metrics split by the IO type, Read, Write and Mirrored Write. Mirrored Write is a special consideration when using array-based replication.
+- [ ] Move your mouse over the charts to get metrics split by the IO type, Read, Write, and Mirrored Write. Mirrored Write is a special consideration when using array-based replication.
 
     <img src=../graphics/m1/1.4.1.0.png>
 
 ### **Examining one type of IO, Read IO**
 
-- [ ] To examine one type of IO such as **Read, uncheck the Write** and **Mirrored Write** checkboxes above the charts. 
+- [ ] To examine one type of IO, such as **Read, uncheck the Write** and **Mirrored Write** checkboxes above the charts. 
     
 - [ ] Then, take your **mouse and hover over a point in the chart** to examine deeper dive values. You should see output similar to the screenshot below.
 
@@ -202,7 +210,7 @@ The Array Performance Dashboard is excellent for a glance at the health of the a
         - **Queue Time** - Average time, measured in microseconds, that an IO request spends in the array waiting to be served. 
         - **Read Latency** - Average arrival-to-completion time, measured in milliseconds, for a read operation.
         - **Write Latency** - Average arrival-to-completion time, measured in milliseconds, for a write operation.
-        - **Total** - The total amount of latency across all types, measured in millieseconds.
+        - **Total** - The total amount of latency across all types, measured in milliseconds.
 
     - **IOPS**
         - **Read IOPS** - Number of read requests processed per second.
@@ -220,7 +228,7 @@ The Array Performance Dashboard is excellent for a glance at the health of the a
 
 # 1.5 - Viewing Additional Performance Metrics (Optional)
 
-So far, we've looked at performance from the array's perspective. When troubleshooting a performance, trying to get a fuller picture of what's occurring, you can use the following techniques to get performance metrics from SQL Server DMVs and Windows Performance Monitor. 
+So far, we've looked at performance from the array's perspective. When troubleshooting performance and trying to get a fuller picture of what's occurring, you can use the following techniques to get performance metrics from SQL Server DMVs and Windows Performance Monitor. 
 
 ## **SQL Server Dynamic Management Views (DMVs)**
 
@@ -276,15 +284,15 @@ So far, we've looked at performance from the array's perspective. When troublesh
 
     <img src=../graphics/m1/1.4.2.1.png width="100" height="100" >
 
-- [ ] Examine the critical performance metrics as measured from the operating system level. These are valuable performance metrics especially when used in conjuntion with FlashArray performance metrics which can help you identify latency issue outside of the operating system's control, such as in the storage network or array.
+- [ ] Examine the critical performance metrics as measured from the operating system level. These are valuable performance metrics, especially when used in conjunction with FlashArray performance metrics which can help you identify latency issues outside of the operating system's control, such as in the storage network or array.
 
     - **Latency**
         - Avg. Disk sec/Read - Average arrival-to-completion time, measured in milliseconds, for a read operation.
         - Avg. Disk sec/Write - Average arrival-to-completion time, measured in milliseconds, for a write operation.
 
     - **IO Size**
-        - Avg. Disk Bytes/Read - The average read IO Size measured in Kilobytes.
-        - Avg. Disk Bytes/Write - The average write IO Size measured in Kilobytes.
+        - Avg. Disk Bytes/Read - The average read IO Size is measured in Kilobytes.
+        - Avg. Disk Bytes/Write - The average write IO Size is measured in Kilobytes.
 
     - **IOPS**
         - Disk Reads/sec - Number of read requests processed per second.
@@ -314,5 +322,7 @@ So far, we've looked at performance from the array's perspective. When troublesh
 <br />
 
 # Next Steps
+
+In this module, you learned about the key performance metrics for storage subsystems and how they can impact database performance.
 
 Next, Continue to [Storage based snapshots and SQL Server](./2-StorageSnapshotsForSqlServer.md)

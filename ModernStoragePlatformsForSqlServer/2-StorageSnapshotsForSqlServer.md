@@ -7,33 +7,29 @@
 
 In this module, you will learn how to use array-based volume snapshots to decouple the time it takes to perform DBA operations from the size of the data. You will restore a database, clone a database and present it back to the same SQL Server instance, clone a database and present it to another SQL Server instance, and initialize a SQL Server AlwaysOn Availability Group from a snapshot. 
 
-# Table of Contents
+There are four activities in this module:
 
-2.1 [In-place restore a database from an array-based snapshot](#21---in-place-restore-a-database-from-an-array-based-snapshot)
-
-2.2 [Cloning a snapshot to a new volume and attaching the database](#22---cloning-a-snapshot-to-a-new-volume-and-attaching-the-database)
-
-2.3 [Cloning a database to another instance of SQL Server](#23---cloning-a-database-to-another-instance-of-sql-server)
-
-2.4 [Seeding an Availability Group from an array-based snapshot (Optional)](./2-StorageSnapshotsForSqlServerAgs.md)
-
+* [In place, restore a database from an array-based snapshot](#21---in-place-restore-a-database-from-an-array-based-snapshot)
+* [Cloning a snapshot to a new volume and attaching the database](#22---cloning-a-snapshot-to-a-new-volume-and-attaching-the-database)
+* [Cloning a database to another instance of SQL Server](#23---cloning-a-database-to-another-instance-of-sql-server)
+* [Seeding an Availability Group from an array-based snapshot (Optional)](./2-StorageSnapshotsForSqlServerAgs.md/#24---seeding-an-availability-group-from-an-array-based-snapshot-optional)
 
 <br />
 <br />
-
 
 # Lab Information
 
-In this module, you have two Windows Servers each with SQL Server 2022 RC0 installed. Each server has one 20GB volume attached via iSCSI from FlashArray1. This volume is presented to the operating system as `Disk 1` and is mounted a Drive `D:\`.
+In this module, you have two Windows Servers, each with SQL Server 2022 CTP2.1 installed. Each server has one 20GB volume attached via iSCSI from FlashArray1. This volume is presented to the operating system as `Disk 1` and is mounted as the Drive `D:\`.
 
 | Resource      | FlashArray Volume Name | Windows Disk Number | Windows Drive Letter
-| -----------   | -----------  | ----------- | -----------  |
+| -----------   |  ----  |  :----: |  :----:  |
 | Windows1      | Windows1Vol1 | 1           | D:\          |
 | Windows2      | Windows2Vol1 | 1           | D:\          |
 
 
 <br />
 <br />
+
 
 # 2.1 - In place, restore a database from an array-based snapshot
 
@@ -129,7 +125,9 @@ This reverts the volume's contents to the state captured in the snapshot. Undoin
 
 # 2.2 - Cloning a snapshot to a new volume and attaching the database
 
-But restoring the entire database to recover one missing table seems a little heavy-handed. Let's try another technique to get the database. Let's now clone the snapshot we took in the first activity to a new volume in the server and then attach the database. This way, our primary database can stay online during the recovery process. And since snapshots share the same physical pages inside the array, this operation will not consume any space in the array.
+But restoring the entire database to recover one missing table seems a little heavy-handed. Let's try another technique to restore data from the database. In this activity, you will clone the snapshot we took in the first activity to a new volume. You will then attach the database files from that new volume to a new databases name. This way, our primary database can stay online during the recovery process. 
+
+When you clone a volume and present it to a host, it does not consume space until data starts changing. Then each of the changed blocks is tracked and exposed as a performance metric on the FlashArray Web Interface Dashboard and Array Capacity panel.
 
 ## **Create a New Volume**
 - [ ] Log into the FlashArray Web Interface, and **Click Storage**, **Volumes**.
@@ -150,7 +148,7 @@ But restoring the entire database to recover one missing table seems a little he
 
     <img src=../graphics/m2/2.2.8.png>
 
-- [ ] In the **Volumes Snapshots** Panel, find the snapshot you created in the activity above; its name will be **Windows1Vol1.*n*** where n is a number. **Click the ellipsis** next to that snapshot and **click Copy**.
+- [ ] In the **Volumes Snapshots** Panel, find the snapshot you created in the activity above; its name will be **Windows1Vol1.*n***, where n is a number. **Click the ellipsis** next to that snapshot and **click Copy**.
 
     <img src=../graphics/m2/2.2.9.png  width="75%" height="75%" >
 
@@ -158,7 +156,7 @@ But restoring the entire database to recover one missing table seems a little he
 
     <img src=../graphics/m2/2.2.10.png width="75%" height="75%" >
 
-- [ ] When the warning appears **click Overwrite**. At this point, the contents of Windows1Vol1 are cloned into Window1Vol2. There is now a unique clone of the original volume. The contents of this cloned volume, such as the database files, can be attached to our server.
+- [ ] When the warning appears, **click Overwrite**. At this point, the contents of Windows1Vol1 are cloned into Window1Vol2. There is now a unique clone of the original volume. The contents of this cloned volume, such as the database files, can be attached to our server.
 
     <img src=../graphics/m2/2.2.11.png width="75%" height="75%" >
 
@@ -170,9 +168,11 @@ But restoring the entire database to recover one missing table seems a little he
 
     <img src=../graphics/m2/2.2.3.png>
 
-- [ ] In the **Conntected Hosts** Panel, **click the elipsis**, and in the **Available Hosts** column, **select windows1**, and **click Connect**.
+- [ ] In the **Connected Hosts** Panel, **click the elipsis**, and click **Connect**.
 
     <img src=../graphics/m2/2.2.4.png width="75%" height="75%" >
+
+- [ ] Then in the **Available Hosts** column, **select windows1**, and **click Connect**.
     <img src=../graphics/m2/2.2.5.png width="75%" height="75%" >
 
 <br />
@@ -190,7 +190,7 @@ But restoring the entire database to recover one missing table seems a little he
 
         <img src=../graphics/m2/2.2.12.png   width="75%" height="75%" >
 
-- [ ] Open Windows explorer and browse to `E:\`. You should see a copy of the `D:\` volume and its contents. In this case, it's our database and log files, which we can now attach as a unique database in our SQL Instance.
+- [ ] Open Windows explorer and browse to `E:\`. You should see a copy of the contents from the `D:\` volume. In this case, it's our database and log files, which we can now attach as a unique database in our SQL Instance.
 
     <img src=../graphics/m2/2.2.13.png width="75%" height="75%" >
 
@@ -198,7 +198,7 @@ But restoring the entire database to recover one missing table seems a little he
 <br />
 
 ## **Attach the database**
-- In SSMS, you can now attach the databases, change the name to `TPCC100_RESTORE`.
+- In SSMS, you can now attach the databases and change the name to `TPCC100_RESTORE`.
 
     - [ ] Right-click on the Databases folder in the SSMS Object Explorer
         
@@ -225,15 +225,15 @@ But restoring the entire database to recover one missing table seems a little he
 
 ## Activity Summary
 
-At this point, you have the original database `TPCC100` on the D:\ drive with the missing `customer` table, and you have a clone of the original snapshot we took before we deleted the customer table. You can now use any method you copy the customer table from `TPCC100_RESTORE` back into the original database `TPCC100`, and you can do this without taking the database offline.
+You now have the original database `TPCC100` on the D:\ drive with the missing `customer` table. You did not have to take this database offline for this operation. You also have a clone of the original snapshot we took before we deleted the customer table in the `TPCC100_RESTORE` attached database. You can now use any method you copy the customer table from `TPCC100_RESTORE` back into the original  `TPCC100` database, and you can do this without taking the database offline.
 
 <br />
 <br />
 
 # 2.3 - Cloning a database to another instance of SQL Server
-In this activity, you will clone volume from **Windows1** to **Windows2**. You will then attach the `TPCC100` database on the target instance, **Windows2**. Saving the need to back up and restore the database. Since this operation is inside the array, it happens nearly instantaneously. 
+You will clone volume from **Windows1** to **Windows2**in this activity. You will then attach the contents of that cloned volume, the `TPCC100` database, on the target instance, **Windows2**. Saving the need to back up and restore the database. Since this operation is inside the array, it happens nearly instantaneously. 
 
-When you clone a volume and present it to another host. It does not consume space until data starts changing. Then each of the changed blocks are tracked and exposed as a peformance metric on the FlashArray Web Interface Dashboard and Array Capacity panel.
+When you clone a volume and present it to another host, it does not consume space until data starts changing. Then each of the changed blocks is tracked and exposed as a performance metric on the FlashArray Web Interface Dashboard and Array Capacity panel.
 
 ## **Offline the Disk on Windows2**
 
@@ -308,7 +308,7 @@ When you clone a volume and present it to another host. It does not consume spac
 
 ## Activity Summary
 
-In this demo, you copied, nearly instantaneously, a 10GB database between two instances of SQL Server. This snapshot does not take up any additional space in the array since the shared blocks between the volumes will be data reduced and any changed blocks are reported a Snapshot space in the FlashArray Web Interface Dasbhboard on on the Array Capacity panel.
+In this demo, you copied, nearly instantaneously, a 10GB database between two instances of SQL Server. This snapshot does not take up any additional space in the array since the shared blocks between the volumes will be data reduced. Any changed blocks are reported as Snapshot space in the FlashArray Web Interface Dashboard on the Array Capacity panel.
 
 <br />
 <br />
