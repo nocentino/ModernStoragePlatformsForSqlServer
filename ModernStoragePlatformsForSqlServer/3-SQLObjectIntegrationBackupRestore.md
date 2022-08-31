@@ -89,7 +89,7 @@ With everything ready to go, a bucket created, permissions set, and a credential
         WITH COMPRESSION, STATS = 10, FORMAT, INIT
     ```
 
-## Working with "larger" Backup Files
+## **Working with "larger" Backup Files**
 
 In s3 object storage, a file is broken up into as many as 10,000 parts. In SQL Server, the each part's size is based on the parameter `MAXTRANSFERSIZE` since this is the size of the write operation performed into the backup file. The default used for backups to s3 compatible storage is 10MB. So 10,000 * 10MB means the largest file size for a single file is about 100GB. And for many databases, that's just not big enough. So what can you do...first you can use compression. That will get more of your data into a single file.  
 
@@ -97,7 +97,7 @@ If you exceed the maximum file size, here's the error that you'll get:
 
 ```
 Msg 3202, Level 16, State 1, Line 78
-Write on 's3://s3.example.com:9000/sqlbackups/TestDB1.bak' failed: 1117(The request could not be performed because of an I/O device error.)
+Write on 's3://FlashBlade1/sqlbackups/sqlbackups/TestDB1.bak' failed: 1117(The request could not be performed because of an I/O device error.)
 Msg 3013, Level 16, State 1, Line 78
 BACKUP DATABASE is terminating abnormally.
 ```
@@ -108,8 +108,8 @@ The third knob you have to turn to help with larger backup sets is to increase t
 
 ```
 BACKUP DATABASE TestDB1 
-TO URL = 's3://s3.example.com:9000/sqlbackups/TestDB1_1.bak' ,
-   URL = 's3://s3.example.com:9000/sqlbackups/TestDB1_2.bak' 
+TO URL = 's3://FlashBlade1/sqlbackups/sqlbackups/TestDB1_1.bak' ,
+   URL = 's3://FlashBlade1/sqlbackups/sqlbackups/TestDB1_2.bak' 
 WITH COMPRESSION, MAXTRANSFERSIZE = 20971520
 ```
 
@@ -134,7 +134,7 @@ You can now backup to object storage from SQL Server. You don't have backups unl
 - [ ] Confirm that TestDB2 is restored. On the desktop of Windows1, in SSMS, in the Object Explorer, right-click and select Refresh to update the listing of databases.
 
 ## Activity Summary
-in this module, you set up the s3 object integration on SQL Server 2022 and used it to perform a backup and restore from a FlashBlade.
+In this module, you set up the s3 object integration on SQL Server 2022 and used it to perform a backup and restore from a FlashBlade.
 
 <br />
 <br />
