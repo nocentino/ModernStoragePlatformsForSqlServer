@@ -100,7 +100,7 @@ Create your `EXTERNAL DATA SOURCE` on your s3 compatible object storage, referen
     ```
     CREATE EXTERNAL DATA SOURCE s3_ds
     WITH
-    (    LOCATION = 's3://s3.example.com:9000/'
+    (    LOCATION = 's3://FlashBlade1/'
     ,    CREDENTIAL = s3_dc
     )
     ```
