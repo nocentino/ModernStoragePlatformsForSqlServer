@@ -309,7 +309,7 @@ So far, we've looked at performance from the array's perspective. When troublesh
 
 # 1.6 Lab Cleanup
 
-- [ ] Terminate the query running from [activity 1.3](#13---start-up-a-database-workload) by clicking the Stop icon in the SSMS toolbar.
+- [ ] Terminate the query running from [activity 1.3](#13---starting-up-a-database-workload) by clicking the Stop icon in the SSMS toolbar.
 
 <br />
 <br />
