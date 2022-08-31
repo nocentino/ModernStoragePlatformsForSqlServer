@@ -109,7 +109,7 @@ Create your `EXTERNAL DATA SOURCE` on your s3 compatible object storage, referen
 
 You can access data in the s3 bucket and for a simple test, let's start with CSV. This should output `Hello World!`. The structure of the data depends upon the datastore used. Since this is a CSV, we have to define its structure. Here's we're using a simple one column CSV for an example using ` WITH ( c1 varchar(50) )`.
 
-*-[ ] Execute this code on **Windows1** to query your CSV file using Polybase over s3.
+-[ ] Execute this code on **Windows1** to query your CSV file using Polybase over s3.
 
     ```
     SELECT  * 
