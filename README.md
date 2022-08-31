@@ -10,7 +10,7 @@
 
 # About this Workshop
 
-Welcome to this Microsoft solutions workshop on Modern Storage Platforms for SQL Server. In this workshop you will learn how to make the most of a modern storage platform for SQL Server. You will learn storage fundamentals, how to leverage snapshots enabling you to dramatically reduce the time it takes data to move between SQL Server instances. We’ll then dive into modern storage architectures with using s3 object storage for backup, restore and data virtualization. 
+Welcome to this Microsoft solutions workshop on Modern Storage Platforms for SQL Server. In this workshop you will learn how to make the most of a modern storage platform for SQL Server. You will learn storage fundamentals and how to leverage snapshots enabling you to dramatically reduce the time it takes data to move between SQL Server instances. We’ll then dive into modern storage architectures with using s3 object storage for backup, restore and data virtualization. 
 
 The focus of this workshop is to understand where storage lives in your data platform and learn how to use modern storage techniques to reduce the overhead and complexity of managing data in your enviroment.
 
@@ -30,7 +30,7 @@ The goal of this workshop is to train data professionals the basic of storage in
 
 The concepts and skills taught in this workshop form the starting points for:
 
-- Technical professionals tasked with managed data and databases
+- Technical professionals tasked with managing data and databases
 - Data professionals tasked with complete or partial responsibility for database management and availability
 
 <br />
