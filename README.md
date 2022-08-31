@@ -16,8 +16,6 @@ The focus of this workshop is to understand where storage lives in your data pla
 
 You'll start by logging into a virtual lab enviroment using your own laptop, then work through a module covering storage fundamentals, leveraging sanpshots to reduce time it takes to manage your databases, and how use use s3 object storage for backup, restore and data virtualization. 
 
-This [github README.MD file](https://lab.github.com/githubtraining/introduction-to-github) explains how the workshop is laid out, what you will learn, and the technologies you will use in this solution. To download this Lab to your local computer, click the **Clone or Download** button you see at the top right side of this page. [More about that process is here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository). 
-
 # Learning Objectives
 
 The goal of this workshop is to train data professionals on the basics of storage infrastructure and how to use storage subsystems to manage data.
