@@ -9,8 +9,8 @@ In this module, you will log into the administrative desktop to perform all of t
 
 There are five activities in this module
 - [Logging into the lab](#11---logging-into-the-lab)
-- [Log in to FlashArray Web Interface](#12---log-into-flasharray-web-interface)
-- [Start up a database workload](#13---start-up-a-database-workload)
+- [Logging into the FlashArray Web Interface](#12---logging-into-the-flasharray-web-interface)
+- [Starting up a database workload](#13---starting-up-a-database-workload)
 - [Viewing Performance Metrics in FlashArray](#14---viewing-performance-metrics-in-flasharray)
 - [Viewing Additional Performance Metrics (Optional)](#15---viewing-additional-performance-metrics-optional)
 
@@ -19,7 +19,7 @@ There are five activities in this module
 
 # Lab Information
 
-Your hands-on lab consists of two Windows Servers, each with SQL Server installed with the Polybase feature. Also in your lab is a FlashArray for the primary block storage device and storage subsystem for SQL Server instances. There is also a FlashBlade, for use as the primary external object storage device used by SQL Server
+Your hands-on lab consists of two Windows Servers, each with SQL Server installed with the Polybase feature. Also in your lab is a FlashArray for the primary block storage device and storage subsystem for SQL Server instances. There is also a FlashBlade, for use as the primary external object storage device used by SQL Server.
 
 | Resource      | Description |
 | -----------   | ----------- |
@@ -52,11 +52,11 @@ TODO: Add a screenshot of the actual lab interface
 <br />
 
 
-# 1.2 - Log into FlashArray Web Interface
+# 1.2 - Logging into the FlashArray Web Interface
 In this activity, you will log into the FlashArray web interface. The web interface is where you can configure and monitor your FlashArray. 
 
 - [ ] **Click on the Google Chrome for FlashArray1 icon on the desktop**
-    
+
     - This will open to https://flasharray1.testdrive.local
    
         <img src=../graphics/m1/1.2.1.png width="100" height="100" >
@@ -74,12 +74,12 @@ In this activity, you will log into the FlashArray web interface. The web interf
 
         <img src=../graphics/m1/1.2.3.png>
 
-Now that you've logged into FlashArray's Web Interface let's kick off a workload so we can dive into some of the performance metrics available.
+Now that you've logged into FlashArray's Web Interface, let's kick off a workload so we can dive into some of the performance metrics available.
 
 <br />
 <br />
 
-# 1.3 - Start up a database workload
+# 1.3 - Starting up a database workload
 
 So far, those performance charts above are pretty dull. Let's start up a database workload on Windows1 so you can look at the various performance metrics on the dashboard. 
 
@@ -143,7 +143,7 @@ Now that we have a workload running, let's examine some key performance metrics 
 
 - [ ] **Examine** each of the performance metrics in the Array Performance Panel. The metrics reported on the chart show the latest values sampled. To see values from previous points in time,
     
-    - [ ] **Hover** your mouse over the charts and the values in the fields on the upper right of each chart will be updated with the values at that time interval.
+    - [ ] **Hover** your mouse over the charts. The values in the fields on the upper right of each chart will be updated with the values at that time interval.
 
         <img src=../graphics/m1/1.2.3-perf.png>
 
@@ -157,14 +157,14 @@ Now that we have a workload running, let's examine some key performance metrics 
 
         <br />
 
-        - **IOPS** - The IOPS (Input/output Operations Per Second) chart displays IO requests processed per second by the array. This metric counts requests per second, regardless of how much or how little data is transferred in each.
+        - **IOPS** - The IOPS (Input/output Operations Per Second) chart displays IO requests processed per second by the array. This metric counts requests per second, regardless of how much or how little data is transferred in each IO request.
 
             - **(R) - Read IOPS** - Number of read requests processed per second.
             - **(W) - Write IOPS** - Number of write requests processed per second.
 
         <br />
 
-        - **Bandwidth** - The Bandwidth chart displays the number of bytes transferred per second to and from all file systems. The data is counted in its expanded form rather than the reduced form stored in the array to reflect what is transferred over the storage network. 
+        - **Bandwidth** - The Bandwidth chart displays the number of bytes transferred per second to and from all file systems. The data is counted in its expanded, uncompressed form rather than the reduced, compressed form that is stored in the array, to reflect what is transferred over the storage network. 
 
             - **(R) - Read Bandwidth** - Number of bytes read per second.
             - **(W) - Write Bandwidth** - Number of bytes written per second.
@@ -176,9 +176,9 @@ Now that we have a workload running, let's examine some key performance metrics 
 
 ## **FlashArray Performance Metrics, a Closer Look**
 
-The Array Performance Dashboard is excellent for a glance at the health of the array. Now let's take a deeper dive into the performance metrics exposed. The Performance Dashboard is a great place to go when you need to understand the workload running on the array. Latency, IOPS, and Bandwidth are all broken down very granularly so that you can identify performance issues if they arise.
+The Array Performance Dashboard is excellent for a quick overview of the health of the array. Now let's take a deeper dive into the performance metrics exposed. The Performance Dashboard is a great place to go when you need to understand the workload running on the array. Latency, IOPS, and Bandwidth are all broken down more granularly so that you can identify performance issues if they arise.
 
-- [ ] Navigate to the **Performance page**. In the left menu bar, under **Analysis**, click **Performance** and change the time range dropdown to **5 minutes**. This page gives you a high-level overview of the key performance metrics for FlashArray, **Latency**, **IOPS**, and **Bandwidth**. 
+- [ ] Navigate to the **Performance page**. In the left menu bar, under **Analysis**, click **Performance** and change the time range dropdown to **5 minutes**. This page gives you a high-level overview of the key performance metrics for the FlashArray's **Latency**, **IOPS**, and **Bandwidth**. 
 
 - [ ] Move your mouse over the charts to get metrics split by the IO type, Read, Write, and Mirrored Write. Mirrored Write is a special consideration when using array-based replication.
 
@@ -205,7 +205,7 @@ The Array Performance Dashboard is excellent for a glance at the health of the a
     Here are the definitions of each of the performance metrics reported on the Array Performance Analysis Panel
 
     - **Latency**
-        - **SAN Time** - Time required transferring data between initiator and purity target. 
+        - **SAN Time** - Time required transferring data between initiator and FlashArray 
         - **QoS Rate Limit Time** - Average time, measured in microseconds, that an IO request spends waiting on user-defined QoS Policies
         - **Queue Time** - Average time, measured in microseconds, that an IO request spends in the array waiting to be served. 
         - **Read Latency** - Average arrival-to-completion time, measured in milliseconds, for a read operation.
@@ -220,7 +220,7 @@ The Array Performance Dashboard is excellent for a glance at the health of the a
 
     - **Bandwidth**
         - **Read Bandwidth** - Amount of data read per second. Unit of measure will scale (KB/s, MB/s, GB/s)
-        - **Write Bandwidth**- Amount of data written per second. Unit of measure will scale (KB/s, MB/s, GB/s)
+        - **Write Bandwidth** - Amount of data written per second. Unit of measure will scale (KB/s, MB/s, GB/s)
 
 <br />
 <br />
@@ -284,15 +284,15 @@ So far, we've looked at performance from the array's perspective. When troublesh
 
     <img src=../graphics/m1/1.4.2.1.png width="100" height="100" >
 
-- [ ] Examine the critical performance metrics as measured from the operating system level. These are valuable performance metrics, especially when used in conjunction with FlashArray performance metrics which can help you identify latency issues outside of the operating system's control, such as in the storage network or array.
+- [ ] Examine the critical performance metrics as measured from the operating system level. These are valuable performance metrics, especially when used in conjunction with FlashArray performance metrics, which can help you identify latency issues outside of the operating system's control, such as in the storage network or array.
 
     - **Latency**
         - Avg. Disk sec/Read - Average arrival-to-completion time, measured in milliseconds, for a read operation.
         - Avg. Disk sec/Write - Average arrival-to-completion time, measured in milliseconds, for a write operation.
 
     - **IO Size**
-        - Avg. Disk Bytes/Read - The average read IO Size is measured in Kilobytes.
-        - Avg. Disk Bytes/Write - The average write IO Size is measured in Kilobytes.
+        - Avg. Disk Bytes/Read - The average read IO Size measured in Kilobytes.
+        - Avg. Disk Bytes/Write - The average write IO Size measured in Kilobytes.
 
     - **IOPS**
         - Disk Reads/sec - Number of read requests processed per second.
