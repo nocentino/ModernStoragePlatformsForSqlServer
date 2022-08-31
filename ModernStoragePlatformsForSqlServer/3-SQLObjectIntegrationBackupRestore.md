@@ -89,6 +89,29 @@ With everything ready to go, a bucket created, permissions set, and a credential
         WITH COMPRESSION, STATS = 10, FORMAT, INIT
     ```
 
+<br />
+<br />
+
+# 3.3 - Restoring databases from S3 compatible object storage
+
+You can now backup to object storage from SQL Server. You don't have backups unless you can restore from backup. So let's do just that: restore our database to Windows2. We will restore the backup to a new databases name
+
+## **Restoring a Backup**
+
+- [ ] On the desktop of **Windows1**, in SSMS, open a **New Query window**. Connect to the SQL Instance on **WINDOWS1** and restore a database with this code.
+
+    ```
+    RESTORE DATABASE TestDB2
+        FROM URL = 's3://FlashBlade1/sqlbackups/TestDB1.bak' 
+        WITH STATS = 10
+    ```
+
+- [ ] Confirm that TestDB2 is restored. On the desktop of Windows1, in SSMS, in the Object Explorer, right-click and select Refresh to update the listing of databases.
+
+<br />
+<br />
+
+
 ## **Working with "larger" Backup Files**
 
 In s3 object storage, a file is broken up into as many as 10,000 parts. In SQL Server, the each part's size is based on the parameter `MAXTRANSFERSIZE` since this is the size of the write operation performed into the backup file. The default used for backups to s3 compatible storage is 10MB. So 10,000 * 10MB means the largest file size for a single file is about 100GB. And for many databases, that's just not big enough. So what can you do...first you can use compression. That will get more of your data into a single file.  
@@ -113,24 +136,6 @@ TO URL = 's3://FlashBlade1/sqlbackups/sqlbackups/TestDB1_1.bak' ,
 WITH COMPRESSION, MAXTRANSFERSIZE = 20971520
 ```
 
-<br />
-<br />
-
-# 3.3 - Restoring databases from S3 compatible object storage
-
-You can now backup to object storage from SQL Server. You don't have backups unless you can restore from backup. So let's do just that: restore our database to Windows2. We will restore the backup to a new databases name
-
-## **Restoring a Backup**
-
-- [ ] On the desktop of **Windows1**, in SSMS, open a **New Query window**. Connect to the SQL Instance on **WINDOWS1** and restore a database with this code.
-
-    ```
-    RESTORE DATABASE TestDB2
-        FROM URL = 's3://FlashBlade1/sqlbackups/TestDB1.bak' 
-        WITH STATS = 10
-    ```
-
-- [ ] Confirm that TestDB2 is restored. On the desktop of Windows1, in SSMS, in the Object Explorer, right-click and select Refresh to update the listing of databases.
 
 ## Activity Summary
 In this module, you set up the s3 object integration on SQL Server 2022 and used it to perform a backup and restore from a FlashBlade.
