@@ -89,6 +89,31 @@ With everything ready to go, a bucket created, permissions set, and a credential
         WITH COMPRESSION, STATS = 10, FORMAT, INIT
     ```
 
+## Working with "larger" Backup Files
+
+In s3 object storage, a file is broken up into as many as 10,000 parts. In SQL Server, the each part's size is based on the parameter `MAXTRANSFERSIZE` since this is the size of the write operation performed into the backup file. The default used for backups to s3 compatible storage is 10MB. So 10,000 * 10MB means the largest file size for a single file is about 100GB. And for many databases, that's just not big enough. So what can you do...first you can use compression. That will get more of your data into a single file.  
+
+If you exceed the maximum file size, here's the error that you'll get:
+
+```
+Msg 3202, Level 16, State 1, Line 78
+Write on 's3://s3.example.com:9000/sqlbackups/TestDB1.bak' failed: 1117(The request could not be performed because of an I/O device error.)
+Msg 3013, Level 16, State 1, Line 78
+BACKUP DATABASE is terminating abnormally.
+```
+
+Second, you can increase `MAXTRANSFERSIZE`; the default is 10MB. Valid values are 5MB to 20MB. So if you max out `MAXTRANSFERSIZE`, your single file maximum size is just under 200GB.
+
+The third knob you have to turn to help with larger backup sets is to increase the number of backup files by adding more URLs to the backup command. Each file has 10,000 parts * `MAXTRANSFERSIZE` * the number of URLs. So in the example below, each file can be up to 200GB, and there are two files. So we can have about 400GB of backup files. The maximum number of files is 64, so the largest single backup set you can have is just over 12TB. But remember, you can also use compression. So you can have a database of greater than 12TB in size in a backup set. One note to add here is using `MAXTRANSFERSIZE` requires that `COMPRESSION` be enabled for the backup. 
+
+```
+BACKUP DATABASE TestDB1 
+TO URL = 's3://s3.example.com:9000/sqlbackups/TestDB1_1.bak' ,
+   URL = 's3://s3.example.com:9000/sqlbackups/TestDB1_2.bak' 
+WITH COMPRESSION, MAXTRANSFERSIZE = 20971520
+```
+
+
 <br />
 <br />
 
