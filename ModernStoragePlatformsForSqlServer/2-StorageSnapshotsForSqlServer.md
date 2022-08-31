@@ -9,7 +9,7 @@ In this module, you will learn how to use array-based volume snapshots to decoup
 
 There are four activities in this module:
 
-* [In place, restore a database from an array-based snapshot](#21---in-place-restore-a-database-from-an-array-based-snapshot)
+* [Restoring a database, in place, from an array-based snapshot](#21---restoring-a-database-in-placefrom-an-array-based-snapshot)
 * [Cloning a snapshot to a new volume and attaching the database](#22---cloning-a-snapshot-to-a-new-volume-and-attaching-the-database)
 * [Cloning a database to another instance of SQL Server](#23---cloning-a-database-to-another-instance-of-sql-server)
 * [Seeding an Availability Group from an array-based snapshot (Optional)](./2-StorageSnapshotsForSqlServerAgs.md/#24---seeding-an-availability-group-from-an-array-based-snapshot-optional)
@@ -31,7 +31,7 @@ In this module, you have two Windows Servers, each with SQL Server 2022 RC0 inst
 <br />
 
 
-# 2.1 - In place, restore a database from an array-based snapshot
+# 2.1 - Restoring a database, in place, from an array-based snapshot
 
 In this activity, you will take a snapshot of a volume that holds the MDF and LDF for the `TPCC100` database. You will then delete a table and use the snapshot to revert the database to the state before the table deletion. 
 
@@ -52,7 +52,7 @@ In this activity, you will take a snapshot of a volume that holds the MDF and LD
 <br />
 
 ## **Delete a Database Table**
-- [ ] Open **SSMS**, and **browse** to the TPCC100 database, expand tables and delete the `customer` table by **right clicking** on the table and clicking **Delete**. **Click OK** to confirm.
+- [ ] Open **SSMS** and **browse** to the TPCC100 database, expand tables and delete the `customer` table by **right clicking** on the table and clicking **Delete**. **Click OK** to confirm.
 
     <img src=../graphics/m2/2.1.4.png width="50%" height="50%" >
 <br />
@@ -85,7 +85,7 @@ Snapshots are Volume based operations. So to restore a Volume from a snapshot, y
 ## **Restore the Volume to a Previous Snapshot**
 - [ ] **Open the FlashArray Web Interface** and **browse back to the Volume Windows1Vol1**. Click on the **ellipsis** next to the snapshot you took at the start of this activity in the Volume Snapshots panel and **click Restore**. 
 
-This reverts the volume's contents to the state captured in the snapshot. Undoing our 'accidental' table deletion.
+This reverts the volume's contents to the state captured in the snapshot, undoing our 'accidental' table deletion.
 
 <img src=../graphics/m2/2.1.8.png width="75%" height="75%" >
 
@@ -125,9 +125,12 @@ This reverts the volume's contents to the state captured in the snapshot. Undoin
 
 # 2.2 - Cloning a snapshot to a new volume and attaching the database
 
-But restoring the entire database to recover one missing table seems a little heavy-handed. Let's try another technique to restore data from the database. In this activity, you will clone the snapshot we took in the first activity to a new volume. You will then attach the database files from that new volume to a new databases name. This way, our primary database can stay online during the recovery process. 
+Restoring the entire database to recover one missing table is a little heavy-handed. Let's try another snapshot technique to recover data from the database. In this activity, you will clone the snapshot we took in the first activity to a new volume. You will then attach the database files from that new volume to a new databases name. This way, our primary database can stay online during the recovery process. 
 
-When you clone a volume and present it to a host, it does not consume space until data starts changing. Then each of the changed blocks is tracked and exposed as a performance metric on the FlashArray Web Interface Dashboard and Array Capacity panel.
+When you clone a volume and present it to a host, the new volume does not consume space until data starts changing. Then each of the changed blocks are tracked and exposed as a performance metric on the FlashArray Web Interface Dashboard and Array Capacity panel.
+
+## **Repeat '[Delete a Database Table](./2-StorageSnapshotsForSqlServer.md#delete-a-database-table)'**
+
 
 ## **Create a New Volume**
 - [ ] Log into the FlashArray Web Interface, and **Click Storage**, **Volumes**.
