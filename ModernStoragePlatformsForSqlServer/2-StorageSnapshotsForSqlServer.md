@@ -19,7 +19,7 @@ There are four activities in this module:
 
 # Lab Information
 
-In this module, you have two Windows Servers, each with SQL Server 2022 CTP2.1 installed. Each server has one 20GB volume attached via iSCSI from FlashArray1. This volume is presented to the operating system as `Disk 1` and is mounted as the Drive `D:\`.
+In this module, you have two Windows Servers, each with SQL Server 2022 RC0 installed. Each server has one 20GB volume attached via iSCSI from FlashArray1. This volume is presented to the operating system as `Disk 1` and is mounted as the Drive `D:\`.
 
 | Resource      | FlashArray Volume Name | Windows Disk Number | Windows Drive Letter
 | -----------   |  ----  |  :----: |  :----:  |
