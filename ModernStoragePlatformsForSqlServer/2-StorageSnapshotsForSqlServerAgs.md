@@ -127,7 +127,7 @@ The snapshot backup we took in the previous can now be clone to a second volume 
 
 ## **Online Disk 2 on Windows2**
 
-With the contents of the snapshot cloned to **Windows2's **volume, let's online the disk on *Windows2*
+With the contents of the snapshot cloned to **Windows2's** volume, let's online the disk on **Windows2**
 
 - [ ] On **Windows2**, in **Disk Management**, **online Disk 2**
 
@@ -221,7 +221,7 @@ Now that the databases on both replicas are initialized to the proper state, you
 In this activity, you will check the state of the availability group using the Availability Group Dashboard.
 
 
-- [ ] **In SSMS Object Explorer, right-click on Availability Group** Select **Show Dashboard**and double-click on **AG1**.
+- [ ] **In SSMS Object Explorer, right-click on Availability Group** Select **Show Dashboard** and double-click on **AG1**.
 
     <img src=../graphics/m2/2.4.19.png width="25%" height="25%" >
 
