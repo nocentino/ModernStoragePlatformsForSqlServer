@@ -48,6 +48,7 @@ In SQL Server 2022, Polybase is the feature that allows SQL Server to integrate 
 
         ```
         exec sp_configure @configname = 'polybase enabled', @configvalue = 1;
+        RECONFIGURE;
         ```
 
     - [ ] Confirm if Polybase is in your running config, run_value should be 1
@@ -109,7 +110,7 @@ Create your `EXTERNAL DATA SOURCE` on your s3 compatible object storage, referen
 
 You can access data in the s3 bucket and for a simple test, let's start with CSV. This should output `Hello World!`. The structure of the data depends upon the datastore used. Since this is a CSV, we have to define its structure. Here's we're using a simple one column CSV for an example using ` WITH ( c1 varchar(50) )`.
 
--[ ] Execute this code on **Windows1** to query your CSV file using Polybase over s3.
+- [ ] Execute this code on **Windows1** to query your CSV file using Polybase over s3.
 
     ```
     SELECT  * 
@@ -124,7 +125,7 @@ You can access data in the s3 bucket and for a simple test, let's start with CSV
 ---
 
 ## Activity Summary
-in this activity you used the SQL Server Polybase feature to access external data on object storage using `OPENROWSET`.
+In this activity you used the SQL Server Polybase feature to access external data on object storage using `OPENROWSET`.
 
 
 <br />
@@ -138,7 +139,7 @@ In this activity, `OPENROWSET` is cool for infrequent access, but if you want to
 
 In this step...you will define an external file format.
 
-[ ] Execute this code on **Windows1** to define an `EXTERNAL FILE FORMAT`
+- [ ] Execute this code on **Windows1** to define an `EXTERNAL FILE FORMAT`
 
     ```
     CREATE EXTERNAL FILE FORMAT CSVFileFormat
@@ -154,7 +155,7 @@ In this step...you will define an external file format.
 
 The CSV here is mega simple, just a couple of rows with two columns. When defining the external table where the data lives on our network with `DATA_SOURCE`, the `LOCATION` within that `DATA_SOURCE` and the `FILE_FORMAT`
 
-[ ] Execute this code on **Windows1** to create an `EXTERNAL TABLE`
+- [ ] Execute this code on **Windows1** to create an `EXTERNAL TABLE`
 
     ```
     CREATE EXTERNAL TABLE HelloWorld ( c1 varchar(50) )
@@ -169,17 +170,17 @@ The CSV here is mega simple, just a couple of rows with two columns. When defini
 
 Now we can access the data just like any other table in SQL Server. 
 
-[ ] Execute this code on **Windows1** to query the data in your `EXTERNAL TABLE` using Polybase over s3.
+- [ ] Execute this code on **Windows1** to query the data in your `EXTERNAL TABLE` using Polybase over s3.
 
     ```
-    SELECT * FROM
-    [HelloWorld];
+    SELECT * 
+    FROM [HelloWorld];
     ```
 
 ---
 
 ## Activity Summary
-in this activity, you used the SQL Server Polybase feature to access external data on object storage using `EXTERNAL TABLE`.
+In this activity, you used the SQL Server Polybase feature to access external data on object storage using `EXTERNAL TABLE`.
 
 
 <br />
