@@ -8,7 +8,7 @@
 In this module, you will learn how to use s3 compatible object storage in FlashBlade. You will then configure SQL Server to backup and restore databases to and from s3 compatible object storage on FlashBlade.
 
 There are three activities in this module
-* [Exploring your Flashblade Enviroment](#31---exploring-your-flashblade-environment) 
+* [Exploring your Flashblade Environment](#31---exploring-your-flashblade-environment) 
 * [Backing up databases to S3 compatible object storage](#32---backing-up-databases-to-s3-compatible-object-storage)
 * [Restoring databases from S3 compatible object storage](#33---restoring-databases-from-s3-compatible-object-storage)
 
@@ -38,7 +38,7 @@ In this activity, you will log into the FlashBlade web interface. The web interf
 
 - **Examine the access policy for the bucket**
 
-    This user will need readwrite access to the bucket to perform both backups and restores.
+    This user will need read/write access to the bucket to perform both backups and restores.
 
 - **Find the Access Key ID and Secret Key ID**
 
@@ -62,7 +62,7 @@ First, `CREATE CREDENTIAL [s3://FlashBlade1/sqlbackups]` creates a credential wi
 
 Next, `WITH IDENTITY = 'S3 Access Key'` this string must be set to this value when using s3.
 
-And last, `SECRET = 'anthony:nocentino;` this is the username (Access Key ID) which is currently anthony, and the password (Secret Key ID) is nocentino. Notice that there’s a colon as a delimiter. This means neither the username nor the password can have a colon in their values. So watch out for that.
+And last, `SECRET = 'anthony:nocentino;` this is the username (Access Key ID) which is currently anthony, and the password (Secret Key ID) is nocentino. Notice that there’s a colon as a delimiter. This means neither the username nor the password can have a colon in their values, so watch out for that.
 
 - [ ] On the desktop of **Windows1**, in SSMS, open a **New Query window**. Connect to the SQL Instance on **WINDOWS1** and create a `CREDENTIAL` using this code.
 
@@ -74,7 +74,7 @@ And last, `SECRET = 'anthony:nocentino;` this is the username (Access Key ID) wh
 
 ## **Running a Backup**
 
-With everything ready to go, a bucket created, permissions set, and a credential defined, let’s now go ahead and run a backup to our s3 compatible object storage. Let’s walk through that code. First, we define the database we want to back up with `BACKUP DATABASE TestDB1`. Next, we tell the backup command where to put the backup file with `TO URL = 's3://FlashBlade1/sqlbackups/TestDB1.bak'` Using this, if there’s more than one credential defined, the database engine can find the correct credential to use based on of URLs matching using the most specific match. And to round things off, I’m adding `WITH COMPRESSION` to compress the data written into the backup file(s).
+With everything ready to go, a bucket created, permissions set, and a credential defined, let’s now run a backup to our s3 compatible object storage. First, we define the database we want to back up with `BACKUP DATABASE TestDB1`. Next, we tell the backup command where to put the backup file with `TO URL = 's3://FlashBlade1/sqlbackups/TestDB1.bak'` Using this, if there’s more than one credential defined, the database engine can find the correct credential to use based on of URLs matching using the most specific match. And to round things off, I’m adding `WITH COMPRESSION` to compress the data written into the backup file(s).
 
 - [ ] On the desktop of **Windows1**, in SSMS, open a **New Query window**. Connect to the SQL Instance on **WINDOWS1** and run a backup using the code below.
 
@@ -94,7 +94,7 @@ With everything ready to go, a bucket created, permissions set, and a credential
 
 # 3.3 - Restoring databases from S3 compatible object storage
 
-You can now backup to object storage from SQL Server. You don't have backups unless you can restore from backup. So let's do just that: restore our database to Windows2. We will restore the backup to a new databases name
+You can now backup to object storage from SQL Server. You don't have backups unless you can restore from backup. So let's do just that: restore our database to Windows2. We will restore the backup to a new database name
 
 ## **Restoring a Backup**
 
@@ -114,7 +114,7 @@ You can now backup to object storage from SQL Server. You don't have backups unl
 
 ## **Working with "larger" Backup Files**
 
-In s3 object storage, a file is broken up into as many as 10,000 parts. In SQL Server, the each part's size is based on the parameter `MAXTRANSFERSIZE` since this is the size of the write operation performed into the backup file. The default used for backups to s3 compatible storage is 10MB. So 10,000 * 10MB means the largest file size for a single file is about 100GB. And for many databases, that's just not big enough. So what can you do...first you can use compression. That will get more of your data into a single file.  
+In s3 object storage, a file is broken up into as many as 10,000 parts. In SQL Server, each part's size is based on the parameter `MAXTRANSFERSIZE` since this is the size of the write operation performed into the backup file. The default value used for backups to s3 compatible storage is 10MB. So 10,000 * 10MB means the largest file size for a single file is about 100GB. And for many databases, that's just not big enough. So what can you do? First you can use compression, which will get more of your data into a single file.  
 
 If you exceed the maximum file size, here's the error that you'll get:
 
@@ -127,7 +127,9 @@ BACKUP DATABASE is terminating abnormally.
 
 Second, you can increase `MAXTRANSFERSIZE`; the default is 10MB. Valid values are 5MB to 20MB. So if you max out `MAXTRANSFERSIZE`, your single file maximum size is just under 200GB.
 
-The third knob you have to turn to help with larger backup sets is to increase the number of backup files by adding more URLs to the backup command. Each file has 10,000 parts * `MAXTRANSFERSIZE` * the number of URLs. So in the example below, each file can be up to 200GB, and there are two files. So we can have about 400GB of backup files. The maximum number of files is 64, so the largest single backup set you can have is just over 12TB. But remember, you can also use compression. So you can have a database of greater than 12TB in size in a backup set. One note to add here is using `MAXTRANSFERSIZE` requires that `COMPRESSION` be enabled for the backup. 
+The third knob you have to turn to help with larger backup sets is to increase the number of backup files by adding more URLs to the backup command. Each file has 10,000 parts * `MAXTRANSFERSIZE` * the number of URLs. So in the example below, each file can be up to 200GB, and there are two files. So we can have about 400GB of backup files. The maximum number of files is 64, so the largest single backup set you can have is just over 12TB. But remember, you can also use compression. So you can have a database of greater than 12TB in size in a backup set.
+
+One note to add here is using `MAXTRANSFERSIZE` requires that `COMPRESSION` be enabled for the backup. 
 
 ```
 BACKUP DATABASE TestDB1 
