@@ -32,13 +32,13 @@ In this activity, you will work primarily from the **Windows1** desktop, and it 
 <br />
 
 # 2.4 - Seeding an Availability Group from an array-based snapshot (Optional)
-In this activity, you will build an Availability Group from Snapshot leveraging the FlashArray snapshots and the new [TSQL Based Snapshot Backup](https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/create-a-transact-sql-snapshot-backup?view=sql-server-ver16) functionality in SQL Server 2022.
+In this activity, you will build an Availability Group from Snapshot leveraging FlashArray snapshots and the new [TSQL Based Snapshot Backup](https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/create-a-transact-sql-snapshot-backup?view=sql-server-ver16) functionality in SQL Server 2022.
 
-If you’ve been using Availability Groups, you’re familiar with the process of replica seeding (sometimes called initializing, preparing, or data synchronization). Seeding is a size of data operation, copying data from a primary replica to one or more secondary replicas. This is required before joining a database to an Availability Group. You can seed a replica with backup and restore or automatic seeding, each with their own challenges. Regardless of which method you use, the seeding operation can take an extended amount of time. The time it takes to seed a replica is based on the database's size, network, and storage speed. If you have multiple replicas seeding all of them is N times the fun!
+If you’ve been using Availability Groups, you’re familiar with the process of replica seeding (sometimes called initializing, preparing, or data synchronization). Seeding is a size of data operation, copying data from a primary replica to one or more secondary replicas. This is required before joining a database to an Availability Group. You can seed a replica with backup and restore, or with automatic seeding, each of which present their own challenges. Regardless of which method you use, the seeding operation can take an extended amount of time. The time it takes to seed a replica is based on the database's size, network, and storage speed. If you have multiple replicas, then seeding all of them is N times the fun!
 
-But what if I told you that you could seed your Availability Group from a storage-based snapshot and that the reseeding process can be nearly instantaneous?
+But what if I told you that you could seed your Availability Group replicas from a storage-based snapshot and that the reseeding process can be nearly instantaneous?
 
-In addition to saving you time, this process saves your database systems from the CPU, network, and disk consumption that comes with direct seeding and backups and restores to seed. 
+In addition to saving you time, this process saves your database systems from the CPU, network, and disk consumption that comes with using either automatic seeding or backups and restores to seed. 
 
 So let’s do it…we’re going to snapshot a database on **Windows1**, clone that snapshot to the second instance of SQL Server on **Windows2**, and seed an Availability Group replica from that. 
 
@@ -84,7 +84,7 @@ Next, you will take a TSQL-based snapshot backup of `TPCC100` on **Windows1**. T
 
 ## **Create a Snapshot of the Volume Windows1Vol1**
 
-With the database in `SUSPEND_FOR_SNAPSHOT_BACKUP` mode, you can take a snapshot inside the array. This will be an application consistent snapshot. While we are doing this in the Web Interface, this can be scripted out and the duration of the IO freeze can be minimized. 
+With the database in `SUSPEND_FOR_SNAPSHOT_BACKUP` mode, you can take a snapshot inside the array. This will be an application consistent snapshot. While we are doing this in the Web Interface today, you can script these actions out to minimize the duration of the IO freeze. 
 
 - [ ] In the **FlashArray Web Interface**, click **Storage, Volumes** and select **Windows1Vol1**. In the **Volume Snapshots** Panel, **click the ellipsis** and **select Create**. **Click Create** when prompted.
 
