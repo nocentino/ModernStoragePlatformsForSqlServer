@@ -112,12 +112,12 @@ Once Polybase is installed and configured, you can use it within a user database
 
         Next, `WITH IDENTITY = 'S3 Access Key" this string must be set to this value when using s3.
 
-        And last, `'PASTEACCESSKEYIDHERE:PASTSECRETKEYIDHERE'` this is the username (Access Key ID) and the password (Secret Key ID). You can use the values from the JSON file downloaded in the previous lab. Also, notice that there's a colon as a delimiter. This means neither the username nor the password can have a colon in their values. So watch out for that.
+        And last, `'PASTE_ACCESS_KEY_ID_HERE:PASTE_SECRET_KEY_ID_HERE'` this is the username (Access Key ID) and the password (Secret Key ID). You can use the values from the JSON file downloaded in the previous lab. Also, notice that there's a colon as a delimiter. This means neither the username nor the password can have a colon in their values. So watch out for that.
 
         ```
         CREATE DATABASE SCOPED CREDENTIAL s3_dc 
             WITH IDENTITY = 'S3 Access Key', 
-            SECRET = 'PASTEACCESSKEYIDHERE:PASTSECRETKEYIDHERE';
+            SECRET = 'PASTE_ACCESS_KEY_ID_HERE:PASTE_SECRET_KEY_ID_HERE';
         ```
 
 ## **Create an `EXTERNAL DATA SOURCE`**
