@@ -52,11 +52,11 @@ In this activity, you will log into the FlashBlade web interface. The web interf
     - On the landing page, there is a menu on the left for various configuration elements and a dashboard showing overall capacity, recent alerts, array performance, and health. 
         <img src=../graphics/m3/3.1.3.png>
 
-Now that you've logged into FlashBlade's Web Interface, let's move on and create and retreive the access key and secret access key for a user configured on our FlashBlade. We'll be using this information in our upcoming demos. 
+Now that you've logged into FlashBlade's Web Interface, let's move on and create and retrieve the Access Key ID and Secret Access Key ID for a user pre-configured in our FlashBlade. We'll be using this information in our upcoming demos. 
 
 ## **Examine the s3 Bucket Configuration**
 
-In your lab enviroment, a bucket, a user and an access policy are all created for you. The bucket is named `fbs3bucket`, the user is `fbs3` and the access policy for the user fbs3 is set to full control.  In this section you will create an Access Key ID and a Secret Key ID for the `fbs3` user. Later in the lab you will use that information to allow SQL Server to authenticate to the fbs3bucket.
+In your lab environment, a bucket, a user, and an access policy are all created for you. The bucket is named `fbs3bucket`, the user is `fbs3`, and the access policy for the user fbs3 is set to full control.  In this section you will create an Access Key ID and a Secret Key ID for the `fbs3` user. Later in the lab, you will use that information to allow SQL Server to authenticate to the fbs3bucket.
 
 - **Create the Access Key ID and Secret Key ID**
 
@@ -64,11 +64,11 @@ In your lab enviroment, a bucket, a user and an access policy are all created fo
 
         <img src=../graphics/m3/3.2.1.png>
 
-        On this screen, in the Buckets panel you can see the precreated bucket named `fbs3bucket` and in the Accounts panel you can see the `fbs3` user. **Click on the `fbs3` account**.
+        On this screen, in the Buckets panel, you can see the pre-created bucket named `fbs3bucket` and in the Accounts panel, you can see the `fbs3` user. **Click on the `fbs3` account**.
 
         <img src=../graphics/m3/3.2.2.png>
 
-        On the next screen, in the Users panel click on the user `fbs3\fbs3` 
+        On the next screen, in the Users panel, click on the user `fbs3\fbs3` 
 
         <img src=../graphics/m3/3.2.3.png >
 
@@ -76,12 +76,12 @@ In your lab enviroment, a bucket, a user and an access policy are all created fo
 
         <img src=../graphics/m3/3.2.4.png >
 
-    - [ ] Once you click Create, you are presented with the Access Key ID and an obscured Secret Key ID. Click the button to download the credentials as JSON, and then in the download bar in your browser (on the bottom left), click on the file downloaded. 
+    - [ ] Once you click Create, you are presented with the Access Key ID, and an obscured Secret Key ID. Click the button to download the credentials as JSON, and then in the download bar in your browser (on the bottom left), click on the file downloaded. 
 
         <img src=../graphics/m3/3.2.5.png >
 
     
-    - [ ] Examine this file, this is your Access Key ID, which is used to uniquely identify a user in this case fbs3 and a Secret Key ID which is essentially the password for this user. Hold on to this file we will use it in this lab and in the next lab.
+    - [ ] Examine this file; this is your Access Key ID, which is used to uniquely identify a user, in this case, `fbs3`, and a Secret Key ID, essentially the password for this user. Hold on to this file. We will use it in this lab and the next lab.
 
         <img src=../graphics/m3/3.2.6.png >
 
@@ -117,7 +117,7 @@ And last, `SECRET = 'PASTEACCESSKEYHERE:PASTESECRETKEYHERE;` this is the usernam
 
 ## **Running a Backup**
 
-With everything ready to go, a bucket created, permissions set, and a credential defined, let’s now run a backup to our s3 compatible object storage. First, we define the database we want to back up with `BACKUP DATABASE TestDB1`. Next, we tell the backup command where to put the backup file with `TO URL = 's3://fb1-data.testdrive.local/fbs3bucket/TestDB1.bak'` Using this, if there’s more than one credential defined, the database engine can find the correct credential to use based on of URLs matching using the most specific match. And to round things off, I’m adding `WITH COMPRESSION` to compress the data written into the backup file(s).
+With everything ready to go, a bucket created, permissions set, and a credential defined, let’s now run a backup to our s3-compatible object storage. First, we define the database we want to back up with `BACKUP DATABASE TestDB1`. Next, we tell the backup command where to put the backup file with `TO URL = 's3://fb1-data.testdrive.local/fbs3bucket/TestDB1.bak'` Using this, if there’s more than one credential defined, the database engine can find the correct credential to use based on of URLs matching using the most specific match. And to round things off, I’m adding `WITH COMPRESSION` to compress the data written into the backup file(s).
 
 - [ ] On the desktop of **Windows1**, in SSMS, open a **New Query window**. Connect to the SQL Instance on **WINDOWS1** and run a backup using the code below.
 
