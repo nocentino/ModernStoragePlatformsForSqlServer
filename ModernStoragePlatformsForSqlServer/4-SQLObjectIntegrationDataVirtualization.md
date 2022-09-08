@@ -153,7 +153,7 @@ In this step...you will define an external file format.
 
 ## **Define the table's structure**
 
-The CSV here is mega simple, just a couple of rows with two columns. When defining the external table where the data lives on our network with `DATA_SOURCE`, the `LOCATION` within that `DATA_SOURCE` and the `FILE_FORMAT`
+The CSV here is mega simple, just one column with a couple of rowsw. When defining the external table where the data lives on our network with `DATA_SOURCE`, the `LOCATION` within that `DATA_SOURCE` and the `FILE_FORMAT`
 
 - [ ] Execute this code on **Windows1** to create an `EXTERNAL TABLE`
 
