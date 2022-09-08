@@ -72,7 +72,7 @@ In your lab environment, a bucket, a user, and an access policy are all created 
 
         <img src=../graphics/m3/3.2.3.png >
 
-    - [ ] On the next screen, in the Attached Access Policies, you can see the policy `pure:policy/full-access` is configured for this user. Now, in the Access Keys panel, you can create an Access Key for this user by **clicking on the three elisis and selecting Create.**
+    - [ ] On the next screen, in the Attached Access Policies, you can see the policy `pure:policy/full-access` is configured for this user. Now, in the Access Keys panel, you can create an Access Key for this user by **clicking on the three ellpisis and selecting Create.**
 
         <img src=../graphics/m3/3.2.4.png >
 
@@ -81,7 +81,7 @@ In your lab environment, a bucket, a user, and an access policy are all created 
         <img src=../graphics/m3/3.2.5.png >
 
     
-    - [ ] Examine this file; this is your Access Key ID, which is used to uniquely identify a user, in this case, `fbs3`, and a Secret Key ID, essentially the password for this user. Hold on to this file. We will use it in this lab and the next lab.
+    - [ ] Examine this file; this is your Access Key ID, which is used to uniquely identify a user, in this case, `fbs3`, and a Secret Key ID, essentially the password for this user. **Hold on to this file.** We will use it in this lab and the next lab.
 
         <img src=../graphics/m3/3.2.6.png >
 
@@ -105,7 +105,7 @@ First, `CREATE CREDENTIAL [s3://fb1-data.testdrive.local/fbs3bucket]` creates a 
 
 Next, `WITH IDENTITY = 'S3 Access Key'` this string must be set to this value when using s3.
 
-And last, `SECRET = 'PASTEACCESSKEYHERE:PASTESECRETKEYHERE;` this is the username (Access Key ID) and the password (Secret Key ID). Notice that there’s a colon as a delimiter between the two values. This means neither the username nor the password can have a colon in their values, so watch out for that.
+And last, `SECRET = 'PASTE_ACCESS_KEY_HERE:PASTE_SECRET_KEY_HERE;` this is the username (Access Key ID) and the password (Secret Key ID). Notice that there’s a colon as a delimiter between the two values. This means neither the username nor the password can have a colon in their values, so watch out for that.
 
 - [ ] On the desktop of **Windows1**, in SSMS, open a **New Query window**. Connect to the SQL Instance on **WINDOWS1** and create a `CREDENTIAL` using this code.
 
