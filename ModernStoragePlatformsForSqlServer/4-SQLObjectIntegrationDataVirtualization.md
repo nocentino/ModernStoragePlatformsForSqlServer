@@ -28,8 +28,36 @@ In this module, you will work primarily on **Windows1** SQL Server instance and 
 
 ## 4.1 - Query data on S3 compatible object storage with OPENROWSET
 
-In this activity, you will configure SQL Server to use Polybase to query data stored in s3 compatible object storage.
+In this activity, you will copy data into your s3 bucket, configure SQL Server to use Polybase to query data stored in s3 compatible object storage.
 
+
+## **Copying source data into your S3 bucket on FlashBlade**
+
+In this activity you will copy source data into your FlashBlade. You will use this data as part of the upcoming data virtualization activities below. 
+
+- [ ] On your desktop, open S3 Browser.
+
+    <img src=../graphics/m3/4.1.1.png width="100" height="100" >
+
+- [ ] Next **Click Accounts, then select Add new account...**
+
+    <img src=../graphics/m3/4.1.2.png>
+
+- [ ] Next **Enter the following configuration information**
+    * **Display Name:** `fb1-data`
+    * **Account Type:** S3 Compatible Storage
+    * **REST Endpoint:** `fb1-data.testdrive.local`
+    * **Access Key ID:** Paste in your Access Key ID from the previous lab
+    * **Secret Access Key:** Paste in your Secret Access Key ID from the previous lab
+
+    Once finished, **click Add new account**.   
+
+    <img src=../graphics/m3/4.1.3.png>
+
+- [ ] Next copy the test data into your FlashBlade
+    Open the Data folder on the desktop and drag the file into the S3 browser window on the right hand side.  Once the file appears on the right hand side in the file view it is sucessfully uploaded.
+
+    <img src=../graphics/m3/4.1.4.png>
 
 ## **Configure Polybase in SQL Server instance**
 
@@ -84,12 +112,12 @@ Once Polybase is installed and configured, you can use it within a user database
 
         Next, `WITH IDENTITY = 'S3 Access Key" this string must be set to this value when using s3.
 
-        And last, `SECRET = 'anthony:nocentino;` this is the username (Access Key ID) which is currently anthony, and the password (Secret Key ID) is nocentino. Notice that there's a colon as a delimiter. This means neither the username nor the password can have a colon in their values. So watch out for that.
+        And last, `'PASTEACCESSKEYIDHERE:PASTSECRETKEYIDHERE'` this is the username (Access Key ID) and the password (Secret Key ID). You can use the values from the JSON file downloaded in the previous lab. Also, notice that there's a colon as a delimiter. This means neither the username nor the password can have a colon in their values. So watch out for that.
 
         ```
         CREATE DATABASE SCOPED CREDENTIAL s3_dc 
             WITH IDENTITY = 'S3 Access Key', 
-            SECRET = 'anthony:nocentino' ;
+            SECRET = 'PASTEACCESSKEYIDHERE:PASTSECRETKEYIDHERE';
         ```
 
 ## **Create an `EXTERNAL DATA SOURCE`**
@@ -101,25 +129,25 @@ Create your `EXTERNAL DATA SOURCE` on your s3 compatible object storage, referen
     ```
     CREATE EXTERNAL DATA SOURCE s3_ds
     WITH
-    (    LOCATION = 's3://FlashBlade1/'
+    (    LOCATION = 's3://fb1-data.testdrive.local/'
     ,    CREDENTIAL = s3_dc
     )
     ```
 
 ## **Query data on S3 compatible object storage with `OPENROWSET`**
 
-You can access data in the s3 bucket and for a simple test, let's start with CSV. This should output `Hello World!`. The structure of the data depends upon the datastore used. Since this is a CSV, we have to define its structure. Here's we're using a simple one column CSV for an example using ` WITH ( c1 varchar(50) )`.
+You can access data in the s3 bucket and for a simple test, let's start our data virtualization journey with CSV. This file contains several several rows of `Hello World!` In the code below, you will define the location of the data with `BULK '/fbs3bucket/HelloWorld.csv'` what you have here it the bucket name `fbs3bucket` and then the file name where the data is, `HelloWorld.csv`. Note, the file name is case sensitive. The structure of the data depends upon the datastore used. Since this is a CSV, we have to define its structure. Here's we're using a simple two column CSV for an example using `( c1 int, c2 varchar(20) )`. 
 
 - [ ] Execute this code on **Windows1** to query your CSV file using Polybase over s3.
 
     ```
     SELECT  * 
     FROM OPENROWSET
-    (    BULK '/sqldatavirt/helloworld.csv'
+    (    BULK '/fbs3bucket/HelloWorld.csv'
     ,    FORMAT       = 'CSV'
     ,    DATA_SOURCE  = 's3_ds'
     ) 
-    WITH ( c1 varchar(50) )             
+    WITH ( c1 int, c2 varchar(20) )
     AS   [Test1]
     ```
 ---
@@ -153,15 +181,15 @@ In this step...you will define an external file format.
 
 ## **Define the table's structure**
 
-The CSV here is mega simple, just one column with a couple of rowsw. When defining the external table where the data lives on our network with `DATA_SOURCE`, the `LOCATION` within that `DATA_SOURCE` and the `FILE_FORMAT`
+The CSV here is mega simple, just one column with a couple of rowsw. When defining the external table where the data lives on our network with `DATA_SOURCE`, the `LOCATION` within that `DATA_SOURCE` and the `FILE_FORMAT`. Note, the csv file name is case sensitive.
 
 - [ ] Execute this code on **Windows1** to create an `EXTERNAL TABLE`
 
     ```
-    CREATE EXTERNAL TABLE HelloWorld ( c1 varchar(50) )
+    CREATE EXTERNAL TABLE HelloWorld ( c1 int, c2 varchar(20) )
     WITH 
     (    DATA_SOURCE = s3_ds
-    ,    LOCATION = '/sqldatavirt/helloworld.csv'
+    ,    LOCATION = '/fbs3bucket/HelloWorld.csv'
     ,    FILE_FORMAT = CSVFileFormat
     );
     ```
