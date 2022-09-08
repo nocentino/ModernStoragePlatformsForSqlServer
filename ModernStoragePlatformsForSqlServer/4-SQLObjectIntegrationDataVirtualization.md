@@ -28,12 +28,12 @@ In this module, you will work primarily on **Windows1** SQL Server instance and 
 
 ## 4.1 - Query data on S3 compatible object storage with OPENROWSET
 
-In this activity, you will copy data into your s3 bucket, configure SQL Server to use Polybase to query data stored in s3 compatible object storage.
+In this activity, you will copy data into your s3 bucket and configure SQL Server to use Polybase to query data stored in s3 compatible object storage.
 
 
 ## **Copying source data into your S3 bucket on FlashBlade**
 
-In this activity you will copy source data into your FlashBlade. You will use this data as part of the upcoming data virtualization activities below. 
+In this activity, you will copy source data into your FlashBlade. You will use this data as part of the upcoming data virtualization activities below. 
 
 - [ ] On your desktop, open S3 Browser.
 
@@ -54,8 +54,8 @@ In this activity you will copy source data into your FlashBlade. You will use th
 
     <img src=../graphics/m3/4.1.3.png>
 
-- [ ] Next copy the test data into your FlashBlade
-    Open the Data folder on the desktop and drag the file into the S3 browser window on the right hand side.  Once the file appears on the right hand side in the file view it is sucessfully uploaded.
+- [ ] Next, copy the test data into your FlashBlade
+    Open the Data folder on the desktop and drag the file into the S3 browser window on the right-hand side.  Once the file appears on the right-hand side in the file view, it is successfully uploaded.
 
     <img src=../graphics/m3/4.1.4.png>
 
@@ -136,7 +136,7 @@ Create your `EXTERNAL DATA SOURCE` on your s3 compatible object storage, referen
 
 ## **Query data on S3 compatible object storage with `OPENROWSET`**
 
-You can access data in the s3 bucket and for a simple test, let's start our data virtualization journey with CSV. This file contains several several rows of `Hello World!` In the code below, you will define the location of the data with `BULK '/fbs3bucket/HelloWorld.csv'` what you have here it the bucket name `fbs3bucket` and then the file name where the data is, `HelloWorld.csv`. Note, the file name is case sensitive. The structure of the data depends upon the datastore used. Since this is a CSV, we have to define its structure. Here's we're using a simple two column CSV for an example using `( c1 int, c2 varchar(20) )`. 
+You can access data in the s3 bucket and for a simple test, let's start our data virtualization journey with CSV. This file contains  several rows of `Hello World!` In the code below, you will define the location of the data with `BULK '/fbs3bucket/HelloWorld.csv'` what you have here it the bucket name `fbs3bucket` and then the file name where the data is, `HelloWorld.csv`. Note, that the file name is case sensitive. The structure of the data depends upon the datastore used. Since this is a CSV, we have to define its structure. Here's we're using a simple two-column CSV for an example using `( c1 int, c2 varchar(20) )`. 
 
 - [ ] Execute this code on **Windows1** to query your CSV file using Polybase over s3.
 
@@ -153,7 +153,7 @@ You can access data in the s3 bucket and for a simple test, let's start our data
 ---
 
 ## Activity Summary
-In this activity you used the SQL Server Polybase feature to access external data on object storage using `OPENROWSET`.
+In this activity, you used the SQL Server Polybase feature to access external data on object storage using `OPENROWSET`.
 
 
 <br />
@@ -181,7 +181,7 @@ In this step...you will define an external file format.
 
 ## **Define the table's structure**
 
-The CSV here is mega simple, just one column with a couple of rowsw. When defining the external table where the data lives on our network with `DATA_SOURCE`, the `LOCATION` within that `DATA_SOURCE` and the `FILE_FORMAT`. Note, the csv file name is case sensitive.
+The CSV here is mega simple, just one column with a couple of rows. When defining the external table where the data lives on our network with `DATA_SOURCE`, the `LOCATION` within that `DATA_SOURCE` and the `FILE_FORMAT`. Note, the CSV file name is case sensitive.
 
 - [ ] Execute this code on **Windows1** to create an `EXTERNAL TABLE`
 
@@ -196,7 +196,7 @@ The CSV here is mega simple, just one column with a couple of rowsw. When defini
 
 ## **Query the EXTERNAL TABLE**
 
-Now we can access the data just like any other table in SQL Server. 
+Now we can access the data in the CSV file on the FlashBlade like any other SQL server table. 
 
 - [ ] Execute this code on **Windows1** to query the data in your `EXTERNAL TABLE` using Polybase over s3.
 
