@@ -137,7 +137,7 @@ With everything ready to go, a bucket created, permissions set, and a credential
 
 # 3.3 - Restoring databases from S3 compatible object storage
 
-You can now backup to object storage from SQL Server. You don't have backups unless you can restore from backup. So let's do just that: restore our database to Windows2. We will restore the backup to a new database name
+You can now backup to object storage from SQL Server. You don't have backups unless you can restore from backup. So let's do just that: restore our database to **Windows1**. We will restore the backup to a new database name on **Windows1**
 
 ## **Restoring a Backup**
 
