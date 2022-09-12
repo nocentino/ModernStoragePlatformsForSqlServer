@@ -35,11 +35,11 @@ Your hands-on lab consists of two Windows Servers, each with SQL Server installe
 
 Follow the instructions in this section to launch the lab to use with this course.
 
-1. Navigate to the Sky Tap Portal at [https://purestorage.skytap-portal.com/](https://purestorage.skytap-portal.com/) and enter your passcode.
+1. Navigate to the Sky Tap Portal at [https://purestorage.skytap-portal.com/](https://purestorage.skytap-portal.com/) and enter your passcode and **click Go**.
 
     <img src=../graphics/m1/1.1.1.png width="50%" height="50%" >
 
-2. Once logged in you will see an interface with two virtual machines Windows1 and Windows2. Click on the Windows1 VM to launch the console. You will be automatically logged into Windows when you connect to the Virtual Machine's console.
+2. Once logged in you will see an interface with two virtual machines **Windows1** and **Windows2**. **Click on the Windows1** virtual machine's to access its console. You will be automatically logged into Windows when you connect to the virtual machine's console.
 
     * If the Lab is not started, Power on the VMs using the button up top; this will start the VMs in the proper sequence.
 
