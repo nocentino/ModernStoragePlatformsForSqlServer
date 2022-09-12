@@ -50,7 +50,7 @@ The workshop includes the following technologies which form the basis of the wor
 | Syntax      | Description |
 | ----------- | ----------- |
 | Microsoft Windows Operating System	 | This workshop uses the Microsoft Windows operating system |
-| Microsoft SQL Server CTP 2.1 | In this workshop you will protect, copy, clone and build high availability databases on SQL Server |
+| Microsoft SQL Server RC 0 | In this workshop you will protect, copy, clone and build high availability databases on SQL Server |
 | Pure Storage FlashArray	 | This workshop uses a Pure Storage FlashArray as a block device as a storage subsystem for SQL Server |
 | Pure Storage FlashBlade	 | This workshop uses a Pure Storage FlashBlase as a object storage device as external object storage used by SQL Server  |
 
