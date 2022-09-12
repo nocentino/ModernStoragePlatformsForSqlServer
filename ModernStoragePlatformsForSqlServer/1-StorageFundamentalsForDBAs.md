@@ -52,7 +52,6 @@ Follow the instructions in this section to launch the lab to use with this cours
 <br />
 <br />
 
-
 # 1.2 - Logging into the FlashArray Web Interface
 In this activity, you will log into the FlashArray web interface. The web interface is where you can configure and monitor your FlashArray. 
 
