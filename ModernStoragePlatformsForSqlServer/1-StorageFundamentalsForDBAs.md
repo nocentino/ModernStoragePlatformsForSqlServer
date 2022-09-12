@@ -105,8 +105,6 @@ So far, those performance charts above are pretty dull. Let's start up a databas
 
     SELECT * FROM customer
     GO
-    DBCC DROPCLEANBUFFERS
-    GO
     ```
 
 - [ ] Open another query window and let's start a write workload. Click **New Query** once more and paste the following code into the window and click **Execute**.
