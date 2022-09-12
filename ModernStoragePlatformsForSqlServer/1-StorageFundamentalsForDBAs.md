@@ -35,14 +35,15 @@ Your hands-on lab consists of two Windows Servers, each with SQL Server installe
 
 Follow the instructions in this section to launch the lab to use with this course.
 
-1. Navigate to the Sky Tap Portal. The link was sent to your registered email address.
-2. Select your Profile by clicking on your Name in the Top-Right Corner or the Purple photo.
-3. If the Lab is not started, Power on the VMs using the button up top; this will start the VMs in the proper sequence.
+1. Navigate to the Sky Tap Portal at [https://purestorage.skytap-portal.com/](https://purestorage.skytap-portal.com/) and enter your passcode.
 
-You will be automatically logged into Windows when you connect to the Virtual Machine's console.
+    <img src=../graphics/m1/1.1.1.png width="50%" height="50%" >
 
-TODO: Add a screenshot of the actual lab interface
+2. Once logged in you will see an interface with two virtual machines Windows1 and Windows2. Click on the Windows1 VM to launch the console. You will be automatically logged into Windows when you connect to the Virtual Machine's console.
 
+    * If the Lab is not started, Power on the VMs using the button up top; this will start the VMs in the proper sequence.
+
+        <img src=../graphics/m1/1.1.2.png width="50%" height="50%" >
 
 **<i>Tip - Click Fit to Window to size the virtual desktop to your browser window. </i>**
 
@@ -104,6 +105,8 @@ So far, those performance charts above are pretty dull. Let's start up a databas
     GO
 
     SELECT * FROM customer
+    GO
+    DBCC DROPCLEANBUFFERS
     GO
     ```
 
