@@ -149,7 +149,7 @@ You can now backup to object storage from SQL Server. You don't have backups unl
         WITH STATS = 10, REPLACE
     ```
 
-- [ ] Confirm that TestDB2 is restored. On the desktop of Windows1, in SSMS, in the Object Explorer, right-click and select Refresh to update the listing of databases.
+- [ ] Confirm that TestDB2 is restored. On the desktop of Windows1, in SSMS, in the Object Explorer, **right-click** and **select Refresh** to update the listing of databases.
 
 <br />
 <br />
