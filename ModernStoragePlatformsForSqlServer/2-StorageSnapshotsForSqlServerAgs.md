@@ -178,7 +178,7 @@ Let's complete the remainder of the availability group initialization process. T
 
 Now that the databases on both replicas are initialized to the proper state, you can create the availability group. This traditionally would require you to do a full backup and restore or use direct seeding, which is a size of data operation. In this activity, we will instantly initialize the availability group from the snapshot backup.
 
-- [ ] **Right Click Always On High Availability**, **click New Availability Group Wizard**. On the first page, **click Next**.
+- [ ] **On Windows 1, right click Always On High Availability**, **click New Availability Group Wizard**. On the first page, **click Next**.
 
     <img src=../graphics/m2/2.4.11.png width="25%" height="25%" >
 
