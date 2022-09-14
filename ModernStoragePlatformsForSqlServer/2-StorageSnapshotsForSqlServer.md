@@ -40,7 +40,7 @@ In this activity, you will take a snapshot of a volume that holds the MDF and LD
 
     <img src=../graphics/m2/2.1.1.png width="75%" height="75%" >
 
-- [ ] Next, in the **Volume Snapshots** panel, click the **ellipsis**. Then click **Create** to create a snapshot of the volume. Then click **Create** on the popup screen to create the snapshot. 
+- [ ] Next, in the **Volume Snapshots** panel, click the **ellipsis**. Then click **Create** to create a snapshot of the volume. In the Create Snapshot Window, the suffix is optional, go ahead and click **Create** on the popup screen to create the snapshot. 
 
     <img src=../graphics/m2/2.1.2.png width="75%" height="75%" >
 
@@ -61,9 +61,12 @@ In this activity, you will take a snapshot of a volume that holds the MDF and LD
 ## **Set the Database Offline**    
 To recover the database, we need to change the database state to offline.
 
-- [ ] **Right click** on the database, click **Tasks**, click **Take Offline**. Check the box to **Drop All Active Connections** and **click OK** to confirm.
+- [ ] **Right click** on the database, click **Tasks**, click **Take Offline**. 
 
     <img src=../graphics/m2/2.1.5.png width="75%" height="75%" >
+
+- [ ] Check the box to **Drop All Active Connections** and **click OK** to confirm.
+    <img src=../graphics/m2/2.1.5.1.png width="75%" height="75%" >
 
 <br />
 <br />
@@ -234,7 +237,7 @@ You now have the original database `TPCC100` on the D:\ drive with the missing `
 <br />
 
 # 2.3 - Cloning a database to another instance of SQL Server
-You will clone a volume from **Windows1** to **Windows2** in this activity. You will replace the contents of the volume on the target instance, **Windows2**, with the contents of the clone from **Windows1** which contains the `TPCC100` database. This saves the need to back up and restore the database. 
+You will clone a volume from **Windows1** to **Windows2** in this activity. You will replace the contents of the volume on the target instance, **Windows2**, with the contents of the clone from **Windows1** which contains the `TPCC100` database. This replaces the need to back up and restore the database. 
 
 Since this operation is inside the array, it happens nearly instantaneously. Another benefit is when you clone a volume and present it to another host, the volume does not consume additional space until data starts changing. When data does start changing, the changed blocks are tracked and exposed as a performance metric on the FlashArray Web Interface Dashboard and Array Capacity panel.
 

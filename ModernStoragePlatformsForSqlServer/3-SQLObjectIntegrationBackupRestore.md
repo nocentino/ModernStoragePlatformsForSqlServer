@@ -101,7 +101,7 @@ In this activity, you will configure SQL Server to back up to S3-compatible obje
 
 Once you have your bucket and authentication configured, the next thing to do is to create a `CREDENTIAL`. In the code below, we’re creating a credential in SQL Server. This contains the information needed to authenticate to our s3-compatible object storage. 
 
-First, `CREATE CREDENTIAL [s3://fb1-data.testdrive.local/fbs3bucket]` creates a credential with a name that has the URL to the bucket included. Later, when you execute a backup statement, the URL that you use to write the backup file(s) to is used to locate the correct credentials. This is done by matching the URL defined in the backup command to the one in the name of the credential. The database engine uses the most specific match when looking for a credential. This give you the ability to control which credential is used to access a bucket in your s3 storage. So you can use one credential for the entire s3 compatible object store, a credential for each bucket, or even credentials for nested buckets.
+First, `CREATE CREDENTIAL [s3://fb1-data.testdrive.local/fbs3bucket]` creates a credential with a name that has the URL to the bucket included. Later, when you execute a backup statement, the URL that you use to write the backup file(s) to is used to locate the correct credentials. This is done by matching the URL defined in the backup command to the one in the name of the credential. The database engine uses the most specific match when looking for a credential. This gives you the ability to control which credential is used to access a bucket in your s3 storage. So you can use one credential for the entire s3 compatible object store, a credential for each bucket, or even credentials for nested buckets.
 
 Next, `WITH IDENTITY = 'S3 Access Key'` this string must be set to this value when using s3.
 
@@ -149,7 +149,7 @@ You can now backup to object storage from SQL Server. You don't have backups unl
         WITH STATS = 10, REPLACE
     ```
 
-- [ ] Confirm that TestDB2 is restored. On the desktop of Windows1, in SSMS, in the Object Explorer, **right-click** and **select Refresh** to update the listing of databases.
+- [ ] Confirm that TestDB1 is restored. On the desktop of Windows1, in SSMS, in the Object Explorer, **right-click** and **select Refresh** to update the listing of databases.
 
 <br />
 <br />

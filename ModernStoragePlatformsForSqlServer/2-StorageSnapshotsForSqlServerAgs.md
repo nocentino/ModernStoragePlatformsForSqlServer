@@ -19,7 +19,7 @@ There are four activities in this module:
 
 # Lab Information
 
-In this activity, you will work primarily from the **Windows1** desktop, and it will become a primary replica in the availability group you will create in this lab. **Windwows2** will become a secondary replica in the availability group. FlashArray1 is the primary block storage for both instances of SQL Server.
+In this activity, you will work primarily from the **Windows1** desktop, and it will become a primary replica in the availability group you will create in this lab. **Windows2** will become a secondary replica in the availability group. FlashArray1 is the primary block storage for both instances of SQL Server.
 
 
 | Resource      | Description |
@@ -36,7 +36,7 @@ In this activity, you will build an Availability Group from Snapshot leveraging 
 
 If you’ve been using Availability Groups, you’re familiar with the process of replica seeding (sometimes called initializing, preparing, or data synchronization). Seeding is a size of data operation, copying data from a primary replica to one or more secondary replicas. This is required before joining a database to an Availability Group. You can seed a replica with backup and restore, or with automatic seeding, each of which present their own challenges. Regardless of which method you use, the seeding operation can take an extended amount of time. The time it takes to seed a replica is based on the database's size, network, and storage speed. If you have multiple replicas, then seeding all of them is N times the fun!
 
-But what if I told you that you could seed your Availability Group replicas from a storage-based snapshot and that the reseeding process can be nearly instantaneous?
+But what if we told you that you could seed your Availability Group replicas from a storage-based snapshot and that the reseeding process can be nearly instantaneous?
 
 In addition to saving you time, this process saves your database systems from the CPU, network, and disk consumption that comes with using either automatic seeding or backups and restores to seed. 
 
@@ -58,6 +58,10 @@ In this activity, you will start preparing **Windows2** for this operation by de
 - [ ] In **SSMS**, connect to **Windows2** and detach `TPCC100` by right-clicking, selecting **Tasks**, and **Detach**
 
     <img src=../graphics/m2/2.4.1.png width="75%" height="75%" >
+
+- [ ] Check the box to **Drop All Active Connections** and **click OK** to confirm.
+    <img src=../graphics/m2/2.1.5.1.png width="75%" height="75%" >
+
 
 - [ ] On **Windows2**, open Disk Management and **Offline Disk 1**
 
@@ -125,11 +129,11 @@ The snapshot backup we took in the previous can now be clone to a second volume 
 <br />
 <br />
 
-## **Online Disk 2 on Windows2**
+## **Online Disk 1 on Windows2**
 
 With the contents of the snapshot cloned to **Windows2's** volume, let's online the disk on **Windows2**
 
-- [ ] On **Windows2**, in **Disk Management**, **online Disk 2**
+- [ ] On **Windows2**, in **Disk Management**, **online Disk 1**
 
 <br />
 <br />
@@ -144,7 +148,7 @@ Now that the volume is online on **Windows2**, the volume's contents include the
     RESTORE DATABASE TPCC100 FROM DISK = 'C:\BACKUP\TPCC100-Replica.bkm' WITH METADATA_ONLY, REPLACE, NORECOVERY
     ```
     
-- [ ] In SSMS, refresh the Database listing, and you should now see the `TPCC100` database in a `Restoring...` state.
+- [ ] In SSMS, refresh the Database listing, and you should now see the `TPCC100` database in a `Restoring...` state. The screenshots below are on CPT2.1, the lab is currently on RC0. There is no difference in functionality.
 
     <img src=../graphics/m2/2.4.8.png>
 
@@ -155,7 +159,7 @@ Now that the volume is online on **Windows2**, the volume's contents include the
 
 Let's complete the remainder of the availability group initialization process. This requires taking a regular log backup on the soon to be primary replica **WINDOWS1** and restoring that log backup on the secondary replica **WINDOWS2**.
     
-- [ ] Take a log backup connected to the SQL instance on **WINDOWS1**. Copy and 
+- [ ] Take a log backup connected to the SQL instance on **WINDOWS1**. 
 
     ```
     BACKUP LOG TPCC100 TO DISK = '\\WINDOWS2\BACKUP\\TPCC100-seed.trn' WITH INIT

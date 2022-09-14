@@ -39,7 +39,7 @@ In this activity, you will copy source data into your FlashBlade. You will use t
 
     <img src=../graphics/m3/4.1.1.png width="100" height="100" >
 
-- [ ] Next **Click Accounts, then select Add new account...**
+- [ ] Next the Add New Account screen should open automatically, if not Click Accounts, then select Add new account...
 
     <img src=../graphics/m3/4.1.2.png>
 
@@ -54,8 +54,7 @@ In this activity, you will copy source data into your FlashBlade. You will use t
 
     <img src=../graphics/m3/4.1.3.png>
 
-- [ ] Next, copy the test data into your FlashBlade
-    Open the Data folder on the desktop and drag the file into the S3 browser window on the right-hand side.  Once the file appears on the right-hand side in the file view, it is successfully uploaded.
+- [ ] Next, copy the test data into your FlashBlade. Open the Data folder on the desktop and drag the file into the S3 browser window on the right-hand side.  Once the file appears on the right-hand side in the file view, it is successfully uploaded.
 
     <img src=../graphics/m3/4.1.4.png>
 
