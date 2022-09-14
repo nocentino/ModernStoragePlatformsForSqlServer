@@ -112,7 +112,7 @@ And last, `SECRET = 'PASTE_ACCESS_KEY_HERE:PASTE_SECRET_KEY_HERE;` this is the u
     ```
     CREATE CREDENTIAL [s3://fb1-data.testdrive.local/fbs3bucket]
         WITH IDENTITY = 'S3 Access Key',
-        SECRET = 'anthony:nocentino';
+        SECRET = 'PASTE_ACCESS_KEY_ID_HERE:PASTE_SECRET_KEY_ID_HERE';
     ```
 
 ## **Running a Backup**
